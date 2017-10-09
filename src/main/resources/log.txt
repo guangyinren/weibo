@@ -1,0 +1,19 @@
+=================Mon Oct 09 15:10:34 CST 2017:17110
+=================Mon Oct 09 15:11:55 CST 2017:3408
+=================Mon Oct 09 15:13:06 CST 2017:36110
+=================Mon Oct 09 15:14:13 CST 2017:36610
+=================Mon Oct 09 15:15:19 CST 2017:37110
+=================Mon Oct 09 15:16:24 CST 2017:46410
+=================Mon Oct 09 15:17:43 CST 2017:55210
+=================Mon Oct 09 15:17:45 CST 2017:552无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                       reply_id,                       reply_text,                       like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+=================Mon Oct 09 15:18:46 CST 2017:59710
+=================Mon Oct 09 15:19:47 CST 2017:59710
+=================Mon Oct 09 15:20:54 CST 2017:62510
+=================Mon Oct 09 15:22:17 CST 2017:66610

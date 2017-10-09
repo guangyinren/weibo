@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票管理</title>
+<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+<link rel="stylesheet" href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/js/bootstrap/plugin/bootpag/pag.css">
+<link rel="stylesheet" href="/css/common.css">
+<link href="/css/date.css" rel="stylesheet" type="text/css"/>
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+<link href="/css/main-lu.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jquery/1.11.2/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.js"></script>
+<script type="text/javascript" src="/js/layer.js"></script>
+<script src="/js/bootstrap/main/js/bootstrap.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.js"></script>
+<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+<script src="/js/lib/vpiaotong.regex.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.base.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.util.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.pagewrapper.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/lib/vpiaotong.datetimepicker.js"></script>
+<script type="text/javascript" src="/js/views/manage/invoiceManage/invoiceManage.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span style="width:15%">发票管理</span>
+	</div>
+	<form id="invoiceManageForm" method="post" action="">
+	 <ul class="adaption_shop_ul shop_ul">
+	     <li><label>购买方名称</label><input type="text" placeholder="请输入购买方名称" name="gmfMc" id="gmfMc"/></li>
+	     <li><label>销售方名称</label><input type="text" placeholder="请输入销售方名称" name="xsfMc" id="xsfMc"/></li>
+	     <li><label>销售方税号</label><input type="text" placeholder="请输入销售方税号" name="xsfNsrsbh" id="xsfNsrsbh"/></li>
+	     <li>
+		 	<label>开票状态</label>
+		 	<select name="kpzt" id="kpzt">
+			  	<option value="RECIEVE_SUCCESS">未开票</option>
+			  	<option value="ISSUEING" selected="selected">开票中</option>
+			  	<option value="ISSUE_SUCCESS">开票成功</option>
+			  	<option value="ISSUE_FAIL">开票失败</option>
+		 	</select>
+		 </li>
+	     <li><label>流水号</label><input type="text" placeholder="请输入发票请求流水号" name="fpqqlsh" id="fpqqlsh"/></li>
+		 <li>
+			 <label>开票日期</label>
+			 <input type="text" class="date_inputs" id="startKprq" placeholder=""/>
+			 <font>至</font>
+			 <input class="date_inputs" id="endKprq" type="text" placeholder=""/>
+		 </li>
+		 <li>
+			<label>发票种类</label>
+			<select class="order_select" id ="fpzldm">
+				<option value="">全部</option>	
+				<option value="10">电子增值税普通发票</option>	
+				<option value="04">纸质增值税普通发票</option>									
+			</select>
+		 </li>
+		 <li>
+			<label>开票类型</label>
+			<select class="order_select" id ="kplx">
+				<option value="">全部</option>	
+				<option value="1">蓝票</option>	
+				<option value="2">红票</option>									
+			</select>
+		 </li>
+	     <li class="cha_a"><a class="blue-btn" href="javascript:void(0)" onclick="queryByIndex(1)">查　询</a><li>
+	 </ul>	 
+	 </form>
+	<div class="invoice_manage_custom">	
+          <div class="table_w">	  
+		    <table class="customers" style="width:100%;min-width:1300px;margin-bottom:20px">		
+		    	<thead>
+					<tr>					
+						<th width="50px">序号</th>
+						<th>发票请求流水号</th>
+						<th>购买方名称</th>
+						<th>开票时间</th>
+						<th>请求时间</th>
+						<th>推送时间</th>
+						<th>发票种类代码</th>
+						<th>销售方名称</th>
+						<th>销售方税号</th>
+						<th>价税合计</th>
+						<th>开票来源</th>
+						<th>开票类型</th>
+						<th>冲红标志</th>
+						<th>开票人</th>
+						<th>分机号</th>
+						<th>开票状态</th>
+						<th width="250px">操作</th>
+					</tr>
+				</thead>
+				<tbody id="invoice"></tbody>
+			</table>
+	     <div id="page" style="text-align:center;"></div>
+	  </div>
+	</div>	 	  
+</div>
+
+<div id="sendPage" style="display:none;">
+	<div class="popup-window-addzk1">
+		<div class="layui-layer-title" style="color:#fff;">
+			更改分机号
+		</div>
+		<form id="resendInvoiceForm" action="">
+	    	<input type="hidden" id="sendFpqqlsh"/> 
+			<div class="popup-window-div-middle">
+				<label>分机号:</label>
+				<input id="fjh" name="fjh" type="text"/>
+			</div>
+			<div class="billing-btn2">
+				<a class="blue-btn" href="javasciption:void(0)" id="resendInvBtn" onclick="updateFjhFun()">确定</a>
+				<a class="white-btn" href="javascript:layer.closeAll()">取消</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- 失败原因窗口 -->
+<div id="viewFailReason" style="display:none;"> 
+	<div class="popup-window-tips popup-window-tips1">
+		<h3><a href="javascript:layer.closeAll()"><img src="/images/close.png" ></a></h3>
+		<div class="popup-window-tips-cont">
+			<div class="send-tips">
+				<img src="/images/error-circle.png">
+				<span>开票失败</span>
+			</div>
+			<p><label id="reason"></label><label><a class="blue-btn"></a></label>
+			<span></span></p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

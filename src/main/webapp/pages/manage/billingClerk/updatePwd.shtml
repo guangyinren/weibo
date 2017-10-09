@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/main.css" rel="stylesheet">
+<link href="/css/laypage.css" rel="stylesheet" type="text/css"/>
+<link href="/js/jquery/validation/css/validate.css" rel="stylesheet" type="text/css"/>
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script type="text/javascript" src="/js/layer.js"></script>
+<script src="/js/util/timer.js"></script>
+<script src="/js/util/mask.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/area.js"></script>
+<script src="/js/views/index/ptweb.js"></script>
+<script src="/js/views/index/resetPwd.js"></script>
+<script src="/js/util/http.js"></script>
+<script src="/js/util/util.js"></script>
+<script src="/js/plugin/rsa/jsbn.js"></script>
+<script src="/js/plugin/rsa/prng4.js"></script>
+<script src="/js/plugin/rsa/rng.js"></script>
+<script src="/js/plugin/rsa/rsa.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/manage/billingClerk/update_pwd.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>修改密码</span>
+	</div>
+	 <div class="fuwu_form">
+		<form name="update_pwd" id="update_pwd" method="post" action="">
+			<ul>
+				<li class="li_ts" id="li_1" style="display:none"><img src="/images/gb.png">原密码错误</li>
+				<li class="li_ts" id="li_2" style="display:none"><img src="/images/gb.png">新密码只能6-18个字符，且不能出现特殊符号，请重新输入</li>
+				<li class="li_ts" id="li_3" style="display:none"><img src="/images/gb.png">请保持两次密码输入一致</li>
+				<li><label >原密码:</label><p><input type="password" placeholder="请输入原密码" id="password1" name="password1" /></p></li>
+				<li><em style="color: red;" id="password1_tip"></em></li>			 
+				<li><label >新密码:</label><p><input type="password" placeholder="请输入新密码"  id="password2" name="password2"/></p></li>
+				<li><em style="color: red;" id="password2_tip"></em></li>	
+				<li><label >重复输入:</label><p><input type="password" placeholder="再次输入密码" id="password3" name="password3" /></p></li>
+		  		<li><em style="color: red;" id="password3_tip"></em></li>	
+		   </ul>
+		   <div class="add_btn1"><a class="blue-btn" href="javascript:void(0)" id="btn_01">保 存</a></div>
+	   </form>
+	</div>
+		<br /><br /><br /><br />
+	</div>	 	  
+</div>			  
+</body>
+</html>

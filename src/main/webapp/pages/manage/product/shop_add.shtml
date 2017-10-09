@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="/js/skin/layer.css">
+<script src="/js/layer.js"></script>
+<link rel="stylesheet" href="/js/skin/layer.css">
+
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit mto_20" >
+		<span>商品管理</span>
+        <h6>&nbsp;</h6> 		
+	</div>
+	 <ul class="shop_ul">
+	     <li><em>＊</em><label>商品名称</label><input type="text" placeholder="请输入商品名称" value="" /></li>
+		 <li><em>＊</em><label>企业商品编号</label><input type="text" placeholder="请输入企业商品编号" value="" /></li>
+		 <li><em></em><label>税收分类编号</label><input type="text"  placeholder="请输入税收分类编号" value="" class="input_so" onclick="openSSFL()"/></li>
+		 <li><em></em><label>税收分类名称</label><input type="text" placeholder="请输入税收分类名称" value="" /></li>
+	     <li><em></em><label>享受税收优惠</label><input type="text" placeholder="请输入享受税收优惠" value="" /></li>
+		 <li><em></em><label>优惠政策类型</label><input type="text" placeholder="请输入优惠政策类型" value="" /></li>
+		 <li><em></em><label>规格型号</label><input type="text" placeholder="请输入规格型号" value="" /></li>
+		 <li><em></em><label>计量单位</label><input type="text" placeholder="请输入计量单位" value="" /></li>
+		 <li><em>＊</em><label>单价</label><input type="text" placeholder="xxx" value="" /></li>
+		 <li><em></em><label>税率</label><select>
+								<option>--请选择--</option>								
+							</select></li>
+		 <li><label>含税价标志</label><select>
+								<option>--请选择--</option>								
+							</select></li>
+	 
+	 </ul>
+	 <div class="but_z" ><a href="./goods.shtml" style="margin-right:40px">保　存</a><a href="javascript:history.back(-1)">返　回</a></div>
+	</div>	 	  
+</div>			  
+</body>
+<script>
+	function openSSFL(){
+		$.get('choiceTaxCategory.shtml', {}, function(str){
+		  layer.open({
+		    type: 1,
+		    title: false,
+  			area: ['80%', '70%'], //宽高
+  			offset: ['10px', '200px'],
+  			shadeClose : true,
+  			shade: [0.8, '#393D49'],
+  			closeBtn: 0,
+		    content: str //注意，如果str是object，那么需要字符拼接。
+		  });
+		});
+	}
+</script>
+
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.liuyong.weibo.dao.ICommentMapper" >
+  <resultMap id="BaseResultMap" type="cn.liuyong.weibo.model.Comment" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="created_at" property="created_at" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="user_id" property="user_id" jdbcType="CHAR" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="reply_id" property="reply_id" jdbcType="CHAR" />
+    <result column="reply_text" property="reply_text" jdbcType="VARCHAR" />
+    <result column="like_counts" property="like_counts" jdbcType="INTEGER" />
+    <result column="liked" property="liked" jdbcType="BIT" />
+    <result column="mod_type" property="mod_type" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, created_at, source, user_id, text, reply_id, reply_text, like_counts, liked, 
+    mod_type, type, url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from comment
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from comment
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="cn.liuyong.weibo.model.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="created_at != null" >
+        created_at,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="user_id != null" >
+        user_id,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="reply_id != null" >
+        reply_id,
+      </if>
+      <if test="reply_text != null" >
+        reply_text,
+      </if>
+      <if test="like_counts != null" >
+        like_counts,
+      </if>
+      <if test="liked != null" >
+        liked,
+      </if>
+      <if test="mod_type != null" >
+        mod_type,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="created_at != null" >
+        #{created_at,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null" >
+        #{user_id,jdbcType=CHAR},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="reply_id != null" >
+        #{reply_id,jdbcType=CHAR},
+      </if>
+      <if test="reply_text != null" >
+        #{reply_text,jdbcType=VARCHAR},
+      </if>
+      <if test="like_counts != null" >
+        #{like_counts,jdbcType=INTEGER},
+      </if>
+      <if test="liked != null" >
+        #{liked,jdbcType=BIT},
+      </if>
+      <if test="mod_type != null" >
+        #{mod_type,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="cn.liuyong.weibo.model.Comment" >
+    update comment
+    <set >
+      <if test="created_at != null" >
+        created_at = #{created_at,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=CHAR},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="reply_id != null" >
+        reply_id = #{reply_id,jdbcType=CHAR},
+      </if>
+      <if test="reply_text != null" >
+        reply_text = #{reply_text,jdbcType=VARCHAR},
+      </if>
+      <if test="like_counts != null" >
+        like_counts = #{like_counts,jdbcType=INTEGER},
+      </if>
+      <if test="liked != null" >
+        liked = #{liked,jdbcType=BIT},
+      </if>
+      <if test="mod_type != null" >
+        mod_type = #{mod_type,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.liuyong.weibo.model.Comment" >
+    update comment
+    set created_at = #{created_at,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      user_id = #{user_id,jdbcType=CHAR},
+      text = #{text,jdbcType=VARCHAR},
+      reply_id = #{reply_id,jdbcType=CHAR},
+      reply_text = #{reply_text,jdbcType=VARCHAR},
+      like_counts = #{like_counts,jdbcType=INTEGER},
+      liked = #{liked,jdbcType=BIT},
+      mod_type = #{mod_type,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

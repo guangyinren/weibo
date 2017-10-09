@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+	<link rel="stylesheet" href="/css/common.css">
+	<link href="/css/date.css" rel="stylesheet" type="text/css" />
+	<link href="/css/laypage.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/js/skin/layer.css">
+	<link href="/css/main.css" rel="stylesheet">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<script src="/js/layer.js"></script>
+	<script type="text/javascript" src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.js"></script>
+	<script src="/js/lib/vpiaotong.base.js"></script>
+	<script src="/js/lib/vpiaotong.http.js"></script>
+	<script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+	<script src="/js/views/statistics/invoiceRepertoryQuery.js"></script>
+	<script src="/js/views/statistics/invoiceRepertoryCommon.js"></script>
+	<script src="/js/views/css.js"></script>
+	<link rel="stylesheet" href="/css/common-v2.css">
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+		<div class="zc_tit" >
+			<span>发票结存查询</span>
+		</div>
+	<div class="custom">	
+	<div class="invoiceSaveTips" id="invoiceRepertoryQueryPageDiv01">
+		当前功能仅可查询电子发票的结存数量，如果无法查询到结存，可联系我们客服人员升级票通宝设备
+	</div>
+		<div id="kcyjDiv" style="display: none" class="but_z text-right">
+			<a id="kcyjSet" class="blue-btn">库存预警设置</a>
+		</div>
+          <div class="table_w">	  
+		    <table class="customers">	
+		    	<thead>
+					<tr id="menu_tr">					
+						<th>序号</th>
+						<th>发票种类</th>
+					    <th>发票代码</th>
+					    <th>发票起号</th>
+					    <th>发票止号</th>
+					    <th>剩余份数</th>
+					    <th>购买日期</th>
+					    <th>分机号</th>
+					</tr>
+				</thead>
+				<tbody id="invoice_query">
+				</tbody>
+			</table>	
+	     <div id="page1" style="text-align:center;margin-top: 20px;"></div>
+	  </div>
+	</div>	 	  
+</div>
+</div>
+<div class="modal fade" id="setModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">发票剩余量预警设置</h4>
+			</div>
+			<div class="modal-body">
+				<div class="setting-items text-center">
+					<div class="setting-item">
+						<label>电子增值税普通发票预警值:</label>
+						<input type="text" id="eleInvoice" name="eleInvoice" placeholder="请输入正整数" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+					</div>
+					<div id="zzfpyjz" style="display: none" class="setting-item">
+						<label>纸质增值税普通发票预警值:</label>
+						<input type="text" id="paperInvoice" name="paperInvoice" placeholder="请输入正整数" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+					</div>
+					<div id="zzzpyjz" style="display: none" class="setting-item">
+						<label>纸质增值税专用发票预警值:</label>
+						<input type="text" id="specialInvoice" name="specialInvoice" placeholder="请输入正整数" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+					</div>
+				</div>
+				<div class="but_z">
+					<a id="kcyjSubmit" class="blue-btn" style="margin-right: 20px;">保 存</a>
+					<a class="white-btn" data-dismiss="modal" aria-hidden="true">取 消</a>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<script src="/js/bootstrap/main/js/bootstrap.js"></script>
+</body>
+</html>

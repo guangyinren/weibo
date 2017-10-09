@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="description" content="微票通_电子发票开具服务平台" />
+    <meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+    <meta name="renderer" content="webkit"/><meta http-equiv="x-ua-compatible" content="ie=8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>充值管理</title>
+    <link rel="stylesheet" href="/css/manage/invoiceAuthItem.css">
+    <link rel="stylesheet" href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+    <link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/manage/recharge.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/common.css">
+    <link href="/css/laypage.css" rel="stylesheet" type="text/css" />
+    <link href="/css/main-lu.css" rel="stylesheet" type="text/css" />
+</head>
+<style>
+    .account-balance{
+        padding:30px 0;
+        display: inline-block;
+    }
+    .balance{
+        font-size: 18px;
+        font-weight:bold;
+    }
+    .balance-tips{
+        color: #31708f;
+        font-size:14px;
+        margin-top:5px;
+    }
+    .tabs{
+        background-color: #f4f8fb;
+        font-size: 18px;
+    }
+    .tabs>div{
+        float: left;
+        border-top:4px solid transparent;
+        border-bottom:4px solid transparent;
+        padding:17px 25px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .tabs>div.active{
+        border-top-color: #3FAEDC;
+        border-left:1px solid #E5E7E4;
+        border-right:1px solid #E5E7E4;
+        background-color: #FFFFFF;
+    }
+    .record-list table{
+        width: 100%;
+        text-align: center;
+        margin-top:10px;
+    }
+    .record-list th{
+        background-color: #f4f8fb;
+        font-size: 16px;
+        line-height: 40px;
+        font-weight:normal;
+        text-align: center;
+    }
+    .record-list td{
+        font-size: 14px;
+        line-height: 20px;
+        border-bottom:1px solid #E6E6E6;
+        padding:0 5px;
+    }
+    .record-list td.del-btn{
+        color: #3faedc;
+        cursor: pointer;
+    }
+    .record-list tr:hover{
+        background-color: #f4f8fb;
+    }
+    #apply_div,#qrcode_div{
+        display: none;
+    }
+    .kp-tips{
+        margin-top: 10px;
+        background: #D9edF8;
+        border: 1px solid #C7E7F2;
+        line-height: 30px;
+        padding: 0px 7px;
+        color: #31708f;
+    }
+    .popup-window-addzk1{
+        height:auto;
+    }
+</style>
+<body>
+<div class="recharge-manage">
+    <div class="record-list">
+        <div class="tabs clearfix">
+            <div id="apply_tab">
+                开票申请管理
+            </div>
+            <div id="qrcode_tab">
+                开票申请二维码管理
+            </div>
+        </div>
+        <div class="tables">
+            <div class="consume-table" id="apply_div" style="overflow: auto">
+                <ul class="adaption_shop_ul shop_ul">
+                    <li>
+                        <label>申请日期</label>
+                        <input type="text" class="date_inputs" id="startApplyDate"/>
+                        <font >至</font>
+                        <input class="date_inputs" id="endApplyDate" type="text"/>
+                    </li>
+                    <li>
+                        <label>审核状态</label>
+                        <select class="order_select" id ="reviewStatus">
+                            <option value="">全部</option>
+                            <option value="NO_CHECK">待审核</option>
+                            <option value="NO_PASS">审核不通过</option>
+                            <option value="PASS">审核通过</option>
+                        </select>
+                    </li>
+                    <li class="cha_a">
+                        <a class="blue-btn" href="javascript:applyQuery();" id="but_qu">查　询</a>
+                    <li>
+                </ul>
+                <table class="customers" style="margin-bottom:20px">
+                    <thead>
+                        <tr>
+                            <th width="50px">序号</th>
+                            <th>发票抬头</th>
+                            <th>开票金额</th>
+                            <th>收票人手机</th>
+                            <th>收票人邮箱</th>
+                            <th>开票项目</th>
+                            <th>申请时间</th>
+                            <th>审核状态</th>
+                            <th>发票状态</th>
+                            <th width="150px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="apply_list_zone"></tbody>
+                </table>
+                <div id="page_apply" style="text-align:center;"></div>
+            </div>
+
+            <div id="qrcode_div" class="zhanghu">
+                <div class="kp-tips">1.商家生成开票二维码。2.客户消费后扫描二维码填写发票抬头信息提交。3.商家在“客户开票申请”进行审核，审核通过后，系统自动开票</div>
+                <div class="but_z" style="text-align: right">
+                    <a class="blue-btn" href="javascript:Applyqrcode.dispatchAdd()"><span id="add">新　增</span></a>
+                </div>
+                <table class="customers" style="margin-bottom:20px">
+                    <thead>
+                        <tr>
+                            <th width="50px">序号</th>
+                            <th>开票项目</th>
+                            <th>税收分类编码</th>
+                            <th>享受税收优惠</th>
+                            <th>优惠政策类型</th>
+                            <th>税率</th>
+                            <th>生成时间</th>
+                            <th width="150px">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="qrcode_list_zone"></tbody>
+                </table>
+                <div id="page_qrcode" style="text-align:center;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="qrCodeImages" style="display: none;" class="insert_form">
+    <div class="layui-field-box">
+        <div style="text-align:left; margin-left: 25%;">
+            <div style="margin-left: -15px;"><img id="qrcodeImg" style="box-shadow: 0px 0px 10px;">
+            </div>
+            <div>销售方名称：<span id="enterpriseName"></span></div>
+            <div>开票项目：<span id="invoiceItemName"></span></div>
+            <div>
+                <br/>
+            </div>
+            <!--<div>请使用微信或支付宝，扫描领取电子发票</div>-->
+        </div>
+    </div>
+</div>
+
+<div id="sendPage" style="display:none;">
+	<div class="popup-window-addzk1">
+		<div class="layui-layer-title" style="color:#fff;">
+			发送电子发票
+		</div>
+		<form id="resendInvoiceForm">
+	    	<input type="hidden" id="sendFpqqlsh"/> 
+			<!-- <div class="popup-window-div-top"><label>收票人名称:</label><input id="sendName" name="sendName" type="text" autocomplete="off"/></div> -->
+			<div class="popup-window-div-top"><label>收票人手机号:</label><input id="sendTel" name="sendTel" type="text"/></div>
+			<div class="popup-window-div-middle"><label>收票人邮箱:</label><input id="sendEmail" name="sendEmail" type="text"/></div>
+			<div class="billing-btn2">
+				<a class="blue-btn" href="javascript:resendInvBtnFun()" id="resendInvBtn">确定发送</a>
+				<a class="white-btn" href="javascript:layer.closeAll()">取消</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+</body>
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/lib/vpiaotong.date.js"></script>
+<script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+<script src="/js/lib/vpiaotong.datetimepicker.js"></script>
+<script src="/js/jquery/validation/jquery.validate.js"></script>
+<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+<script src="/js/lib/vpiaotong.regex.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery.jqprint-0.3.js"></script>
+<script type="text/javascript" src="/js/views/manage/applyqrcode/qrcodemanager.js"></script>
+<script type="text/javascript" src="/js/views/manage/applyqrcode/invoiceApply.js"></script>
+<script>
+    function triggerTab(index) {
+        if (index == 1) {
+            if ($("#apply_tab").hasClass("active")) {
+                return;
+            }
+            $(".tabs>div").removeClass("active");
+            $("#apply_tab").addClass("active");
+            InvoiceApply.list(InvoiceApply.queryParams.pageIndex);
+        } else if (index == 2) {
+            if ($("#qrcode_tab").hasClass("active")) {
+                return;
+            }
+            $(".tabs>div").removeClass("active");
+            $("#qrcode_tab").addClass("active");
+            Applyqrcode.list(Applyqrcode.queryParams.pageIndex);
+        }
+        $(".tables>div").hide();
+        $(".tables>div:nth-child("+index+")").show();
+    }
+    $(function () {
+        $(".tabs>div").click(function () {
+            triggerTab($(".tabs>div").index(this) + 1);
+        });
+    });
+    DatetimePicker.startDateLessEndDate($("#startApplyDate"),"","",new Date(),$("#endApplyDate"));
+    DatetimePicker.endDateMoreStartDate($("#endApplyDate"),"","",new Date(),$("#startApplyDate"));
+    var zId = $Utils.getUrlParameters().z;
+    triggerTab(zId?zId:check());
+    function check(){
+      if(Applyqrcode.has()){
+          return 1;
+      }else{
+          return 2;
+      }
+    }
+    function applyQuery(){
+        InvoiceApply.list(InvoiceApply.queryParams.pageIndex);
+    }
+</script>
+</html>

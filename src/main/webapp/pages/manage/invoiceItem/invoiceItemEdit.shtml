@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/main.css">
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/lib/eventUtils.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.unobtrusive.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+</head>
+
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>开票项目</span>
+	</div>
+	<form id="itemNameForm">
+	 <ul class="adaption_shop_ul shop_ul">
+	 
+	 	<li>
+		 	<em>＊</em>
+		 	<label>税收分类编码</label>
+		 	<input type="text" name="taxClassificationCode" id="taxClassificationCode" placeholder="请输入税收分类编码" class="input_so" onclick="openSSFL()"/>
+		 </li>
+	 	
+	  	 <li>
+	  	 	<em>＊</em>
+	  	 	<label>开票项目</label>
+	  	 	<input type="text" name="itemName" id="itemName" placeholder="请输入商品名称"/>
+	  	 </li>
+	  	 
+	     <li>
+	     	<em></em>
+	     	<label>享受税收优惠</label>
+	     	<select name="discounted" id="discounted">  
+                  <option value="0">否</option>
+                  <option value="1">是</option>
+            </select>
+         </li>
+         
+		 <li>
+		 	<em></em>
+		 	<label>优惠政策类型</label>
+		    <select name="discountedPolicyType" id="discountedPolicyType"></select>
+		 </li>
+		 
+		 <li>
+		 	<em>＊</em>
+		 	<label>税率</label>
+		 	<select name="taxRate" id="taxRate">
+				<option value="">--请选择--</option> 
+         	</select>
+         </li>
+         
+	 </ul>
+	 <div class="but_z">
+	 	<a class="blue-btn" href="javascript:invoiceItemEdit()" style="margin-right:40px"><span id="save">保　存</span></a>
+	 	<a class="white-btn" href="javascript:history.back(-1)">返　回</a>
+	 </div>
+	</form>
+	</div>	 	  
+</div>
+<script src="/js/views/manage/invoiceItem/invoiceItemEdit.js"></script>			  
+</body>
+</html>

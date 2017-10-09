@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta name="renderer" content="webkit"/><meta http-equiv="x-ua-compatible" content="ie=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/css.js"></script>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+<script>
+		$(function(){
+					
+			$(".img").bind('click',function(){
+			   	if($(this).hasClass("li_span")){
+					$(this).removeClass("li_span");
+				 }else{
+					$(this).addClass("li_span");
+				 }
+			})
+		});
+		
+	</script>
+</head>
+<body>
+<div class="heard" >
+	<!--#include virtual="/pages/index/header.shtml" -->
+</div>
+ 
+<div class="register">
+    <dl class="zc_chg">
+	  <dt><img src="/images/b5.png" /></dt>
+	  <dd>
+		   <p><img src="/images/b6.png" /></p>
+		  <p>注册信息提交成功，系统管理人员将会在两个工作日内为您审核。并可能会与您电话沟通，请保持电话通畅。感谢您的支持。</p> </dd>
+	</dl>
+	<div class="zc_que"><a href="/pages/manage/index.shtml">确定</a></div>
+</div>
+</body>
+</html>			
+		 

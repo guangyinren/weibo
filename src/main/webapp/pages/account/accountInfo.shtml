@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/laypage.css" rel="stylesheet" type="text/css" />
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/util/mocPost.js"></script>
+<script src="/js/util/mask.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/account/accountInfo.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zhanghu_tit">
+	   <h6><span class="xiang"><img src="/images/xiang.jpg"  />当前用户 <br ><b id="b03"></b></span></h6>
+	   <h6><span class="xiang"></span></h6>
+	   <p class="tiket-count"><span><span class="tiket-count-tit">已开电子发票数量:</span><b id="b01"></b>张</span><br><span><span class="tiket-count-tit">当月已开电子发票数量:</span><b id="b02"></b>张</span></p>
+	</div>
+	<div class="zc_tit">
+		<span>企业信息</span>
+		<!--<h6 style="margin-top: 20px;"><a class="bjqy" id="btn_by" style="display: none;">编辑企业信息</a></h6>-->
+	</div> 
+	<div class="to-kpset" id="div_kpsz" style="display: none">
+		您的企业信息已通过认证，开票信息尚未完善，请前往<a href="javascript:parent.addTab('开票设置','invoicesettings/invoiceSettings.shtml','icon-s7')">“开票设置”</a>完善您的开票信息。
+	</div>
+	 <div class="zhanghu_left" id = "info_div">
+				   <ul style="float:left">
+				   	 <li><label>纳税人识别号：</label><p id="taxpayer_num"></p></li>
+				     <li><label>企业名称：</label><p id="enterprise_name"></p></li>
+				     <li><label>法定代表人姓名：</label><p id="legal_representative_name"></p></li>
+				     <li><label>企业经营地址：</label><p id="enterprise_address"></p></li>
+				     <!-- <li><label>是否开具纸质发票：</label><p id="paper_ticketed">是</p></li> -->
+					 <li><label>联系人姓名：</label><p id="contacts_name"></p></li>
+					 <li><label>联系人手机号：</label><p id="contacts_phone"></p></li>
+					 <li><label>联系人邮箱：</label><p id="contacts_email"></p></li>
+					 <li><label>邀请注册码：</label><p id="invitation_id"></p></li>
+					 <li><label>企业平台编码：</label><p id="pt_code"></p></li>
+					 <li><label>企业授权码：</label><p id="sq_code"></p></li>
+					 <li><label>企业注册码：</label><p id="zc_code"></p></li>
+				   </ul>
+				   <!--<ul style="float:right">
+
+				   </ul>-->
+				   <!--<ul class="xinxi_code">
+					  &lt;!&ndash;<li><label><img src="../images/zc7.png" />开票服务套餐</label>
+					  <p style="font-size: 16px">尚未选择任何套餐，发票开具将按0.35元/张进行收费，</p>
+					  </li>&ndash;&gt;
+                       <div id="pt_code_div" style="display: none">
+                            <div class="circle g"></div>
+						   	<span class="code-title">平台编码</span>
+						    <div id="pt_code" class="code-content">000000000000000</div>
+                       </div>
+                       <div id="sq_code_div" style="display: none">
+                           <div class="circle y"></div>
+						   <span class="code-title">授权码</span>
+						   <div id="sq_code" class="code-content">000000000000000</div>
+                       </div>
+                       <div id="zc_code_div" style="display: none">
+                           <div class="circle b"></div>
+						   <span class="code-title">注册码</span>
+						   <div id="zc_code" class="code-content">000000000000000</div>
+                       </div>
+				   </ul>-->
+	 </div>
+	 <div class="zhanghu_right">
+					  <p>税务登记证或统一社会信用代码证</p>
+					  <div class="sctu">
+						<img src="/user/downLoad.pt" />
+					  
+					  </div>
+					 <p id="p_rz1" style="display: none"><span>您的企业信息已通过认证，开票信息尚未完善，请前往</span><a href="javascript:parent.addTab('开票设置','invoicesettings/invoiceSettings.shtml','icon-s7')">“开票设置”</a>完善您的开票信息。  </p>
+					 <p id="p_rz3" style="display: none"><span>您的企业信息已通过认证</span></p>
+					 <p id="p_rz2">管理员正在为您认证企业信息，请您耐心等待。  </p>
+	</div>
+			
+	</div>
+	<div class="to-edit">
+		<button class="blue-btn" type="button" id="btn_by" style="display: none;">编辑企业信息</button>
+	</div>
+</div>			  
+
+</body>
+</html>

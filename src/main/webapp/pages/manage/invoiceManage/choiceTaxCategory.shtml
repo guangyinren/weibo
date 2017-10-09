@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>税收分类编码表</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link href="/css/main.css" rel="stylesheet">
+<link href="/css/main-lu.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link rel="stylesheet" href="/css/metisMenu.min.css">
+<link rel="stylesheet" href="/css/zTreeStyle.css" />
+	<link rel="stylesheet" href="/css/common.css">
+<link href="/css/laypage.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/metisMenu.min.js"></script>
+<script src="/js/ztree/jquery.ztree.core-3.5.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/eventUtils.js"></script>
+<script type="text/javascript" src="/js/laypage.js"></script>
+<script src="/js/views/manage/invoiceManage/choiceTaxCategroy.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+</head>
+<style>
+body{
+	font-family: Microsoft YaHei;
+}
+</style>
+<body>
+<div class="mina"  style="width: 100%;height: 99%;overflow: auto;">
+    <div class="billing-package">
+		<div class="sosuo-ul">
+			<form name="mailBox" id="mailBox" method="post" action="">
+				<ul>
+					<li><input type="text" id="keyword" class=""/></li>
+					<li><a class="blue-btn" href="javascript:void(0)" class="mr_0" id="search">搜索</a></li>
+				</ul>			   
+			</form>
+		</div>
+		<div class="taxes-box">
+			<div class="taxes-box-left">
+				 <ul class="ztree" id="treeDemo"></ul>
+			</div>
+			<div class="taxes-box-right">
+				<table class="taxex-table">			
+					<thead>
+						<tr>
+						   <td width="40">编码</td>
+                           <td width="80">合并编码</td>
+                           <td width="120">货物和劳动名称</td>
+                           <td width="150">说明</td>
+                     	   <td width="50">增值税税率</td>
+                    	   <td width="60">增值税特殊管理</td>
+                    	   <td width="120">增值税政策依据</td>
+                           <td width="80">关键字</td>
+                    	   <td width="40">汇总</td>
+                           <td width="40">操作</td>
+						</tr>
+					</thead>
+					<tbody class="taxex-table1" id="invoice1"></tbody>
+				</table>
+				<div id="page" style="text-align:center;"></div>
+			</div>
+		</div>
+		
+		
+	</div>	 	  
+</div>
+</body>
+</html>

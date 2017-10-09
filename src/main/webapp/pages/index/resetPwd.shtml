@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="x-ua-compatible" content="ie=8" />
+<meta name="renderer" content="webkit">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票开具平台</title>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+<link href="/js/skin/layer.css" rel="stylesheet" type="text/css">
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/util/timer.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/util/mask.js"></script>
+   <script src="/js/lib/area.js"></script>
+   <script src="/js/views/index/ptweb.js"></script>
+   <script src="/js/views/index/resetPwd.js"></script>
+   <script src="/js/util/http.js"></script>
+   <script src="/js/util/util.js"></script>
+<script src="/js/plugin/rsa/jsbn.js"></script>
+<script src="/js/plugin/rsa/prng4.js"></script>
+<script src="/js/plugin/rsa/rng.js"></script>
+<script src="/js/plugin/rsa/rsa.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/css.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+</head>
+<body class="log_bj">
+<div class="heard" >
+	<!--#include virtual="/pages/index/header.shtml" -->
+</div>
+<div id="login"> 
+  <div class="user_login">
+	<div class="login_lef">
+		<img src="/images/logo1.png" />
+	</div>
+	<div class="login_rig reset_pwd">
+	    <form name="reset_pwd" id="reset_pwd" > 
+	    <div class="str_tt"><h6>密码重置</h6><img src="/images/gb.png" id="img_error" style="display: none;"/>&nbsp;&nbsp;<span id="span_01" style="display: none; color: red ">用户信息错误，请核对后重新输入</span></div>		
+		<ul>
+		    <!-- <li class="tsxx"><img src="/images/gb.png" /><span>请保持两次密码输入一致</span></li> -->
+			<!-- <li><label>新密码</label><p class="mim">ddddddd</p></li> -->
+			<li>
+				<label>新密码</label>
+				<input type="password" placeholder="输入新密码"  class="text mim" id="password1" name="password1" value="" />
+				<em id="password1_tip" style="color: red"></em>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text"></span>
+			</li>
+			<li>
+				<label>再次输入新密码</label>
+				<input type="password" placeholder="再次输入新密码"  class="text mim" id="password2" name="password2" value="" />
+				<em id="password2_tip" style="color: red"></em>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text"></span>
+			</li>
+		</ul>
+		 <div class="sub"><input class="btn_01" type="button" id="sub_btn_rp" value="提　交"/></div>
+      </form>
+	</div>
+  </div>
+</div>
+</body>
+</html>			
+		 

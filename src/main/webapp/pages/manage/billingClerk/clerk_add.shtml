@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>新增开票员</title>
+<link href="/js/skin/layer.css"  rel="stylesheet" type="text/css" /> 
+<link href="/css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/common.css">
+<script src="/js/jquery.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/lib/vpiaotong.regex.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.base.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.util.js"></script>
+<script type="text/javascript" src="/js/views/manage/billingClerk/clerkAdd.js"></script>
+<style>
+.shop_ul li label {
+    width: 115px;
+}
+.shop_ul li input,
+.shop_ul li select{
+    width: calc(95% - 125px);
+}
+.shop_ul .invoiceTypeCheckbox *{
+	width: auto;
+	vertical-align: middle;
+	margin:0 2px;
+}
+.shop_ul .invoiceTypeCheckbox label{
+	margin-right:10px;
+}
+</style>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>开票员管理</span>	
+	</div>
+	<form id="addclerkForm">
+	 <ul class="adaption_shop_ul shop_ul">
+	     <li>
+	     	<em>＊</em>
+	     	<label>姓名</label>
+	     	<input type="text" name="clerkName" id="clerkName" placeholder="姓名"/>
+	     	<span id="nameError" style="color:red;display:none">姓名不能为空</span>
+	     </li>
+		 <li>
+		 	<em>＊</em>
+		 	<label>登录名</label>
+		 	<input type="text" name="loginName" id="loginName" placeholder="请输入登录名"/>
+		 	<span id="loginNameError" style="color:red;display:none">登录名不能为空</span>
+		 </li>
+		 <li>
+		 	<em></em>
+		 	<label>所属机构</label>
+		 	<input type="text" name="organization" id="organization" placeholder="请输入所属机构"/>
+		 	<span id="institutionsError" style="color:red;display:none">所属机构不能为空</span>
+		 </li>
+		 <li>
+		 	<em>＊</em>
+		 	<label>密码</label>
+		 	<input type="password" name="password" id="password" placeholder="请输入密码"/>
+		 	<span id="passwordError" style="color:red;display:none">密码不能为空</span>
+		 </li>
+	     <li>
+	     	<em>＊</em>
+	     	<label>重复密码</label>
+	     	<input type="password" name="repeatPassword" id="repeatPassword" placeholder="请输入重复密码"/>
+	     	<span id="repError" style="color:red;display:none">重置密码与密码不相同</span>
+	     </li>
+		 <li>
+		 	<em>＊</em>
+		 	<label>联系电话</label>
+		 	<input type="text" name="contractPhone" id="contractPhone" placeholder="请输入联系电话"/>
+		 	<span id="telError" style="color:red;display:none">手机号不能为空</span>
+		 </li>
+		 <li>
+		 	<em></em>
+		 	<label>性别</label>
+		 	<select name="sex" id="sex">
+                <option value="">--请选择--</option> 
+                <option value="MALE">男</option>
+                <option value="FEMALE">女</option>
+            </select>
+         </li>
+         <li>
+		 	<em></em>
+		 	<label>单张开票金额上限</label>
+		 	<input type="text" name="singleInvoiceLimitMoney" id="singleInvoiceLimitMoney" placeholder="请输入金额" onblur="singleInvoiceLimitMoneyBlur()"/>
+		 	<span id="telError" style="color:red;display:none">手机号不能为空</span>
+		 </li>
+		 <li>
+		 	<em></em>
+		 	<label>每月开票张数上限</label>
+		 	<input type="text" name="singleMonthInvoiceNum" id="singleMonthInvoiceNum" placeholder="请输入整数" onblur="singleMonthInvoiceNumBlur()"/>
+		 	<span id="telError" style="color:red;display:none">手机号不能为空</span>
+		 </li>
+		 <li id="invoiceTypeLi" style="display:none;width: 100%">
+		 	<em>＊</em>
+		 	<label>开票种类</label>
+			 <span class="invoiceTypeCheckbox">
+				 <input type="checkbox" name="invoiceType" id="invoiceType1" checked disabled>
+				 <label for="invoiceType1">电子增值税普通发票</label>
+				 <input type="checkbox" name="invoiceType" id="invoiceType2" style="display: none">
+				 <label id="label01" for="invoiceType2" style="display: none">纸质增值税普通发票</label>
+				 <input type="checkbox" name="invoiceType" id="invoiceType3" style="display: none">
+				 <label id="label02" for="invoiceType3" style="display: none">纸质增值税专用发票</label>
+			 </span>
+		 	<!--<select name="invoiceType" id="invoiceType">-->
+                <!--<option value="">&#45;&#45;请选择&#45;&#45;</option> -->
+                <!--<option value="1">电子、纸质发票</option>-->
+                <!--<option value="2">电子发票</option>-->
+                <!--<option value="3">纸质发票</option>-->
+            <!--</select>-->
+         </li>
+	 </ul>
+	 <div class="but_z">
+	 	<a class="blue-btn" href="javascript:saveClerk()" style="margin-right:40px" id="save"><span>保　存</span></a>
+	 	<a class="white-btn" href="javascript:history.back(-1)">返　回</a>
+	 </div>
+	</form>
+	</div>	 	  
+</div>			  
+</body>
+</html>

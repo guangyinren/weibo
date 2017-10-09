@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/main.css" rel="stylesheet">
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+<link href="/js/jquery/validation/css/validate.css" rel="stylesheet"
+	type="text/css" />
+<link href="/css/laypage.css" rel="stylesheet" type="text/css"/>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/util/timer.js"></script>
+<script src="/js/util/http.js"></script>
+<script src="/js/util/util.js"></script>
+<script src="/js/util/mask.js"></script>
+<script src="/js/lib/area.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/views/index/ptweb.js"></script>
+<script src="/js/upload/ajaxfileupload.js"></script>
+<script src="/js/upload/picView.js"></script>
+<script src="/js/views/account/updateInfo.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+<!-- <script type="text/javascript">
+	/* var countdown = 60;
+	 function settime(id) {
+	 if (countdown == 0) {
+	 $("#" + id).html("获取验证码");
+	 $("#" + id).attr("href","javascript:settime(this);");
+	 $("#" + id).css("background","#28b8cd");
+	 countdown = 60;
+	 return;
+	 } else {
+	 $("#" + id).attr("href","javascript:void();");
+	 $("#" + id).css("background","#029bca");
+	 $("#" + id).html("重新发送(" + countdown + "s)");
+	 countdown--;
+	 }
+	 setTimeout(function() {
+	 settime(id)
+	 }, 1000)
+	 }  */
+</script> -->
+<script>
+	$(function() {
+		$(".radio_s").bind('click', function() {
+			if ($(this).hasClass("li_span")) {
+				$(".radio_s").removeClass("li_span");
+				$("#paperTicketed").val("yes");
+				$(this).addClass("li_span");
+			} else {
+				$(".radio_s").removeClass("li_span");
+				$("#paperTicketed").val("no");
+				$(this).addClass("li_span");
+			}
+		})
+	});
+	$(function(){
+		$("#pic").uploadPreview({ Img: "ImgPr", Width:385, Height: 263 });
+		$("#pic1").uploadPreview({ Img: "ImgPr", Width:385, Height: 263 });
+	})
+</script>
+</head>
+<body>
+	<div class="mina">
+		<div class="zhanghu">
+			<form name="register" id="info_update" style="overflow:hidden;">
+				<div class="zhanghu_tit content-title">
+					<h6>
+						<!--<a href="javascript:void(0)" id="a_goback"><img src="/images/fh.jpg" /></a>-->
+						编辑企业信息
+					</h6>
+					<p>
+
+						<!--<a href="javascript:void(0)" onclick="update_gr()">保存并提交审核</a>-->
+					</p>
+				</div>
+				<div class="zhanghu_left">
+					<ul style="float: left">
+						<li><label>纳税人识别码：</label><em
+								style="color: red;" id="taxpayerNum_tip"></em><input type="text"
+																					 class="inp_s" placeholder="请输入请输入纳税人识别号或统一社会信用代码"
+																					 id="taxpayerNum" name="taxpayerNum" /></li>
+						<li><label>企业名称：</label><em
+							style="color: red;" id="enterpriseName_tip"></em><input
+							type="text" class="inp_s" placeholder="请输入企业名称"
+							id="enterpriseName" name="enterpriseName" /></li>
+						<li><label>法定代表人姓名：</label><em
+								style="color: red;" id="legalRepresentativeName_tip"></em><input
+								type="text" class="inp_s" placeholder="请输入法定代表人姓名"
+								id="legalRepresentativeName" name="legalRepresentativeName" /></li>
+						<li><label>联系人姓名：</label><em
+								style="color: red;" id="contactsName_tip"></em><input type="text"
+																					  class="inp_s" placeholder="请输入联系人姓名" id="contactsName"
+																					  name="contactsName" /></li>
+						<li><label>联系人邮箱：</label><em
+								style="color: red;" id="contactsEmail_tip"></em><input
+								type="text" class="inp_s" placeholder="请输入联系人邮箱"
+								id="contactsEmail" name="contactsEmail" /></li>
+						<li><label>联系人手机号：</label><em
+							style="color: red;" id="contactsPhone_tip"></em><input
+							type="text" class="inp_s" placeholder="请输入联系人手机号"
+							id="contactsPhone" name="contactsPhone" /><br>
+						</li>
+						<li><label>短信验证码：</label>
+							<input type="text" class="inp_s" id="mobile_captcha"
+								   name="mobileCaptcha" placeholder="请输入验证码" value=""
+								   style="width:24%;margin-right: 10px" />
+							<a href="javascript:void(0)" id="send_btn" class="yzma validate-btn">获取验证码</a><br></li>
+						<em style="color: red;" id="mobile_captcha_tip"></em>
+						<!-- <li><label>是否开具纸质发票：</label>
+							<input	type="radio" name="paperTicketed" value="YES" style="width: initial;margin-top: 12px;" />是
+							<input	type="radio" name="paperTicketed" value="NO" style="width: initial;" />否 -->
+						<li><label>企业经营地址：</label><span
+								id="select_new" class="add-cho"></span>
+						<li><label style="visibility: hidden">企业详细地址：</label><em
+								id="enterpriseAddress_tip" style="color: red;"></em><input
+								class="inp_s" type="text" placeholder="请输入企业详细地址"
+								id="enterpriseAddress" name="enterpriseAddress" value="" style="width: 60%"/></li>
+					</ul>
+					<ul style="float: right">
+
+					</ul>
+					<ul style="width: 100%">
+
+					</ul>
+				</div>
+				 <div class="register_right">
+			      <p>税务登记证或统一社会信用代码证</p>
+				  <span id="pic_tip"></span>
+				  <div class="sctu" id="picLocation">
+				    <img id="ImgPr" src="/user/downLoad.pt" />
+				    <span class="fpic">点击添加证件照片<font><input type="button" onclick="pic.click()"/></font><input hidden id="pic"  type="file" name="uploader" onchange="uploadPic()"></span>
+				    <div id="update_btn" class="yy_tu" style="display:none">更改图片<b><input id="pic1" type="file" name="uploader" onchange="uploadPic_()" /></b></div>
+				  </div>	 
+			     <p class="upload-tips">1.图片格式为:JPG、PNG、JPEG、BMP，5M以内</p>
+				 <p class="upload-tips">2.请勿提供虚假证件，否者将导致您无法通过审核 </p>
+			  </div>
+			</form>
+			<div class="update-btns">
+				<button type="button" class="blue-btn" onclick="update_gr()">保存并提交审核</button>
+				<button type="button" class="white-btn" id="a_goback">返回</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

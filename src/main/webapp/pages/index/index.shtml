@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/css.js"></script>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/css/jquery.fullPage.css">
+<link rel="stylesheet" href="/css/index/index.css">
+<script>
+		$(function(){
+			/* layer.alert('温馨提示:系统将于2017年03月28日19：00至03月29日06：00进行升级。届时，系统将无法正常使用。由此给您带来不便，敬请谅解！ 特此公告',{icon:2}, function(){
+    			layer.closeAll();
+			}); */
+			$(".img").bind('click',function(){
+			   	if($(this).hasClass("li_span")){
+					$(this).removeClass("li_span");
+				 }else{
+					$(this).addClass("li_span");
+				 }
+			})
+			
+			$("#adds").click(function(evt){
+				$("#ads").show();
+		    });
+			$("#close1").click(function(evt){
+				$("#ads").hide();
+		    });
+		});
+</script>	
+</head>
+<body class="">
+
+<!--<div class="home">
+   <h2><img src="/images/logo2.png" /></h2>
+   <p><a href=""><img src="/images/b1.png" /></a><a href=""><img src="/images/b2.png" /></a><a href=""><img src="/images/b3.png" /></a></p>
+</div>-->
+<div class="home-content">
+    <div id="full" class="index">
+        <div class="section" style="background-color: #F4F8FB">
+            <div class="heard" >
+                <!--#include virtual="/pages/index/header.shtml" -->
+                <script>setFocusMainMenu(1);</script>
+            </div>
+            <div class="content1">
+            <div class="big-title">电子发票开具服务平台</div>
+            <hr>
+            <div class="con1-text">
+                电子发票开具服务平台，让企业开具电子发票更加简单便捷，
+                <br>
+                企业不再需要部署额外系统，在现有防伪金税盘的基础上，仅需少量升级即可实现电子发票的开具
+            </div>
+                <img src="/images/home-pic0.png" alt="">
+        </div>
+        </div>
+        <div class="section">
+            <div class="content2">
+                <div class="title">
+                    轻松三步，实现电子发票开具
+                </div>
+                <hr>
+                <div class="con2-pics">
+                    <div class="con2-pic">
+                        <img src="/images/home-pic1.png">
+                        <br>
+                        <span>在本开票平台注册企业账号</span>
+                    </div>
+                    <div class="con2-pic">
+                        <img src="/images/home-pic2.png">
+                        <br>
+                        <span>在当地税务局申请电子发票票种</span>
+                    </div>
+                    <div class="con2-pic">
+                        <img id="shouyeImg01" src="/images/home-pic3.png">
+                        <br>
+                        <span><span id=shouyeSpan01>安装本平台寄送的票通宝</span> <br><span class="con2-tips">（只需和金税盘扣在一起，接入网络即可）</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section" style="background-color: #F4F8FB">
+            <div class="content3">
+                <div class="con3-pic">
+                    <img src="/images/home-pic4.png">
+                    <br>
+                    <div class="l-title">对企业</div>
+                    <div class="con3-text">节约了企业购票销票的时间成本，让发票的查阅更加便捷，省去了保存、邮递等高额费用。</div>
+                    <div class="con3-tips">节约成本、便捷高效</div>
+                </div>
+                <div class="con3-pic">
+                    <img src="/images/home-pic5.png">
+                    <br>
+                    <div class="l-title">对个人</div>
+                    <div class="con3-text">电子发票不需要担心发票丢失，可直接通过云端查询、下载、打印、方便快捷。</div>
+                    <div class="con3-tips">云端存储、安全保障</div>
+                </div>
+                <div class="con3-pic">
+                    <img src="/images/home-pic6.png">
+                    <br>
+                    <div class="l-title">对税务机关</div>
+                    <div class="con3-text">让税务机关完整、及时、准确的获得开票数据，更好的防范税收风险，有效的节省了印刷成本。</div>
+                    <div class="con3-tips">完整精准、降低风险</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--#include virtual="/pages/index/footer.shtml" -->
+<script src="../../js/jquery.fullPage.min.js"></script>
+<script>
+    $(function () {
+        $("#full").fullpage({
+            scrollOverflow:true,
+            navigation:true
+        });
+    })
+</script>
+</body>
+</html>			
+		 

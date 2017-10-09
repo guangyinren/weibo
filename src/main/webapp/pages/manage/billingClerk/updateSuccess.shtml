@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<link href="/css/main.css" rel="stylesheet">
+<script type="text/javascript">
+	$(function(){
+		$("#a_return").on("click",up_return);
+	})
+	function up_return(){
+		window.top.location.href = "/pages/manage/index.shtml";
+	}
+</script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit mto_20" >
+		<span>修改密码</span>
+        <h6>&nbsp;</h6>		
+	</div>
+	 <div class="fuwu_form">
+	       <br /><br />
+		   <p style="margin-left:125px;color:#01c675;font-size:20px"><img src="/images/b5.png" style="width:40px;margin-right:10px;position: relative;top:10px"/>密码修改成功</p>
+		   <div class="add_btn1"><a href="javascript:void(0)" id="a_return">返回主页</a></div>
+	</div>
+		<br /><br /><br /><br />
+	</div>	 	  
+</div>
+</body>
+</html>

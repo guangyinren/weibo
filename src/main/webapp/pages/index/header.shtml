@@ -1,0 +1,36 @@
+<script language=javaScript>
+function setFocusMainMenu(ID){
+	var totalTopMenu=6;
+	
+ 	for(i=1;i<totalTopMenu;i++){
+   		if(ID!=i){
+   			$('#topmenu'+i).removeClass("curr");
+   			$('#topmenu'+i).addClass("");
+
+ 		}else{
+  			$('#topmenu'+i).addClass("curr");
+  			$('#topmenu'+i).removeClass("");       
+		  
+ 		}
+	}
+}
+</script>
+
+<div class="logo">
+		<p id="headerLogo" style="background-repeat: no-repeat;background-position-y: 15px;"><a href="/pages/index/index.shtml"><!-- <img src="/images/logo.png" /> -->
+		<span style="float: left;margin-left: 46px;font-size: 28px;display: inline;width: 120px;color: white;"></span></a>
+		<span id="headerSpan02" class="sec-title"></span>
+		</p>
+		<div class="nav">
+            <ul class="menu-list">
+			    <li><a  class="curr" href="/pages/index/index.shtml" id="topmenu1">首 页</a></li>
+				<li><a href="/pages/index/product.shtml" id="topmenu2">关于产品</a></li>
+			    <li><a href="/pages/index/process.shtml" id="topmenu3">开通流程</a></li>
+				<li><a href="/pages/index/contact.shtml" id="topmenu4">联系我们</a></li>
+				<!-- <li><a href="/pages/index/jiameng.shtml" id="topmenu5">加盟商申请</a></li> -->
+            </ul>
+			<span class="login-btn"><a id="adds" href="/pages/account/login.shtml">登录</a> | <a id="headerRegister" href="/pages/index/n-register.shtml">注册</a></span>
+		    
+		</div>
+</div>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css" />
+	<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="/css/common.css" />
+	<link rel="stylesheet" href="/css/main.css" />
+	<link href="/css/main-lu.css" rel="stylesheet">
+	<link href="/css/main.css" rel="stylesheet">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<script src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.min.js"></script>
+	<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+	<script src="/js/jquery/validation/additional-methods.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/layer.js"></script>
+	<script src="/js/lib/vpiaotong.base.js"></script>
+	<script src="/js/lib/vpiaotong.http.js"></script>
+	<script src="/js/lib/vpiaotong.util.js"></script>
+	<script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+    <script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/js/lib/vpiaotong.datetimepicker.js"></script>
+	<style>
+		.sosuo ul li .date_inputs {
+			height: 35px;
+		}
+		input.date_inputs{
+			max-width: 137px;
+			height:35px;
+		}
+	</style>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+		<div class="zc_tit" >
+			<span style="width:15%">分税率统计</span>
+		</div>
+		<div style="height:200px;">
+			<div>
+				<div class="radio-box-label" style="margin-top: 25px;">开票月份:</div>
+				<div class="radio-box">
+					<input type="text" class="date_inputs" id="monthStart" readonly style="background-color: #FFF;cursor:pointer;"/>
+					<font> 至</font>
+					<input type="text" class="date_inputs" id="monthEnd" readonly style="background-color: #FFF;cursor:pointer;"/>
+				</div>
+			</div>
+			<div class="cha_a" style="height:140px;">
+				<div class="radio-box-label" style="float:left;">税率选择：</div>
+				<div id="rates" style="float:left;"></div>
+				<div style="float:left; margin-top:80px;"><a class="blue-btn" href="javascript:void(0);" id="statistic_btn">统计</a></div>
+			</div>
+		</div>
+		<div class="cha_a" style="float:left;margin-left:600px;height:40px;">
+			<a class="blue-btn" href="javascript:void(0);" id="export_pdf_btn">导出</a>
+			<a class="blue-btn" href="javascript:void(0);" id="print_pdf_btn">打印</a>
+		</div>
+		<div id="reportId">
+			<iframe id="reportIframe" name="reportIframe" frameborder=0 width=1000 height=300 marginheight=0 marginwidth=0 scrolling=yes ></iframe>
+		</div>
+	</div>
+</div>	  
+</body>
+</html>
+<script src="/js/views/statistics/monthRateQuery.js"></script>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+<!-- <script src="/js/jquery.min.js"></script> -->
+<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css">
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<link href="/css/main.css" rel="stylesheet">
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/lib/vpiaotong.regex.js"></script>
+<script src="/js/lib/vpiaotong.constant.js"></script>
+<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>商品管理</span>
+	</div>
+	<form id="productMessage">
+	 <ul class="adaption_shop_ul shop_ul">
+	 
+	 	<li>
+		 	<em>＊</em>
+		 	<label>税收分类编码</label>
+		 	<input type="text" name="taxClassificationCode" id="taxClassificationCode" placeholder="请输入税收分类编码" class="input_so" onclick="openSSFL()"/>
+		 	<input type="hidden" id="">
+		 </li>
+		 
+		 <li>
+		 	<em>＊</em>
+		 	<label>税收分类名称</label>
+		 	<input type="text" id="taxClassificationName" placeholder="" readonly="readonly"/>
+		 </li>
+	 
+	     <li>
+	     	<em>＊</em>
+	     	<label>商品名称</label>
+	     	<input type="text" name="productName" id="productName" placeholder="请输入商品名称"/>
+	     </li>
+	     
+		 <li>
+		 	<em>＊</em>
+		 	<label>企业商品编号</label>
+		 	<input type="text" name="enterpriseCommodityCode" id="enterpriseCommodityCode" placeholder="请输入企业商品编号"/>
+		 </li>
+		 
+	     <li>
+	     	<em></em>
+	     	<label>享受税收优惠</label>
+	     	<select name="discounted" id="discounted">
+	     		<option value="N">否</option>
+                <option value="Y">是</option>
+         	</select>
+         </li>
+         
+		 <li>
+		 	<em></em>
+		 	<label>优惠政策类型</label>
+		 	<select name="discountedPolicyType" id="discountedPolicyType"></select>
+		 </li>
+		 
+		 <li>
+		 	<em></em>
+		 	<label>规格型号</label>
+		 	<input type="text" name="specificationModel" id="specificationModel" placeholder="请输入规格型号"/>
+		 </li>
+		 
+		 <li>
+		 	<em></em>
+		 	<label>计量单位</label>
+		 	<input type="text" name="meteringUnit" id="meteringUnit" placeholder="请输入计量单位"/>
+		 </li>
+		 
+		 <li>
+		 	 <em></em>
+			 <label>单价</label>
+			 <input type="text" name="price" id="price" placeholder="请输入单价"/>
+		 </li>
+		 
+		 <li>
+			 <em>＊</em>
+			 <label>含税价标志</label>
+			 <select id="taxPriceMarked">
+			 	<option value="false">否</option>
+			 	<option value="true">是</option>	
+			 </select>
+		</li>
+		 
+		 <li>
+			 <em>＊</em>
+			 <label>税率</label>
+			 <select name="taxRate" id="taxRate">
+					<option value="">--请选择--</option> 
+	         </select>
+         </li>
+		
+	 </ul>
+	 <div class="but_z">
+	 	<a class="blue-btn" href="javascript:saveProduct()" style="margin-right:40px"><span id="save">保　存</span></a>
+	 	<a class="white-btn" href="javascript:history.back(-1)">返　回</a>
+	 </div>
+	</form>
+	</div>	 	  
+</div>
+<script src="/js/views/manage/product/productAdd.js"></script>			  
+</body>
+</html>

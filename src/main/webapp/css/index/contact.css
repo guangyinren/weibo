@@ -1,0 +1,20 @@
+body{
+    background: url("/images/contact-bg.png") no-repeat;
+}
+.tit-line{
+    width: 145px;
+    height:4px;
+    background-color: #000;
+    margin:0 auto;
+}
+.contact-content{
+    text-indent: 2em;
+    font-size: 16px;
+    line-height: 56px;
+}
+.contact-content>div{
+    margin-top:40px;
+}
+.contact-content>p{
+    color: #000;
+}

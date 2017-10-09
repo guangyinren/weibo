@@ -1,0 +1,27 @@
+
+/*充值管理*/
+div_rightA{ float:left;width:1152px; height:768px; font-size:14px; }
+.top{width:141px;height:29px; background: url(../images/chongzhi_03.png) no-repeat; background-color:#FCFCFC; text-indent:55px; background-position:14px 14px; line-height:39px; color:#a8a4a4; line-height:29px;}
+.nav{ background-color:#fff; height:136px; margin-top:7px; width:1138px; margin-left:10px; font-family:"微软雅黑"  }
+.nav_one{ float:left; height:136px; width:235px;}
+.nav_one h3{ margin-top:42px; padding-left:53px; font-size:14px;}
+.nav_one ul li{ padding-top:7px; padding-left:33px;color:#a8a4a4;}
+ul li{ list-style:none}
+.nav_two{ float:left;background:url(../images/chongzhi_07.png)left no-repeat; background-position:0px 50px; width:135px; height:136px; }
+.nav_two span{padding-left:32px; line-height:136px; color:#FBFBFB;}
+.nav_twoA{ float:left;background:url(../images/chongzhi_07.png)left no-repeat; background-position:0px 50px; width:135px; height:136px; }
+.nav_twoA span{padding-left:37px; line-height:136px; color:#FBFBFB;}
+.mian{ width:1138px; height:569px; background-color:#ffffff ;margin-top:7px; margin-left:10px; font-weight:bold;}
+.mian_one{ padding-top:48px; padding-left:33px; width:420px; height:43px;}
+.mian_one ul li{ float:left; width:100px; line-height:43px; text-align:center}
+.mian_one_left{ background-color:#ffac0f}
+.mian_one_zhong{ background-color:#32bdd1}
+.mian_one_right{ background-color:#8acc3c}
+.form{margin-left:31px;}
+.one{background-color:#f5f5f5; text-align: center;}
+.item1{ width:56px; border-right:#e6e9ec 1px solid; border-bottom:#e6e9ec 1px solid;}
+.item2{ width:114px;border-right:#e6e9ec 1px solid; border-bottom:#e6e9ec 1px solid;}
+.item3{ width:120px;border-right:#e6e9ec 1px solid; border-bottom:#e6e9ec 1px solid;}
+.item4{ width:200px;border-right:#e6e9ec 1px solid; border-bottom:#e6e9ec 1px solid;}
+.two{text-align:center;text-align: center;}
+.three{background-color:#f5f5f5; text-align:center;}

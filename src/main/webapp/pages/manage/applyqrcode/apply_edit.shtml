@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+	<link href="/js/skin/layer.css" rel="stylesheet" type="text/css" />
+	<link href="/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/common.css">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+	<script src="/js/jquery/validation/additional-methods.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/layer.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.base.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.util.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.http.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.regex.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.validation.methods.js"></script>
+	<script type="text/javascript" src="/js/views/manage/applyqrcode/invoiceApply.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>审核开票申请</span>
+	</div>
+	<form id="customerMessage">
+	 <ul class="adaption_shop_ul shop_ul">
+		 <li><em></em><label>发票抬头</label><input type="text" id="buyerName" name="buyerName" value="" /></li>
+		 <li><em></em><label>购买方税号</label><input type="text" id="buyerTaxNo" name="buyerTaxNo" value="" /></li>
+		 <li><em></em><label>开票金额</label><input type="text" id="invoiceAmount" name="invoiceAmount" value="" /></li>
+		 <li><em></em><label>收票人手机</label><input type="text" id="buyerMobile" name="buyerMobile" value="" /></li>
+		 <li><em></em><label>收票人邮箱</label><input type="text" id="buyerMail" name="buyerMail"  value="" /></li>
+		 <li><em></em><label>开票项目</label><input type="text" id="invoiceItemName" name="invoiceItemName"  value="" readonly/></li>
+	 </ul>
+	 <div class="but_z" >
+		 <a class="blue-btn" href="javascript:permit()" style="margin-right:40px" id="permit_btn"><span>审核通过</span></a>
+		 <a class="blue-btn" href="javascript:prevent()" style="margin-right:40px" id="prevent_btn"><span>审核不通过</span></a>
+		 <a class="white-btn" href="javascript:history.back(-1)">返　回</a>
+	 </div>
+	</form>
+	</div>	 	  
+</div>			  
+</body>
+<script>
+	var item = $Utils.getUrlParameters();
+	$("#buyerName").val(decodeURIComponent(item.buyerName));
+	$("#invoiceAmount").val($Utils.formatNumber(item.invoiceAmount,2));
+	$("#buyerMobile").val(item.buyerMobile);
+	$("#buyerMail").val(item.buyerEmail);
+	$("#buyerTaxNo").val(item.buyerTaxNo);
+	var itemName = decodeURIComponent(item.invoiceItemName);
+	$("#invoiceItemName").val(decodeURIComponent(item.invoiceItemName));
+	var validator = $("#customerMessage").validate({
+		ignore:"",
+		//光标离开时校验
+		onfocusout:function(element){
+			$(element).valid();
+		},
+		//获取到焦点时去除错误提示信息
+		onfocusin:function(element){
+			if(this.settings.focusCleanup){
+//                $("#"+$(element).attr("id")+"_tip").text("");
+			}
+		},
+		focusCleanup:true, //clear the error message when the error element get focus again.
+		onkeyup:false,
+		highlight: function(element, errorClass){
+			/*$(element).fadeOut(function() {
+			 $(element).fadeIn();
+			 });*/
+		},
+		errorPlacement: function(error, element) {
+			//element是form表单中出错的元素的jquery对象
+			if(error.text() != "" && error.text() != null){
+				layer.tips(error.text(),"#" + element.attr("id"),{tips:[1,'red']});
+			}
+		}
+	});
+	$("#buyerName").rules("add",{
+		required:true,
+		gmfMcVali:true,
+		messages:{
+			required:"购买方名称不能为空",
+			gmfMcVali:"请输入2-40个字符的中文、数字、字母及（）组合"
+		}
+	});
+	$("#buyerTaxNo").rules("add", {
+		required: false,
+		nsrsbhVali: true,
+		messages: {
+			required: "",
+			nsrsbhVali: "请输入15-20个字符的数字及大写字母组合"
+		}
+	});
+	$("#buyerMobile").rules("add", {
+		required:false,
+		mobileVali:true,
+		messages:{
+			required:"",
+			mobileVali:"请填写正确格式的手机号"
+		}
+	});
+	$("#buyerMail").rules("add", {
+		required: false,
+		emailVali: true,
+		messages: {
+			required: "",
+			emailVali: "请填写正确格式的邮箱，最长为50个字符"
+		}
+	});
+	$("#invoiceAmount").rules("add", {
+		required: true,
+		totalPriceVali :true,
+		messages: {
+			required: "开票金额不能为空",
+			totalPriceVali: "请输入不超过8位的正数，可保留2位小数"
+		}
+	});
+	function permit() {
+		if($("#customerMessage").valid()) {
+			var invoiceApply = new InvoiceQrcodeApply(item.id, $("#buyerName").val(), $("#invoiceAmount").val(), $("#buyerMobile").val(), $("#buyerMail").val(),$("#buyerTaxNo").val());
+			InvoiceApply.permit(invoiceApply);
+		}
+	}
+	function prevent() {
+		InvoiceApply.prevent(item.id);
+	}
+</script>
+</html>

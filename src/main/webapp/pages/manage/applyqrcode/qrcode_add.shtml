@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+	<link href="/js/skin/layer.css" rel="stylesheet" type="text/css" />
+	<link href="/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/common.css">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+	<script src="/js/jquery/validation/additional-methods.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/layer.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.base.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.util.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.http.js"></script>
+	<script type="text/javascript" src="/js/views/manage/applyqrcode/qrcodemanager.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>生成二维码</span>
+	</div>
+	<form id="customerMessage">
+	 <ul class="adaption_shop_ul shop_ul">
+	     <li>
+			 <em>＊</em><label>开票项目</label>
+			 <select id="invoiceItemName">
+			 </select>
+		 </li>
+		 <li><em></em><label>税收分类编码</label><input type="text" id="taxClassificationCode" readonly value="" /></li>
+		 <li><em></em><label>享受税收优惠</label><input type="text" id="isEnjoyPolicy" value="" readonly /></li>
+		 <li><em></em><label>优惠政策类型</label><input type="text" id="policyType" value="" readonly/></li>
+		 <li>
+			 <em></em><label>税率</label>
+			 <input type="text" id="taxRate" value="" readonly/>
+			 <input type="hidden" id="taxRateValue" value="" readonly/>
+		 </li>
+	 </ul>
+	 <div class="but_z" ><a class="blue-btn" href="javascript:addQrcode()" style="margin-right:40px" id="save"><span>生成开票二维码</span></a><a class="white-btn" href="javascript:goBack()">返　回</a></div>
+	</form>
+	</div>	 	  
+</div>			  
+</body>
+<script>
+	Applyqrcode.initItemList($("#invoiceItemName"));
+	$("#invoiceItemName").on("change", function () {
+		var item = Applyqrcode.itemListMap[$("#invoiceItemName").val()];
+		$("#taxClassificationCode").val(item.taxClassificationCode);
+		$("#isEnjoyPolicy").val(!item.isDiscount? "否":"是");
+		$("#policyType").val(item.discountPolicyType),
+		$("#taxRate").val(item.taxRateName);
+		$("#taxRateValue").val(item.taxRateValue);
+	});
+	//TODO 初始化开票项目和税率
+	function addQrcode(){
+		var item = Applyqrcode.itemListMap[$("#invoiceItemName").val()];
+		var qrcode = new Qrcode(
+				item.itemName,
+				item.taxClassificationCode,
+				item.taxClassificationName,
+				item.isDiscount,
+				item.discountPolicyType,
+				item.taxRateName,
+				item.taxRateValue
+		);
+		Applyqrcode.add(qrcode);
+	}
+	function goBack(){
+		window.location.href = Applyqrcode.configs.returnUrl;
+	}
+</script>
+</html>

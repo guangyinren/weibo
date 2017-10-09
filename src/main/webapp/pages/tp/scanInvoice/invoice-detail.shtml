@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>票通电子发票服务平台</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/tp/scanInvoice/img/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/tp/scanInvoice/css/sm.min.css">
+    <link rel="stylesheet" href="/tp/scanInvoice/css/style.css">
+    <script src="/tp/scanInvoice/js/vue.min.js"></script>
+    <script src="/tp/scanInvoice/js/vue-resource.min.js"></script>
+    <script src="/tp/scanInvoice/js/vpiaotong.base.js"></script>
+    <script src="/tp/scanInvoice/js/vpiaotong.util.js"></script>
+    <script src="/tp/scanInvoice/js/base64.min.js"></script>
+</head>
+<body>
+<div class="page-group" id="myApp">
+    <div class="page page-current">
+        <div class="content native-scroll" id="scrollContent">
+            <div class="content-inner">
+                <div class="invoice-title text-center">
+                    <div class="invoice-company">{{invoiceDetail.xsfMc}}</div>
+                    <div class="invoice-money">{{invoiceDetail.jshj | amountFilter}}</div>
+                    <div class="invoice-sec-title">开票合计金额</div>
+                </div>
+                <div class="list-block">
+                    <ul>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">开票日期</div>
+                                    <div class="item-after">{{invoiceDetail.kprq | kprqFilter}}</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">发票代码</div>
+                                    <div class="item-after">{{invoiceDetail.fpDm}}</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">发票号码</div>
+                                    <div class="item-after">{{invoiceDetail.fpHm}}</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">发票抬头</div>
+                                    <div class="item-after">{{invoiceDetail.gmfMc}}</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">发票金额</div>
+                                    <div class="item-after">{{invoiceDetail.hjje | amountFilter}}</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title">发票税额</div>
+                                    <div class="item-after">{{invoiceDetail.hjse | amountFilter}}</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bar-standard bar-footer footer-content" id="footerBar">
+            <a class="button button-fill footer-button2" @click="collectionInvoice" v-if="collectionInvoiceFlag">{{collectionType}}</a>
+            <a class="button button-fill footer-button1" @click="viewInvoice">查看电子发票</a>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='/tp/scanInvoice/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/tp/scanInvoice/js/sm.min.js' charset='utf-8'></script>
+<script>
+    new Vue({
+        el: '#myApp',
+        data: {
+            state: '',
+            invoiceDetail: {
+                xsfMc: '',
+                gmfMc: '',
+                kprq: '',
+                fpDm: '',
+                fpHm: '',
+                hjje: '',
+                hjse: '',
+                jshj: ''
+            },
+            collectionInvoiceFlag: false
+        },
+        created: function () {
+            var state = JSON.parse(Base64.decode($Utils.getUrlParameters().state));
+            if ($Utils.isNotEmptyObject(state)) {
+                this.state = state.data.state;
+                this.invoiceDetail.xsfMc = state.data.xsfMc;
+                this.invoiceDetail.gmfMc = state.data.gmfMc;
+                this.invoiceDetail.kprq = $Utils.timestampFormat('Y-m-d', state.data.kprq / 1000);
+                this.invoiceDetail.fpDm = state.data.fpDm;
+                this.invoiceDetail.fpHm = state.data.fpHm;
+                this.invoiceDetail.hjje = state.data.hjje;
+                this.invoiceDetail.hjse = state.data.hjse;
+                this.invoiceDetail.jshj = state.data.jshj;
+                this.collectionInvoiceFlag = state.flag;
+            } else {
+                window.location.href = basePath + 'pages/tp/scanInvoice/error-404.shtml';
+            }
+        },
+        methods: {
+            viewInvoice: function () {
+                window.location.href = basePath + 'pages/tp/scanInvoice/invoice-electronic.shtml?state=' + this.state;
+            },
+            collectionInvoice: function () {
+                var browserVersions = $Utils.getBrowser().versions;
+                if (browserVersions.qq || browserVersions.weChat) {
+                    $.showIndicator();
+                    this.$http.get(basePath + 'tp/scan-invoice/getWeChatAuthUrl' + suffix, {
+                        params: {
+                            state: this.state
+                        }
+                    }).then(function (response) {
+                        $.hideIndicator();
+                        if (response.body.code === '200') {
+                            window.location.href = response.body.data.data;
+                        } else {
+                            window.location.href = basePath + 'pages/tp/scanInvoice/error-404.shtml';
+                        }
+                    }).catch(function (error) {
+                        $.hideIndicator();
+                        window.location.href = basePath + 'pages/tp/scanInvoice/error-500.shtml';
+                    });
+                } else if (browserVersions.alipay || browserVersions.weibo || browserVersions.dingTalk) {
+                    $.showIndicator();
+                    this.$http.get(basePath + 'tp/scan-invoice/getAlipayAuthUrl' + suffix, {
+                        params: {
+                            state: this.state
+                        }
+                    }).then(function (response) {
+                        $.hideIndicator();
+                        if (response.body.code === '200') {
+                            window.location.href = 'alipays://platformapi/startapp?appId=20000067&action=WebView&url=' + encodeURIComponent(response.body.data.data);
+                        } else {
+                            window.location.href = basePath + 'pages/tp/scanInvoice/error-404.shtml';
+                        }
+                    }).catch(function (error) {
+                        $.hideIndicator();
+                        window.location.href = basePath + 'pages/tp/scanInvoice/error-500.shtml';
+                    });
+                } else {
+                    var that = this;
+                    $.actions([[
+                        {
+                            text: '添加到微信卡包',
+                            onClick: function () {
+                                $.showIndicator();
+                                that.$http.get(basePath + 'tp/scan-invoice/getWeChatAuthUrl' + suffix, {
+                                    params: {
+                                        state: that.state
+                                    }
+                                }).then(function (response) {
+                                    $.hideIndicator();
+                                    if (response.body.code === '200') {
+                                        window.location.href = response.body.data.data;
+                                    } else {
+                                        window.location.href = basePath + 'pages/tp/scanInvoice/error-404.shtml';
+                                    }
+                                }).catch(function (error) {
+                                    $.hideIndicator();
+                                    window.location.href = basePath + 'pages/tp/scanInvoice/error-500.shtml';
+                                });
+                            }
+                        },
+                        {
+                            text: '添加到支付宝发票管家',
+                            onClick: function () {
+                                $.showIndicator();
+                                that.$http.get(basePath + 'tp/scan-invoice/getAlipayAuthUrl' + suffix, {
+                                    params: {
+                                        state: that.state
+                                    }
+                                }).then(function (response) {
+                                    $.hideIndicator();
+                                    if (response.body.code === '200') {
+                                        window.location.href = 'alipays://platformapi/startapp?appId=20000067&action=WebView&url=' + encodeURIComponent(response.body.data.data);
+                                    } else {
+                                        window.location.href = basePath + 'pages/tp/scanInvoice/error-404.shtml';
+                                    }
+                                }).catch(function (error) {
+                                    $.hideIndicator();
+                                    window.location.href = basePath + 'pages/tp/scanInvoice/error-500.shtml';
+                                });
+                            }
+                        }
+                    ], [
+                        {
+                            text: '取消'
+                        }
+                    ]]);
+                }
+            },
+        },
+        computed: {
+            collectionType: function () {
+                var browserVersions = $Utils.getBrowser().versions;
+                if (browserVersions.qq || browserVersions.weChat) {
+                    return '添加到微信卡包';
+                } else if (browserVersions.alipay || browserVersions.weibo || browserVersions.dingTalk) {
+                    return '添加到支付宝发票管家';
+                } else {
+                    return '电子发票归集';
+                }
+            }
+        },
+        filters: {
+            amountFilter: function(value) {
+                return parseFloat(value).toFixed(2);
+            },
+        },
+        mounted: function () {
+            $.init();
+            var footerBar = $('#footerBar').height();
+            $('#scrollContent').css('margin-bottom', footerBar);
+        }
+    });
+</script>
+</body>
+</html>

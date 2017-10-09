@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>开具平台_微票通</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+	<link href="/js/skin/layer.css" rel="stylesheet" type="text/css" />
+	<link href="/css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/common.css">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+	<script src="/js/jquery/validation/additional-methods.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/layer.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.base.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.util.js"></script>
+	<script type="text/javascript" src="/js/lib/vpiaotong.http.js"></script>
+	<script type="text/javascript" src="/js/views/manage/applyqrcode/invoiceApply.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+	<div class="zc_tit" >
+		<span>查看开票申请</span>
+	</div>
+	<form id="customerMessage">
+	 <ul class="adaption_shop_ul shop_ul">
+		 <li><em></em><label>发票抬头</label><input type="text" id="buyerName" value="" readonly/></li>
+		 <li><em></em><label>购买方税号</label><input type="text" id="buyerTaxNo" value="" /></li>
+		 <li><em></em><label>开票金额</label><input type="text" id="invoiceAmount" value="" readonly/></li>
+		 <li><em></em><label>收票人手机</label><input type="text" id="buyerMobile" value="" readonly/></li>
+		 <li><em></em><label>收票人邮箱</label><input type="text" id="buyerMail" value="" readonly/></li>
+		 <li><em></em><label>开票项目</label><input type="text" id="invoiceItemName" value="" readonly/></li>
+	 </ul>
+	 <div class="but_z" >
+		 <a class="white-btn" href="javascript:history.back(-1)">返　回</a>
+	 </div>
+	</form>
+	</div>	 	  
+</div>			  
+</body>
+<script>
+	var item = $Utils.getUrlParameters();
+	$("#buyerName").val(decodeURIComponent(item.buyerName));
+	$("#invoiceAmount").val($Utils.formatNumber(item.invoiceAmount,2));
+	$("#buyerMobile").val(item.buyerMobile);
+	$("#buyerMail").val(item.buyerEmail);
+	$("#buyerTaxNo").val(item.buyerTaxNo);
+	var itemName = decodeURIComponent(item.invoiceItemName);
+	$("#invoiceItemName").val(decodeURIComponent(item.invoiceItemName));
+</script>
+</html>

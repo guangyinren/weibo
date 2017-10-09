@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>票通电子发票服务平台</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/tp/alipay/css/sm.min.css">
+    <link rel="stylesheet" href="/tp/alipay/css/style.css">
+    <script src="/tp/alipay/js/vue.min.js"></script>
+    <script src="/tp/alipay/js/vue-resource.min.js"></script>
+    <script src="/tp/alipay/js/vpiaotong.base.js"></script>
+    <script src="/tp/alipay/js/vpiaotong.util.js"></script>
+    <script src="/tp/alipay/js/base64.min.js"></script>
+</head>
+<body>
+<div class="page-group" id="myApp">
+    <div class="page page-current">
+        <div class="content native-scroll">
+            <div class="content-inner invoice-tips">
+            <div class="tips-company">
+                {{xsfMc}}
+            </div>
+            <div class="tips-money">
+                开票合计金额：{{invoiceAmount}}
+            </div>
+            <img src="/tp/alipay/img/ok.png" width="50">
+            <div class="tips-text">
+                开票申请已提交，系统将自动为您开票
+                <br>
+                请前往发票管家查看发票详情
+            </div>
+            </div>
+        </div>
+        <div class="bar bar-standard bar-footer">
+            <a href="alipays://platformapi/startapp?appId=20000920&url=%2Fwww%2Findex.htm%3F__webview_options__%3Dttb%253Dauto" class="button button-success" style="margin: auto;width:80%;border-color: #0fce88;color: #0fce88">前往发票管家</a>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='/tp/alipay/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/tp/alipay/js/sm.min.js' charset='utf-8'></script>
+<script>
+    new Vue({
+        el: '#myApp',
+        data:{
+            xsfMc: '',
+            invoiceAmount: ''
+        },
+        created: function () {
+            var state = JSON.parse(Base64.decode($Utils.getUrlParameters().state));
+            this.xsfMc = state.xsfMc;
+            this.invoiceAmount = state.invoiceAmount;
+        },
+        mounted: function() {
+            $.init();
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+.zhanghu{
+    width: 100%;
+    margin: 0px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.zc_tit{
+    margin:0;
+}
+.invoiceSaveTips{
+    color: #31708F;
+    background: #D9EDF6;
+    line-height: 40px;
+    padding-left: 10px;
+    margin: 10px 0;
+}
+.custom {
+    width: 100%;
+    margin: 0;
+}
+.but_z{
+    margin:10px auto;
+    width: 100%;
+}
+.modal-content{
+    border-radius: 0;
+    width: 650px;
+}
+.modal-header{
+    padding: 5px 15px;
+    background-color: #394457;
+    color: #FFF;
+}
+.close{
+    color: #FFF;
+    opacity: 1;
+}
+#setModal .modal-dialog{
+    margin-top: 200px;
+}
+.setting-item{
+    margin-bottom:30px;
+}
+.setting-item label{
+    width: 175px;
+    text-align: justify;
+    text-align-last: justify;
+    font-weight:normal;
+}
+.setting-item  input{
+    width: 310px;
+    padding: 0 10px;
+}

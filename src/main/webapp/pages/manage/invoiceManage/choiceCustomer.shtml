@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>选择客户信息</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<!--<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">-->
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+<link href="/css/laypage.css" rel="stylesheet" type="text/css"/>
+	<link rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+<script src="/js/views/manage/invoiceManage/choiceCustomer.js"></script>
+</head>
+<body class="lay-body">
+<div class="mina">
+    <div class="zhanghu">
+		<div class="sosuo">
+			  <form name="mailBox" id="mailBox" method="post" action="">
+				<ul>
+					<li>客户名称:<input type="text" id="customerNameQuery" size="auto" placeholder="客户名称"/></li>
+					<li>客户编号:<input type="text" id="customerCodeQuery" size="auto" placeholder="客户编号"/></li>
+					<li><a class="blue-btn" href="javascript:void(0)" onclick="queryCusByIndex(1)">查询</a></li>
+			   </ul>			   
+			  </form>
+		</div>
+		<div class="custom"  style="height:180px;overflow:auto;margin-bottom: 10px;">
+		    <table class="customers">	
+		    	<thead>
+					<tr>					
+						<th>客户编号</th>
+					    <th>客户名称</th>
+					    <th>纳税人识别号</th>
+					    <th>联系人姓名</th>
+					    <th>联系人手机号</th>
+					    <th>联系人邮箱</th>
+					    <th width="50px">操作</th>
+					</tr>
+				</thead>
+				<tbody id="cusData"></tbody>
+			</table>
+		</div>
+	     <div id="cusPage" style="text-align:center;"></div>
+	</div>	 	  
+</div>	
+<script type="text/javascript">
+
+	$(function(){
+		$(".custom").css("height",($(document.body).height()-200) + "px");
+	})
+</script>		  
+</body>
+</html>

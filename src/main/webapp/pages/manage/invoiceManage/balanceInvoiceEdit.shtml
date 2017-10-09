@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>电子发票开具</title>
+<link href="/css/main.css" rel="stylesheet" type="text/css">
+<link href="/css/main-lu.css" rel="stylesheet" type="text/css">
+<link href="/js/skin/layer.css" rel="stylesheet" type="text/css">
+<link href="/css/jquery-ui.min.css" rel="stylesheet">
+<link href="/css/manage/invoiceManage/makeBlueInvoiceTaxCat.css" rel="stylesheet">
+<script type="text/javascript" src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/lib/math.min.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/jquery/validation/jquery.validate.js"></script>
+<script src="/js/lib/vpiaotong.regex.js"></script>
+<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+<script src="/js/lib/vpiaotong.cookie.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/jquery/plugins/jquery-ui.min.js"></script>
+<script src="/js/views/manage/invoiceManage/invoiceCommonFun.js"></script>
+<script src="/js/views/manage/invoiceManage/invoiceCalculate.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+	<script src="/js/views/css.js"></script>
+<body>
+<div class="mina">
+    <div class="invoice-box">
+		<div class=" content-title">
+			<h6 style="display: inline;">
+				增值税普通发票
+			</h6>
+			<span>&emsp;</span>
+			<span></span>
+			<input type="radio" name="invoiceType" checked id="eleInvoice" onchange="changeInvoiceType()">
+			<label for="noTax">电子票</label>
+			<input type="radio" name="invoiceType" id="paperInvoice" onchange="changeInvoiceType()">
+			<label for="hasTax">纸票</label>
+			<div style="float: right">
+				<span style="display: inline; margin-right: 10px;" id="balanceInvoiceEditPageH01">票通宝状态</span>
+				<div id="ptbzt" style="display: inline;">
+				</div>
+			</div>
+		</div>
+		<p class="operation-btn">
+		<span>是否含税：</span>
+		<input type="radio" name="taxOrNoTax" checked id="hasTax" onchange="taxOrNoTax()">
+		<label for="hasTax">含税</label>
+		<input type="radio" name="taxOrNoTax" id="noTax" onchange="taxOrNoTax()">
+		<label for="noTax">不含税</label>
+			<!-- <a class="blue-btn" href="javascript:void(0)" id="balanceBtn" onclick="addBalance()">差额</a> -->
+			<a class="blue-btn" href="javascript:void(0)" onclick="delTr()">删除行</a>
+			<a class="blue-btn" href="javascript:void(0)" onclick="addDisTr()">增加折扣行</a>
+			<!-- <a class="blue-btn" href="javascript:void(0)" id="proBtn" onclick="addProTr()">增加商品行</a> -->
+		</p>
+		<form id="makeInvoiceTaxCatForm" method="post" action="">
+		<table class="voucher" id="dzfpTab" border="0" cellspacing="0" cellpadding="2"  bgcolor="#ffffff" >
+			<tbody>
+				<tr>
+					<td class="column-purchaser" >购买方</td>
+					<td colspan="6">
+						<div class="column-invoice-cont">
+							<div class="column-invoice-input ttlx-input">
+								<label>抬头类型</label>
+								<input  type="radio" name="ttlx" checked id="ttlx-dw" style="margin-left: 10px;"/>
+								<label for="ttlx-dw">单位</label>
+								<input  type="radio" name="ttlx" id="ttlx-gr" />
+								<label for="ttlx-gr">个人</label>
+							</div>
+							<div class="column-invoice-input">
+								<label><span class="require-tit">*</span>名称：</label>
+								<input  type="text" id="gmfMc" name="gmfMc" class="input-search" placeholder="个人企业名称" />
+								<img src="/images/ico1.jpg" onclick="cusTanchu()" style="cursor:pointer">
+							</div>
+							<div class="column-invoice-input">
+								<label><span class="require-tit gmfNsrsbh-re">*</span>纳税人识别号：</label>
+								<input  type="text" id="gmfNsrsbh" name="gmfNsrsbh" placeholder="纳税人识别号"/>
+								<img src="/images/ico1.jpg" onclick="cusTanchu()" style="cursor:pointer">
+							</div>
+							<div class="column-invoice-input">
+								<label>地址、电话：</label>
+								<input type="text" id="gmfDzdh" name="gmfDzdh" placeholder="地址"/>
+								<input type="text" id="gmfdh" name="gmfdh" placeholder="电话"/>
+							</div>
+							<div class="column-invoice-input">
+								<label>开户行及账号：</label>
+								<input type="text" id="gmfKhh" name="gmfKhh" placeholder="开户行"/>,
+								<input type="text" id="gmfYhzh" name="gmfYhzh" placeholder="账号"/>
+							</div>
+						</div>
+					</td>
+					<td class="column-purchaser">密码区</td>
+					<td colspan="5" >
+						<div class="column-invoice-password"></div>
+					</td>
+				</tr>
+				<tr class="tit-list">
+					<td class="column-invoice-check">&nbsp;</td>
+					<td class="column-invoice-goods" colspan="3"><div>货物或应税劳务、服务名称</div></td>
+					<td class="column-invoice-model"><div>规格型号</div></td>
+					<td class="column-invoice-company"><div>单位</div></td>
+					<td class="column-invoice-number"><div>数量</div></td>
+					<td class="column-invoice-price" colspan="2"><div id="priceText">单价(含税)</div></td>
+					<td class="column-invoice-money" colspan="2"><div id="moneyText">金额(含税)</div></td>
+					<td class="column-invoice-taxes"><div>税率</div></td>
+					<td class="column-invoice-tax"><div >税额</div></td>
+				</tr>
+				<tr id="1" class="item-list">
+					<td class="column-invoice-check" align="center">
+						<input type="checkbox" name="checkTr"/>
+					</td>
+					<td class="column-invoice-goods" colspan="3">
+						<label id="enterpriseProductId1" style="display:none;"></label>
+						<input type="text" id="productName1" name="productName1" placeholder="货物或应税劳务、服务名称" />
+						<label id="taxClassificationCode1" name="taxClassificationCode1" style="display:none;"></label>
+						<img src="/images/ico1.jpg" onclick="proTanchu(1)" style="cursor:pointer">
+					</td>
+					<td class="column-invoice-model">
+						<input type="text" id="specificationModel1" name="specificationModel1"/>
+					</td>
+					<td class="column-invoice-company">
+						<input type="text" id="meteringUnit1" name="meteringUnit1"/>
+					</td>
+					<td class="column-invoice-number">
+						<input type="text" id="quantity1" name="quantity1" onblur="countQuPrSeByQu(1)" onmouseover="tipVal(this)"/>
+					</td>
+					<td class="column-invoice-price" colspan="2">
+						<input type="text" id="price1" name="price1" onblur="countQuPrSeByPr(1)" onmouseover="tipVal(this)"/>
+					</td>
+					<td class="column-invoice-money" colspan="2">
+						<input type="text" id="totalPrice1" name="totalPrice" onblur="countQuPrSeByTotal(1)"/>
+					</td>
+					<td class="column-invoice-taxes">
+						<span id="taxRate1_Err" style="display:none;"></span>
+						<select class="sel_plu_a" id="taxRate1" name="taxRate1" onchange="countSePrice(1)">
+							<option value="">请选择</option>
+						</select>
+					</td>
+					<td class="column-invoice-tax"><input type="text" id="sePrice1" name="sePrice" readonly="readonly"/></td>
+				</tr>
+				<tr class="tit-list">
+					<td class="column-invoice-check"></td>
+					<td class="column-invoice-goods" colspan="3">合计</td>
+<!-- 					<td class="column-invoice-classify"><div></div></td> -->
+					<td class="column-invoice-model"></td>
+					<td class="column-invoice-company"></td>
+					<td class="column-invoice-number"></td>
+					<td class="column-invoice-price" colspan="2"></td>
+					<td class="column-invoice-money" colspan="2" >
+						<!--<label style="padding-right: 0px;">￥</label>-->
+						<input class="center" type="text" id="hjje" name="hjje" readonly="readonly" style="width:115px"/>
+					</td>
+					<td class="column-invoice-money">
+						<!--<label style="padding-right: 0px;">￥</label>-->
+					</td>
+					<td class="column-invoice-money">
+						<input class="center" type="text" id="hjse" name="hjse" readonly="readonly"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="column-invoice-tax" height="25" colspan="13" valign="bottom">
+						<label>价税合计(大写)</label>
+						<span class="column-invoice-taxd">
+							<input type="text" id="jshjdx" name="jshjdx" readonly="readonly"/>
+						</span>
+						<label>(小写)￥</label>
+						<span class="column-invoice-taxx">
+							<input type="text" id="jshjxx" name="jshjxx" readonly="readonly"/>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="column-purchaser">销售方</td>
+					<td colspan="6">
+						<div class="column-invoice-cont">
+							<div class="column-invoice-input">
+								<label>名称：</label>
+								<input type="text" id="xsfMc" name="xsfMc" disabled="disabled"/>
+							</div>
+							<div class="column-invoice-input">
+								<label>纳税人识别号：</label>
+								<input type="text" id="xsfNsrsbh" name="xsfNsrsbh" disabled="disabled"/>
+							</div>
+							<div class="column-invoice-input">
+								<label>地址、电话：</label>
+								<input type="text" id="xsfDzdh" name="xsfDzdh" placeholder="地址" />,
+								<input type="text" id="xsfdh" name="xsfdh" placeholder="电话" />
+							</div>
+							<div class="column-invoice-input">
+								<label>开户行及账号：</label>
+								<input type="text" id="xsfKhh" name="xsfKhh" placeholder="开户行" />,
+								<input type="text" id="xsfYhzh" name="xsfYhzh" placeholder="账号" />
+							</div>
+						</div>
+					</td>
+					<td class="column-purchaser">备注</td>
+					<td colspan="5" >
+						<div class="column-invoice-password">
+							<textarea id="bz" name="bz" style="resize:none;"></textarea>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="inscribe-ul">
+			<li>
+				<label>收&emsp;款&emsp;人：</label>
+				<span>
+					<input name="skr" id="skr" type="text"/>
+				</span>
+				</li>
+			<li>
+				<label>复&emsp;&emsp;&emsp;&emsp;核：</label>
+				<span>
+					<input name="fhr" id="fhr" type="text"/>
+				</span>
+			</li>
+			<li><label>开&emsp;票&emsp;人：</label><input name="kpr" id="kpr" type="text" disabled="disabled"/></li>
+			<li><label>销售方：(章)</label></li>
+		</ul>
+		<ul class="inscribe-ul" id="invoiceRelate" style="display:none;">
+			<li>
+				<label>收票人名称：</label>
+				<span><input type="text" name="sprMc" id="sprMc"/></span>
+			</li>
+			<li>
+				<label>收票人手机号：</label>
+				<span><input type="text" name="sprSjh" id="sprSjh"/></span>
+			</li>
+			<li>
+				<label>收票人邮箱：</label>
+				<span><input type="text" name="sprYx" id="sprYx"/></span>
+			</li>
+		</ul>
+		</form>
+		<div class="billing-btn">
+			<a class="blue-btn" id="saveDzfpBtn" href="javascript:saveDzfp()">仅保存</a>
+			<a class="blue-btn" id="saveMakeDzfpBtn" href="javascript:saveMakeDzfp()">保存并开票</a>
+		</div>
+	</div>	 	  
+</div>
+<script src="/js/views/manage/invoiceManage/elecInvoiceEdit.js"></script>
+
+<div id="failModal" style="display:none;">  
+	<div class="popup-window-tips">
+		<h3><a href="javascript:layer.closeAll()"><img src="/images/close.png"></a></h3>
+		<div class="popup-window-tips-cont">
+			<p><img src="/images/error-circle.png"><label id="failMsg"></a></label>
+			<span><a href="javascript:layer.closeAll()">关闭</a></span></p>
+		</div>
+	</div>
+</div>
+
+<div id="succModal" style="display:none;">  
+	<div class="popup-window-tips popup-window-tips1">
+		<h3><a href="javascript:layer.closeAll()"><img src="/images/close.png"></a></h3>
+		<div class="popup-window-tips-cont">
+			<p><img src="/images/b5.png" ><label id="succMsg"></label><span><a href="javascript:layer.closeAll()">关闭</a></span></p>
+		</div>
+	</div>
+</div>
+
+<div id="discModal" style="display:none;">   
+	<div class="popup-window-addzk">
+		<h3>折扣行</h3>
+		<input type="hidden" id="proTaxValModal" name="proTaxValModal">
+		<ul>
+			<li>
+				<label>折扣行名称</label>
+				<input type="text" id="dicNameModal" name="dicNameModal" disabled="disabled"/>
+				<em></em>
+			</li>
+			<li>
+				<label>原商品金额</label>
+				<input type="text" id="proJeModal" name="dicJeModal" disabled="disabled"/>
+				<em></em>
+			</li>
+			<li>
+				<label>原商品税率</label>
+				<input type="text" id="proTaxModal" name="proTaxModal" disabled="disabled"/>
+				<em></em>
+			</li>
+			<li>
+				<label>折扣率</label>
+				<input type="text" id="dicTaxModal" name="dicTaxModal" onblur="countDiscDetail()"/>%
+				<input type="hidden" id="dicTaxModalExact">
+				<em></em>
+			</li>
+			<li>
+				<label>折扣金额</label>
+				<input type="text" id="dicJeValModal" name="dicJeValModal" onblur="countDiscJeDetail()"/>
+				<em></em>
+			</li>
+			<li>
+				<label>折扣税额</label>
+				<input type="text" id="dicSeModal" name="dicSeModal" disabled="disabled"/>
+				<em></em>
+			</li>
+		</ul>
+		<p></p>
+		<div class="billing-btn1">
+			<a class="blue-btn" href="javascript:void(0)" onclick="fillDicTr()">确定</a>
+			<a class="white-btn" href="javascript:layer.closeAll()">取消</a>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

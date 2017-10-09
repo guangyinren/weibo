@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>票通电子发票服务平台</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/tp/alipay/css/sm.min.css">
+    <link rel="stylesheet" href="/tp/alipay/css/style.css">
+    <script src="/tp/alipay/js/vue.min.js"></script>
+    <script src="/tp/alipay/js/vue-resource.min.js"></script>
+    <script src="/tp/alipay/js/vpiaotong.base.js"></script>
+    <script src="/tp/alipay/js/vpiaotong.util.js"></script>
+    <script src="/tp/alipay/js/base64.min.js"></script>
+</head>
+<body>
+<div id="myApp">
+    <div class="page-group">
+        <div class="page page-current">
+            <div class="content native-scroll">
+                <div class="content-inner content-inner-extra">
+                    <div class="company-title border-bot-e6 invoice-title" align="center">
+                        <img src="/tp/alipay/img/logo.png" width="31">
+                        <span>票通电子发票服务平台</span>
+                        <div class="invoice-money">{{invoice.proList[0].amount}}</div>
+                        <div class="invoice-sec-title">开票合计金额</div>
+                    </div>
+                    <div class="list-block">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">发票抬头</div>
+                                        <div class="item-input">
+                                            <input class="scan-input" type="text" placeholder="请输入单位名称或个人名称" v-model="invoice.gmfMc">
+                                            <span class="icon icon-search" @click="modalShow"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">纳税人识别号</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入纳税人识别号" v-model="invoice.gmfNsrsbh">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">收票人手机号</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入收票人手机号" v-model="invoice.sprSjh">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">收票人邮箱</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请输入收票人邮箱" v-model="invoice.sprYx">
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label invoiceItemName">开票明细</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="请选择开票明细" id="invoiceItemName" v-model="invoiceItemName" @click="selectInvoiceItem()" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="invoice-more-info1">
+                        <div class="invoice-item">
+                            <div class="row-title">数量</div>
+                            <div class="row-text">{{invoice.proList[0].quantity}}</div>
+                        </div>
+                        <div class="invoice-item">
+                            <div class="row-title">单价</div>
+                            <div class="row-text">{{invoice.proList[0].price}}</div>
+                        </div>
+                        <div class="invoice-item">
+                            <div class="row-title">金额</div>
+                            <div class="row-text">{{invoice.proList[0].amount}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tips">
+                    <img src="/tp/alipay/img/warn-icon.png">
+                    <span>注意：国税局规定，自2017年7月1日起，普票没有填写“纳税人识别号”将不能税前扣除</span>
+                </div>
+            </div>
+            <div class="bar bar-standard bar-footer">
+                <a class="button button-fill button-invoice" @click="saveInvoice">开票</a>
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="content native-scroll">
+            <div v-for="invoiceTitle in alipayInvoiceTitleAll" @click="selectInvoiceTitle(invoiceTitle)">
+                <div class="card" v-if="invoiceTitle.title_type === 'PERSONAL'">
+                    <div class="card-header card-header-person hd-bg">个人</div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            <div>名称<span>{{invoiceTitle.title_name}}</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" v-if="invoiceTitle.title_type === 'CORPORATION'">
+                    <div class="card-header card-header-company hd-bg">单位</div>
+                    <div class="card-content">
+                        <div class="card-content-inner">
+                            <div>名称<span>{{invoiceTitle.title_name}}</span></div>
+                            <div>税号<span>{{invoiceTitle.tax_register_no}}</span></div>
+                            <div>单位地址<span>{{invoiceTitle.user_address}}</span></div>
+                            <div>电话号码<span>{{invoiceTitle.user_mobile}}</span></div>
+                            <div>开户银行<span>{{invoiceTitle.open_bank_name}}</span></div>
+                            <div>银行账号<span>{{invoiceTitle.open_bank_account}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='/tp/alipay/js/zepto.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='/tp/alipay/js/sm.min.js' charset='utf-8'></script>
+<script>
+    var valid = {
+        gmfMcValid: function (str) {
+            var reg = /^[\u4e00-\u9fa5a-zA-Z0-9()（）]{2,40}$/;
+            return reg.test(str);
+        },
+        gmfNsrsbhValid: function (str) {
+            var reg = /^[0-9A-Z]{15,20}$/;
+            return reg.test(str);
+        },
+        phoneValid: function (str) {
+            var reg = /^[1][34578][\d]{9}$/;
+            return reg.test(str);
+        },
+        emailValid: function (str) {
+            var reg = /^[A-Za-z0-9\u4e00-\u9fa5\._-]+@[\.a-zA-Z0-9_-]+$/;
+            return reg.test(str);
+        },
+        isNeedTaxNo: function(name, taxNo) {
+            if ($Utils.isNotEmpty(name) && name.length > 4) {
+                if ($Utils.isEmpty(taxNo)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    };
+    var methods = {
+        saveInvoice: function () {
+            if ($Utils.isEmpty(this.invoice.gmfMc)) {
+                $.alert('发票抬头不能为空');
+                return;
+            }
+            if (!valid.gmfMcValid(this.invoice.gmfMc)) {
+                $.alert('请填写正确格式的发票抬头');
+                return;
+            }
+            if ($Utils.isNotEmpty(this.invoice.gmfNsrsbh) && !valid.gmfNsrsbhValid(this.invoice.gmfNsrsbh)) {
+                $.alert('请填写正确格式的纳税人识别号');
+                return;
+            }
+            if ($Utils.isNotEmpty(this.invoice.sprSjh) && !valid.phoneValid(this.invoice.sprSjh)) {
+                $.alert('请填写正确格式的收票人手机号');
+                return;
+            }
+            if ($Utils.isNotEmpty(this.invoice.sprYx) && !valid.emailValid(this.invoice.sprYx)) {
+                $.alert('请填写正确格式的收票人邮箱');
+                return;
+            }
+            if ($Utils.isEmpty(this.invoiceItemName)) {
+                $.alert('请选择开票明细');
+                return;
+            }
+            if (valid.isNeedTaxNo(this.invoice.gmfMc, this.invoice.gmfNsrsbh)) {
+                var that = this;
+                $.modal({
+                    title:  '温馨提示',
+                    text: '根据国税局要求，发票如需报销，请填写纳税人识别号',
+                    buttons: [
+                        {
+                            text: '返回填写'
+                        },
+                        {
+                            text: '暂不需要',
+                            onClick: function() {
+                                $.showIndicator();
+                                that.$http.post(basePath + 'tp/alipay/saveInvoice' + suffix, {
+                                    invoice: that.invoice,
+                                    alipayInvoiceTradeInfo: that.alipayInvoiceTradeInfo
+                                }).then(function (response) {
+                                    $.hideIndicator();
+                                    if (response.body.code === '200') {
+                                        window.location.href = basePath + 'pages/tp/alipay/success.shtml?state=' + Base64.encode(JSON.stringify({invoiceAmount: that.invoice.proList[0].amount, xsfMc: that.invoice.xsfMc}));
+                                    } else {
+                                        $.alert(response.body.msg);
+                                    }
+                                }).catch(function (error) {
+                                    $.hideIndicator();
+                                    window.location.href = basePath + 'pages/tp/alipay/error-500.shtml';
+                                });
+                            }
+                        }
+                    ]
+                });
+            } else {
+                $.showIndicator();
+                this.$http.post(basePath + 'tp/alipay/saveInvoice' + suffix, {
+                    invoice: this.invoice,
+                    alipayInvoiceTradeInfo: this.alipayInvoiceTradeInfo
+                }).then(function (response) {
+                    $.hideIndicator();
+                    if (response.body.code === '200') {
+                        window.location.href = basePath + 'pages/tp/alipay/success.shtml?state=' + Base64.encode(JSON.stringify({invoiceAmount: this.invoice.proList[0].amount, xsfMc: this.invoice.xsfMc}));
+                    } else {
+                        $.alert(response.body.msg);
+                    }
+                }).catch(function (error) {
+                    $.hideIndicator();
+                    window.location.href = basePath + 'pages/tp/alipay/error-500.shtml';
+                });
+            }
+        }
+    };
+    new Vue({
+        el: '#myApp',
+        data: {
+            invoice:{
+                gmfMc: '',
+                gmfNsrsbh: '',
+                gmfDzdh: '',
+                gmfdh: '',
+                gmfKhh: '',
+                gmfYhzh: '',
+                sprSjh: '',
+                sprYx: '',
+                xsfMc: '',
+                xsfNsrsbh: '',
+                proList: [
+                    {
+                        goodsServiceName: '',
+                        taxClassificationCode: '',
+                        taxClassificationName: '',
+                        taxRate: '',
+                        hsbz: '1',
+                        quantity: '1',
+                        price: '',
+                        amount: ''
+                    }
+                ]
+            },
+            alipayInvoiceTradeInfo: {},
+            invoiceItemName: '',
+            invoiceItemNameAll: [],
+            invoiceItemAll: [],
+            alipayInvoiceTitleAll: []
+        },
+        created: function () {
+            var authorizeInfo = {
+                authCode: $Utils.getUrlParameters().authCode,
+                parameter: $Utils.getUrlParameters().parameter
+            };
+            if ($Utils.isNotEmpty(authorizeInfo.authCode) && $Utils.isNotEmpty(authorizeInfo.parameter)) {
+                this.$http.get(basePath + 'tp/alipay/getBillInvoiceInfo' + suffix, {
+                    params: {
+                        authCode: authorizeInfo.authCode,
+                        parameter: authorizeInfo.parameter
+                    }
+                }).then(function (response) {
+                    if (response.body.code === '200') {
+                        var vm = this;
+                        vm.invoice.xsfMc = response.body.data.tpAlipayEnterprise.enterpriseName;
+                        vm.invoice.xsfNsrsbh = response.body.data.tpAlipayEnterprise.taxpayerNum;
+                        vm.invoice.proList[0].price = response.body.data.alipayInvoiceTradeInfo.real_amount;
+                        vm.invoice.proList[0].amount = response.body.data.alipayInvoiceTradeInfo.real_amount;
+                        vm.alipayInvoiceTradeInfo = response.body.data.alipayInvoiceTradeInfo;
+                        vm.alipayInvoiceTitleAll = response.body.data.alipayInvoiceTitleAll;
+                        vm.invoiceItemAll = response.body.data.invoiceItemAll;
+                        vm.invoiceItemNameAll = vm.invoiceItemAll.map(function (item) {
+                            return item.taxClassificationName;
+                        });
+                        for (var i = 0, len = vm.invoiceItemAll.length; i < len; i++) {
+                            if (vm.invoiceItemAll[i].isDefault) {
+                                vm.invoice.proList[0].goodsServiceName = vm.invoiceItemAll[i].itemName;
+                                vm.invoice.proList[0].taxClassificationCode = vm.invoiceItemAll[i].taxClassificationCode;
+                                vm.invoice.proList[0].taxClassificationName = vm.invoiceItemAll[i].taxClassificationName;
+                                vm.invoice.proList[0].taxRate = vm.invoiceItemAll[i].taxRateValue;
+                                vm.invoiceItemName = vm.invoiceItemAll[i].itemName;
+                                break;
+                            }
+                        }
+                        if (parseFloat(vm.invoice.proList[0].amount) === 0) {
+                            $.alert('该订单实际支付金额为零，不能进行开票', function () {
+                                AlipayJSBridge.call('exitApp');
+                            });
+                        }
+                    } else {
+                        window.location.href = basePath + 'pages/tp/alipay/error-404.shtml';
+                    }
+                }).catch(function (error) {
+                    window.location.href = basePath + 'pages/tp/alipay/error-500.shtml';
+                });
+            } else {
+            	window.location.href = basePath + 'pages/tp/alipay/error-404.shtml';
+            }
+        },
+        methods: {
+            saveInvoice: methods.saveInvoice,
+            selectInvoiceItem: function () {
+                var vm = this;
+                $('#invoiceItemName').picker({
+                    toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button></header>',
+                    rotateEffect: true,
+                    cols: [
+                        {
+                            textAlign: 'center',
+                            values: vm.invoiceItemNameAll
+                        }
+                    ],
+                    onClose: function (picker) {
+                        for (var i = 0, len = vm.invoiceItemAll.length; i < len; i++) {
+                            if (picker.value[0] === vm.invoiceItemAll[i].taxClassificationName) {
+                                vm.invoice.proList[0].goodsServiceName = vm.invoiceItemAll[i].itemName;
+                                vm.invoice.proList[0].taxClassificationCode = vm.invoiceItemAll[i].taxClassificationCode;
+                                vm.invoice.proList[0].taxClassificationName = vm.invoiceItemAll[i].taxClassificationName;
+                                vm.invoice.proList[0].taxRate = vm.invoiceItemAll[i].taxRateValue;
+                                vm.invoiceItemName = vm.invoiceItemAll[i].itemName;
+                                break;
+                            }
+                        }
+                    }
+                });
+            },
+            modalShow: function () {
+                $.popup('.popup');
+            },
+            selectInvoiceTitle: function(invoiceTitle){
+                this.invoice.gmfMc = $Utils.trim(invoiceTitle.title_name);
+                this.invoice.gmfNsrsbh = $Utils.trim(invoiceTitle.tax_register_no);
+                this.invoice.gmfDzdh = $Utils.trim(invoiceTitle.user_address);
+                this.invoice.gmfdh = $Utils.phoneProcess(invoiceTitle.user_mobile);
+                this.invoice.gmfKhh = $Utils.trim(invoiceTitle.open_bank_name);
+                this.invoice.gmfYhzh = $Utils.trim(invoiceTitle.open_bank_account);
+                this.invoice.sprYx = $Utils.trim(invoiceTitle.user_email);
+                $.closeModal('.popup');
+            }
+        },
+        mounted: function() {
+            $.init();
+        }
+    });
+</script>
+</body>
+</html>

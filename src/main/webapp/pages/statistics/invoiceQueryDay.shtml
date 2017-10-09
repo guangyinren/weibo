@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+	<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+	<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="/css/common.css">
+	<link href="/css/main.css" rel="stylesheet">
+	<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+	<script src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.min.js"></script>
+	<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/layer.js"></script>
+	<script src="/js/lib/vpiaotong.base.js"></script>
+	<script src="/js/lib/vpiaotong.http.js"></script>
+	<script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+    <script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/js/lib/vpiaotong.datetimepicker.js"></script>
+	<script src="/js/views/statistics/invoiceMonthlyCommon.js"></script>
+	<script src="/js/views/statistics/invoiceQueryDay.js"></script>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+		<div class="zc_tit" >
+			<span style="width:100%">日开票统计</span>
+		</div>
+	  <form name="mailBox" id="mailBox" method="post" action="">
+		<ul class="shop_ul">
+			<li>
+				<label>开票日期:</label>
+				<input type="text" class="date_inputs" id="startKprq"/><font> 至</font><input class="date_inputs" id="endKprq" type="text"/>
+			</li>
+			<li>
+				<label>发票种类:</label>
+				<select class="order_select" id ="fpzldm" style="float:left">
+					<option value="">全部</option>	
+					<option value="10">电子增值税普通发票</option>	
+					<option value="04">纸质增值税普通发票</option>									
+				</select>
+			</li>						
+			<li class="cha_a"><a class="blue-btn" href="javascript:void(0)" id="but_qu" onclick="queryByIndex(1)">统计</a></li>
+	   </ul>			   
+	   </form>
+		<div class="custom">		
+		    <table class="customers">	
+		    	<thead>
+					<tr id="menu_tr">					
+						<th>序号</th>
+						<th>月份</th>
+						<th>发票种类</th>			
+						<th>蓝票开票数量</th>			
+						<th>蓝票开票金额</th>			
+						<th>蓝票开票税额</th>			
+						<th>蓝票价税合计金额</th>			
+						<th>红票开票数量</th>			
+						<th>红票开票金额</th>			
+						<th>红票开票税额</th>
+						<th>红票价税合计金额</th>
+						<th>总开票数量</th>
+						<th>总开票金额</th>
+						<th>总开票税额</th>
+						<th>总价税合计金额</th>
+					</tr>
+				</thead>
+				<tbody id="invoice_query_day">
+				</tbody>
+			</table>
+		</div>
+	     <div id="page3" style="text-align:center;"></div>
+	</div>
+</div>			  
+</body>
+</html>

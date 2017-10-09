@@ -1,0 +1,118 @@
+.home-content{
+    min-width: 1200px;
+}
+.content1{
+    width: 100%;
+    text-align: center;
+}
+.content1 img{
+    margin-top:30px;
+}
+.big-title{
+    padding-top:70px;
+    font-size: 44px;
+}
+.content1 hr{
+    width: 390px;
+    border-width: 2px;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    margin: 20px auto;
+}
+.content1 .con1-text{
+    font-size: 16px;
+}
+.content2{
+    text-align: center;
+    background: #FFF;
+    width: 1200px;
+    margin: 0 auto;
+    padding:280px 0 250px;
+}
+.content2 .title{
+    font-size: 30px;
+}
+.heard{
+    position: fixed;
+    top:0;
+}
+.content2 hr{
+    width: 145px;
+    border-width: 4px;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    margin: 20px auto 110px;
+}
+.con2-pics{
+    overflow: hidden;
+}
+.con2-pics>div{
+    float: left;
+    width: 33%;
+}
+.con2-pic img{
+    height:140px;
+}
+.con2-pic span{
+    margin-top:10px;
+    font-size: 16px;
+    display: inline-block;
+}
+.content3{
+    text-align: center;
+    background-color: #F4F8FB;
+    padding:200px 0;
+    overflow: hidden;
+    width: 1200px;
+    margin: 0 auto;
+}
+.con3-pic{
+    display: inline-block;
+    width: 400px;
+    float: left;
+}
+.con3-pic .l-title{
+    display: inline-block;
+    background-color: #3FAEDC;
+    width:168px;
+    line-height: 40px;
+    color: #FFF;
+    font-size:16px;
+    margin-top: 40px;
+}
+.con3-text{
+    width: 170px;
+    height:130px;
+    line-height: 2.5;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 25px;
+}
+.con3-tips{
+    font-size: 16px;
+    color: #3FAEDC;
+    text-align-last: justify;
+    width: 170px;
+    margin:0 auto;
+    margin-top: 60px;
+}
+.footer{
+    position: absolute;
+}
+body{
+    overflow-x: auto !important;
+}
+#fp-nav ul li a span{
+    border-radius: 0 !important;
+    height: 12px;
+    width: 12px;
+    margin: -6px 0 0 -6px;
+}
+#fp-nav ul li a.active span{
+    background-color: #3faedc;
+}
+.con2-pic .con2-tips{
+    font-size: 12px;
+}

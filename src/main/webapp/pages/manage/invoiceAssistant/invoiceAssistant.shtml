@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发票查询助手</title>
+    <link rel="stylesheet" type="text/css" href="/css/invoiceQuery.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/keyboard/keyboard.css">
+    <script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+    <script src="/js/jquery/plugins/jquery-ui.min.js"></script>
+    <script src="/js/jquery/jquery.jqprint-0.3.js"></script>
+    <script type="text/javascript" src="/js/layer.js"></script>
+    <script src="/js/plugin/keyboard/jquery.keyboard.js"></script>
+    <script src="/js/plugin/keyboard/zh.untranslated.js"></script>
+    <script src="/js/lib/vpiaotong.base.js"></script>
+    <script src="/js/lib/vpiaotong.constant.js"></script>
+    <script src="/js/jquery/validation/jquery.validate.js"></script>
+	<script src="/js/lib/vpiaotong.regex.js"></script>
+	<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+	<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+    <script src="/js/views/manage/invoiceAssistant/invoiceAssistant.js"></script>
+</head>
+<body>
+<div class="header">
+    <div class="wid-1200 logo">
+        <img src="/images/logo_hebei.png">
+        <span>电子发票打印助手</span>
+    </div>
+</div>
+<div class="content wid-1200">
+	<form id="invoiceQueryForm" action="">
+    <div class="tabs">
+        <div class="tab tab1 active">
+            扫码打印
+        </div><div class="tab tab2">
+            手工查询打印
+        </div>
+    </div>
+    <div class="content1 " >
+        <div class="qrCodePath">
+            <input type="text" placeholder="请将光标放置此处,然后进行扫描" id="qrCodeUrl" name="qrCodeUrl" autocomplete="off" onfocus="this.style.imeMode='inactive'">
+        </div>
+        <div class="qrCodeTips">
+        	<div style="width: 425px;display:inline-block;text-align: left;">
+        	请将手机中的发票二维码或者开票二维码对准本机扫码处<br><br>
+            1.请您先用手机扫描购物小票上的开票二维码，申请开票<br>
+		    2.开票成功后，如需打印，可通过本机扫描枪，扫描小票<br>
+			&emsp;二维码或发票左上角二维码，出现发票后，可选择打印，<br>
+          	&emsp;获取电子发票纸质版<br/>
+		    3.您还可输入发票代码、发票号码、金额，进行查询，出<br>
+          	&emsp;现发票后，可选择打印，获取电子发票纸质版<br>
+        	</div>
+        </div>
+    </div>
+    <div class="content2" hidden>
+        <div id="qrcodeInvoiceImgDiv">
+            <img src="/images/loading.gif" id="qrcodeInvoiceImg">
+        </div>
+        <button type="button" onclick="backToScan()">重新扫描</button>
+        <button type="button" onclick="qrcodePrint()">打 印</button>
+        <button type="button" onclick="backup()">返 回</button>
+    </div>
+    <div class="tips tips1" hidden>
+	        <img src="/images/warn-icon.png" id="errLoagImg">
+	        <div class="tips-text" id="errTipMsg">亲，没有查询到该张发票</div>
+	        <button type="button" onclick="backToScan()">重新扫描</button>
+    </div>
+    <div class="scan-result" hidden>
+        <div class="scan-result-tips no-create" hidden>
+            <div class="invoice-result">
+                <img src="/images/warn-icon2.png">
+                <span class="scan-result-text">您有<label id="noMakeCountLab"></label>张发票尚未生成，请先通过手机扫描小票二维码生成发票。</span>
+            </div>
+        </div>
+        <div class="scan-result-tips creating" hidden>
+            <div class="invoice-result">
+                <img src="/images/load-icon.png">
+                <span class="scan-result-text">您有<label id="makingCountLab"></label>张发票正在生成，清稍后查看。</span>
+            </div>
+        </div>
+        <div class="scan-result-tips fail" hidden>
+            <div class="invoice-result">
+                <img src="/images/fail-icon.png">
+                <span class="scan-result-text">您有<label id="makeFailCountLab"></label>张发票开票失败，请联系商家。</span>
+            </div>
+        </div>
+        <table id="makeSuccessTable" hidden>
+        	<thead>
+	            <tr>
+	            	<th>序号</th>
+	                <th>发票代码</th>
+	                <th>发票号码</th>
+	                <th>购买方名称</th>
+	                <th>发票金额</th>
+	                <th>开票日期</th>
+	                <th>操作</th>
+	            </tr>
+	        </thead>
+            <tbody id="invoice"></tbody>
+        </table>
+        <button type="button" onclick="backToScan()">重新扫描</button>
+        <button type="button" id="immeMakeBtn" onclick="immeMake()" hidden>立即开票</button>
+    </div>
+    <div class="content-mobile" hidden>
+        <iframe id="h5Frame" src="" hidden></iframe>
+        <br>
+        <button type="button" onclick="backToScan()">重新扫描</button>
+        <button type="button" id="backupBtn" onclick="iframeBackup()" hidden>返 回</button>
+   	</div>
+    <div class="content3" hidden>
+        <div class="input-item">
+            <span>发票代码:</span>
+            <input type="text" id="fpDm" name="fpDm" placeholder="请输入发票代码">
+        </div>
+        <div class="input-item">
+            <span>发票号码:</span>
+            <input type="text" id="fpHm" name="fpHm" placeholder="请输入发票号码">
+        </div>
+        <div class="input-item">
+            <span>开票金额:</span>
+            <input type="text" id="jshj" name="jshj" placeholder="请输入支付金额">
+        </div>
+        <button type="button" onclick="queryInvoiceByHandWork()">查 询</button>
+    </div>
+    <div class="content4" hidden>
+        <div id="handWorkInvoiceImgDiv">
+            <img id="handWorkInvoiceImg" src="/images/loading.gif">
+        </div>
+        <button type="button" onclick="backToQuery()">重新输入</button>
+        <button type="button" onclick="handWorkPrint()">打 印</button>
+    </div>
+    
+    <div class="tips tips2" hidden>
+        <img src="/images/warn-icon.png">
+        <div class="tips-text">亲，没有查询到该张发票</div>
+        <button type="button" onclick="backToQuery()">重新输入</button>
+    </div>
+     <div class="content5" hidden>
+         <div class="invoicePrint">
+              <div class="invoicePrint_item">
+                  <div class="invoicePrint_item_hd media-middle">
+                      <span>销售方名称：</span>
+                  </div>
+                  <input type="text" id="enterpriseName" readonly value="北京票通信息技术有限公司">
+              </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <span>发票金额：</span>
+                 </div>
+                 <input type="text" id="receivableAmount" readonly value="560.00">
+             </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <em style="color:red">*</em>
+                     <span>发票抬头：</span>
+                 </div>
+                 <input type="text" id="gmfMc" name="gmfMc" placeholder="请输入发票抬头">
+             </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <span>纳税人识别号：</span>
+                 </div>
+                 <input type="text" id="gmfNsrsbh" name="gmfNsrsbh" placeholder="请输入纳税人识别号">
+             </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <span>收票人手机号：</span>
+                 </div>
+                 <input type="text" id="sprSjh" name="sprSjh" placeholder="请输入收票人手机号">
+             </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <span>收票人邮箱：</span>
+                 </div>
+                 <input type="text" id="sprYx" name="sprYx" placeholder="请输入收票人邮箱">
+             </div>
+             <div class="invoicePrint_item">
+                 <!-- <a href="javascript:void(0)">查看项目名称> ></a> -->
+             </div>
+             <div class="invoicePrint_item">
+                 <div class="invoicePrint_item_hd media-middle">
+                     <span>项目名称及金额：</span>
+                 </div>
+                 <div class="invoicePrint_item_r">
+                     <div class="invoicePrint_item_ft">
+                         <div class="item_ft_name">
+                             我是示例名称研究啊
+                         </div>
+                         <div class="item_ft_money">
+                             1234567.00
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="invoicePrint_item">
+                 <!-- <a href="javascript:void(0)">收起项目名称<span class="glyphicon glyphicon-arrow-up"></span></a> -->
+             </div>
+             <div class="invoicePrint_item_des">
+                 国税局规定，自2017年7月1日起，普票没有填写“纳税人识别号”将不能税前扣除
+             </div>
+             <div class="invoicePrint_item_btn">
+                 <button type="button" onclick="backToScan()">重新扫描</button>
+                 <button type="button" onclick="makeInvoice()">开票</button>
+             </div>
+         </div>
+     </div>
+     </form>
+    
+</div>
+</body>
+</html>

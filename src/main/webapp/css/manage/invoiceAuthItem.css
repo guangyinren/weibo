@@ -1,0 +1,337 @@
+.layui-layer-btn0, .blue-btn {
+    background-color: #3faedc !important;
+    border-radius: 3px;
+    color: #FFF;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none !important;
+}
+    .account-balance{
+        padding:20px 0;
+        display: inline-block;
+        width: 100%;
+    }
+    .balance{
+        font-size: 18px;
+        font-weight:bold;
+    }
+    .balance-tips{
+        color: #31708f;
+        font-size:14px;
+        margin-top:5px;
+        background: #d9edf7;
+   		padding: 10px;    
+    }
+    .tabs{
+        background-color: #f4f8fb;
+        font-size: 18px;
+    }
+    .tabs>div{
+        float: left;
+        border-top:4px solid transparent;
+        border-bottom:4px solid transparent;
+        padding:17px 25px;
+        cursor: pointer;
+        line-height: 1;
+    }
+    .tabs>div.active{
+        border-top-color: #3FAEDC;
+        border-left:1px solid #E5E7E4;
+        border-right:1px solid #E5E7E4;
+        background-color: #FFFFFF;
+    }
+    .record-list table{
+        width: 100%;
+        text-align: center;
+        margin-top:10px;
+    }
+    .record-list th{
+        background-color: #f4f8fb;
+        font-size: 16px;
+        line-height: 50px;
+        font-weight:normal;
+        text-align: center;
+    }
+    .record-list td{
+        font-size: 14px;
+        line-height: 40px;
+        border-bottom:1px solid #E6E6E6;
+        padding:0 5px;
+    }
+    .record-list td.del-btn{
+        color: #3faedc;
+        cursor: pointer;
+    }
+    .record-list tr:hover{
+        background-color: #f4f8fb;
+    }
+    .consume-table,.refund-table{
+        display: none;
+    }
+    .checkbox {
+	    padding-left: 20px;
+	}
+	.checkbox input[type="checkbox"], .checkbox input[type="radio"] {
+	    opacity: 0;
+	    z-index: 1;
+	}
+	.checkbox label {
+	    display: inline-block;
+	    vertical-align: middle;
+	    position: relative;
+	    padding-left: 5px;
+	}
+	.checkbox-primary input[type="checkbox"]:checked + label::before, .checkbox-primary input[type="radio"]:checked + label::before {
+	    background-color: #3faedc;
+	    border-color: #337ab7;
+	}
+	.checkbox label::before {
+	    content: "";
+	    display: inline-block;
+	    position: absolute;
+	    width: 15px;
+	    height: 15px;
+	    margin-top: 2px;
+	    left: 0;
+	    margin-left: -20px;
+	    border: 1px solid #cccccc;
+	    border-radius: 3px;
+	    background-color: #fff;
+	    -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	    -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	    transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+	}
+	.checkbox-primary input[type="checkbox"]:checked + label::after, .checkbox-primary input[type="radio"]:checked + label::after {
+	    color: #fff;
+	}
+	.checkbox label::after {
+	    display: inline-block;
+	    position: absolute;
+	    width: 16px;
+	    height: 16px;
+	    left: 0;
+	    top: 0;
+	    margin-left: -20px;    padding-left: 2px;
+    padding-top: 2px;
+	    font-size: 11px;
+	    color: #555555;
+	}
+	.checkbox input[type="checkbox"]:checked + label::after, .checkbox input[type="radio"]:checked + label::after {
+	    font-family: "FontAwesome";
+	    content: "\f00c";
+	}
+	:after, :before {
+	    -webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.onoffswitch {
+	  position: relative;
+	  width: 64px;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	}
+	.onoffswitch-checkbox {
+	  display: none;
+	}
+	.onoffswitch-label {
+	  display: block;
+	  overflow: hidden;
+	  cursor: pointer;
+	  border: 1px solid #3faedc;
+	  border-radius: 2px;
+	}
+	.onoffswitch-inner {
+	  width: 200%;
+	  margin-left: -100%;
+	  -moz-transition: margin 0.3s ease-in 0s;
+	  -webkit-transition: margin 0.3s ease-in 0s;
+	  -o-transition: margin 0.3s ease-in 0s;
+	  transition: margin 0.3s ease-in 0s;
+	}
+	.onoffswitch-inner:before,
+	.onoffswitch-inner:after {
+	  float: left;
+	  width: 50%;
+	  height: 20px;
+	  padding: 0;
+	  line-height: 20px;
+	  font-size: 12px;
+	  color: white;
+	  font-family: Trebuchet, Arial, sans-serif;
+	  font-weight: bold;
+	  -moz-box-sizing: border-box;
+	  -webkit-box-sizing: border-box;
+	  box-sizing: border-box;
+	}
+	.onoffswitch-inner:before {
+	  content: "ON";
+	  padding-left: 10px;
+	  background-color: #3faedc;
+	  color: #FFFFFF;
+	}
+	.onoffswitch-inner:after {
+	  content: "禁止";
+	  padding-right: 12px;
+	  background-color: #FFFFFF;
+	  color: #999999;
+	  text-align: right;
+	}
+	.onoffswitch-switch {
+	  width: 20px;
+	  margin: 0px;
+	  background: #FFFFFF;
+	  border: 1px solid #3faedc;
+	  border-radius: 2px;
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  right: 44px;
+	  -moz-transition: all 0.3s ease-in 0s;
+	  -webkit-transition: all 0.3s ease-in 0s;
+	  -o-transition: all 0.3s ease-in 0s;
+	  transition: all 0.3s ease-in 0s;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	  margin-left: 0;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	  right: 0px;
+	}
+	.onoffswitch {
+	  position: relative;
+	  width: 90px;
+	  -webkit-user-select: none;
+	  -moz-user-select: none;
+	  -ms-user-select: none;
+	}
+	.onoffswitch-checkbox {
+	  display: none;
+	}
+	.onoffswitch-label {
+	  display: block;
+	  overflow: hidden;
+	  cursor: pointer;
+	  border: 1px solid #3faedc;
+	  border-radius: 3px;
+	}
+	.onoffswitch-inner {
+	  display: block;
+	  width: 200%;
+	  margin-left: -100%;
+	  -moz-transition: margin 0.3s ease-in 0s;
+	  -webkit-transition: margin 0.3s ease-in 0s;
+	  -o-transition: margin 0.3s ease-in 0s;
+	  transition: margin 0.3s ease-in 0s;
+	}
+	.onoffswitch-inner:before,
+	.onoffswitch-inner:after {
+	  display: block;
+	  float: left;
+	  width: 50%;
+	  height: 20px;
+	  padding: 0;
+	  line-height: 20px;
+	  font-size: 10px;
+	  color: white;
+	  font-family: Trebuchet, Arial, sans-serif;
+	  font-weight: bold;
+	  -moz-box-sizing: border-box;
+	  -webkit-box-sizing: border-box;
+	  box-sizing: border-box;
+	}
+	.onoffswitch-inner:before {
+	  content: "允许";
+	  padding-left: 9px;
+	  background-color: #3faedc;
+	  color: #FFFFFF;
+	}
+	.onoffswitch-inner:after {
+	  content: "禁止";
+	  padding-right: 9px;
+	  background-color: #e6e6e6;
+	  color: #919191;
+	  text-align: right;
+	}
+	.onoffswitch-switch {
+	  display: block;
+	  width: 45px;
+	  margin: 0px;
+	  background: #FFFFFF;
+	  border: 1px solid #3faedc;
+      border-radius: 3px 0 0 3px;
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;right: 45px;
+	  -moz-transition: all 0.3s ease-in 0s;
+	  -webkit-transition: all 0.3s ease-in 0s;
+	  -o-transition: all 0.3s ease-in 0s;
+	  transition: all 0.3s ease-in 0s;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+	  margin-left: 0;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+	  right: 0px;
+      border-radius: 0 3px 3px 0;
+	}
+	.recharge-table{
+		margin-top: 30px;
+	}
+	.out-btns {
+	     width: 100%; 
+	}
+	.out-btns button {
+	    width: 170px;
+	}
+	
+	.alert_msg{
+		min-height: 150px;text-align: center;font-size: 18px;font-weight: 600;display: none;
+	}
+
+	.layui-layer .layui-layer-btn .layui-layer-btn0 {
+	    border-color: #4898d5;
+	    background-color: #3FAEDC;
+    }
+    .layui-layer.layui-layer-dialog .layui-layer-padding {
+    	/* padding: 20px 10px 20px 10px; */
+	    text-align: center;
+	}
+	.layui-layer-dialog .layui-layer-content p{
+		text-align: center;
+	}
+	.layui-layer .layui-layer-btn{
+		text-align: center;
+	}
+	.layui-layer .layui-layer-btn a {
+	    height: 35px;
+	    line-height: 35px;
+	    /* padding: 0 25px; */
+	    background-color: #fff;
+	    font-size: 16px;
+    }
+	.layui-layer .layui-layer-setwin a {
+	    position: relative;
+	    width: 18px;
+	    height: 18px;
+	    margin-left: 0px;
+    }
+    .layui-layer .layui-layer-btn {
+	    padding: 0 12px 30px;
+	}
+	.layui-layer .layui-layer-setwin {
+	    top: 10px;
+    }
+    
+    .insert_form{
+    	width: 550px;
+	    text-align: center;
+	    padding: 5px 25px 0px;
+    }
+    .charge-input{
+    	width: 300px;
+    }

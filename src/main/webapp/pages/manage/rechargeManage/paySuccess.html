@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>充值</title>
+    <link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+    <!--<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="/css/manage/recharge.css">
+</head>
+<style>
+    .error-pic {
+        right: -21px;
+        top: 12px;
+    }
+
+    .error-text {
+        top: 45px;
+        left: 85px;
+        color: #F00;
+    }
+
+    .recharge-content .charge-input {
+        width: 310px;
+    }
+
+    .radio-div {
+        position: absolute;
+        border: 1px solid #3FAEDC;
+        width: 14px;
+        height: 14px;
+        top: 4px;
+        left: 95px;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+    .charge-item input[type=radio] {
+        visibility: hidden;
+    }
+
+    input[type=radio]:checked + label {
+        background: url("/images/radio-checked.png") no-repeat center;
+    }
+</style>
+<body>
+<div class="recharge-manage">
+    <div class="body-title">
+        充值管理
+    </div>
+    <div class="recharge-content recharge-complete">
+        <div class="charge-items">
+            <div class="charge-item">
+                <span class="charge-title">充 值 金 额：</span>
+                <span><number id="amount">90</number>元人民币</span>
+                <img class="error-pic" src="/images/warn.png">
+                <span class="error-text">错误提示语</span>
+            </div>
+            <div class="charge-item">
+                <span>支 付 方 式：</span>
+                <label id="payType">支付宝支付</label>
+            </div>
+        </div>
+        <br>
+        <button type="button" class="charge-item btn charge-btn">继续支付</button>
+        <button type="button" class="charge-item btn charge-btn" style="margin-left: 20px;">支付完成
+        </button>
+    </div>
+</div>
+</body>
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script>
+    var urlParameters = $Utils.getUrlParameters();
+    $("#amount").text(urlParameters.amount);
+    $("#payType").text(decodeURIComponent(urlParameters.payType));
+    $(".charge-btn").on("click",function () {
+        window.location.href = '/pages/manage/index.shtml?t=recharge';
+    });
+</script>
+</html>

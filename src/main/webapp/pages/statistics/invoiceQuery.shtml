@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<title>发票开具平台</title>
+<link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+<link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+<link rel="stylesheet" href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="/css/common.css">
+<link href="/css/main.css" rel="stylesheet">
+<link rel="stylesheet" href="/js/bootstrap/plugin/bootpag/pag.css">
+<link rel="stylesheet" href="/css/common-layer.css">
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/layer.js"></script>
+<script src="/js/jquery/jquery.jqprint-0.3.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/lib/vpiaotong.http.js"></script>
+<script src="/js/lib/vpiaotong.util.js"></script>
+<script src="/js/lib/math.min.js"></script>
+<script src="/js/util/explorer.js"></script>
+<script src="/js/lib/browser.js"></script>
+<script src="/js/lib/print.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.js"></script>
+<script type="text/javascript" src="/js/lib/vpiaotong.pagewrapper.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/lib/vpiaotong.datetimepicker.js"></script>
+<script src="/js/views/statistics/invoiceCommon.js"></script>
+<script src="/js/views/statistics/invoiceQuery.js"></script>
+<script src="/js/views/statistics/invoiceBatchPrint.js" type="text/javascript"></script>
+
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+		<div class="zc_tit" >
+			<span style="width:15%">发票查询</span>
+		</div>
+	 <ul class="adaption_shop_ul shop_ul">
+	     <li>
+	     	<label>开票人</label>
+	     	<select class="order_select" id ="select_kpr">
+	     		<option value="">请选择</option>
+	     	</select>
+	     </li>
+	     <li>
+		 	<label>购买方名称</label>
+		 	<input type="text" placeholder="请输入购买方名称" id="input_gmfmc"/>
+		 </li>
+		 <li>
+		 	<label>收票人名称</label>
+		 	<input type="text" placeholder="请输入收票人名称" id="input_lxr"/>
+		 </li>
+		 <li>
+		 	<label>收票人手机号</label>
+		 	<input type="text" placeholder="请输入收票人手机号" id="input_sjh"/>
+		 </li>
+		 <li>
+		 	<label>发票代码</label>
+		 	<input type="text" placeholder="请输入发票代码" id="input_fpdm"/>
+		 </li>
+		 <li>
+		 	<label>发票号码</label>
+		 	<input type="text" placeholder="请输入发票号码" id="input_fphm"/>
+		 </li>
+		 <li>
+		 	<label>价税合计金额</label>
+		 	<select class="equals" id ="select_sign" >
+				<option value="1">=</option>	
+				<option value="2">&gt;</option>	
+				<option value="3">&lt;</option>									
+			</select>
+			<input type="text" placeholder="" id="input_hjje"/>
+		 </li>
+		 <li>
+			 <label>开票日期</label>
+			 <input type="text" class="date_inputs" id="startKprq"/>
+			 <font >至</font>
+			 <input class="date_inputs" id="endKprq" type="text"/>
+		 </li>
+		 <li>
+			<label>开票类型</label>
+			<select class="order_select" id ="kplx">
+				<option value="">全部</option>	
+				<option value="1">蓝票</option>	
+				<option value="2">红票</option>									
+			</select>
+		 </li>
+		 <li id="fapzldmli" style="display: none">
+			<label>发票种类</label>
+			<select class="order_select" id ="fpzldm" style="display: none">
+				<option value="" style="display: none" id="select0">全部</option>	
+				<option value="10">电子增值税普通发票</option>	
+				<option value="04" style="display: none" id="select1">纸质增值税普通发票</option>									
+				<option value="01" style="display: none" id="select2">纸质增值税专用发票</option>										
+			</select>
+		 </li>
+		<li class="cha_a">
+			<a class="blue-btn" href="javascript:void(0)" id="but_qu" onclick="queryByIndex(1)">查　询</a>
+		<li>
+	 </ul>
+		<div class="out-btns" align="right">
+			<button type="button" id="exportExcel" class="blue-btn" onclick="exportExcel();">导出明细</button>
+			<button type="button" id="dy" class="blue-btn" onclick="printExcel();">打印明细</button>
+			<button type="button" id="batch_print" class="blue-btn" style="width:150px">批量打印电子发票</button>
+		</div>
+	<div class="custom">	
+          <div class="table_w">	  
+		    <table class="customers">	
+		    	<thead>
+					<tr id="menu_tr">					
+						<th width="50px">序号</th>
+					    <th>发票种类</th>
+					    <th>销售单据号</th>
+					    <th>购买方名称</th>
+					    <th>收票人名称</th>
+					    <th>收票人手机号</th>
+					    <th>发票代码</th>
+					    <th>发票号码</th>
+					    <th>开票日期</th>
+					    <th>税额</th>
+					    <th>价税合计金额</th>
+					    <th>开票人</th>
+						<th>开票类型</th>
+					    <th>操作</th>
+					</tr>
+				</thead>
+				<tbody id="invoice_query">
+				</tbody>
+			</table>	
+	     <div id="page1" style="text-align:center;margin-top: 20px;"></div>
+	  </div>
+	</div>	 	  
+</div>
+</div>	
+<div id="explorerId"></div>
+<div id="printId"></div>
+<div id="batch_print_zone"></div>
+<div id="batch_print_single"></div>
+</body>
+</html>

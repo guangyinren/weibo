@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="description" content="微票通_电子发票开具服务平台" />
+<meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+<meta name="renderer" content="webkit"/><meta http-equiv="x-ua-compatible" content="ie=8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>发票开具平台</title>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-easyui-1.4.3/jquery.easyui.min.js"></script>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+<script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+<script src="/js/jquery/validation/jquery.validate.min.js"></script>
+<script src="/js/jquery/validation/additional-methods.js"></script>
+<script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+<script src="/js/lib/area.js"></script>
+<script src="/js/util/timer.js"></script>
+<script src="/js/util/http.js"></script>
+<script src="/js/util/util.js"></script>
+<script src="/js/util/mask.js"></script>
+<script src="/js/views/index/findPwd.js"></script>
+<script src="/js/views/index/ptweb.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/views/css.js"></script>
+	<link rel="stylesheet" href="/css/common.css">
+<script type="text/javascript">
+	var countdown = 60;
+	function settime(id) {
+		if (countdown == 0) {
+			$("#" + id).html("获取验证码");
+			$("#" + id).attr("href","javascript:settime(this);");
+			$("#" + id).css("background","#01c675");
+			countdown = 60;
+			return;
+		} else {
+			$("#" + id).attr("href","javascript:void();");
+			$("#" + id).css("background","#02b26a");
+			$("#" + id).html("重新发送(" + countdown + "s)");
+			countdown--;
+		}
+		setTimeout(function() {
+			settime(id)
+		}, 1000)
+	}
+</script> 
+<style>
+.icontip{
+            display: inline-block;height: 30px;width: 30px;position: absolute;left:0px;
+            background: url('../../images/a1.png') no-repeat;
+            margin-left: 10px;
+	background-size: 15px;
+    		margin-top: 12px;
+        }
+.icontip2{
+            display: inline-block;height: 30px;width: 30px;position: absolute;left:0px;
+            background: url('../../images/a3.png') no-repeat;
+			background-size: 14px;
+			margin-left: 12px;
+			margin-top: 8px;
+        }
+        .getpwd_yzm{
+        	margin-left: 14px;
+		    height: 42px;
+		    line-height: 40px;
+		    width: 48%;
+		    text-align: center;
+		 }
+</style>
+</head>
+<body class="log_bj">
+<div class="heard" >
+	<!--#include virtual="/pages/index/header.shtml" -->
+</div>
+<div id="login"> 
+  <div class="user_login">
+	<div class="login_lef">
+		<img src="/images/login-pic.png" />
+	</div>
+	<div class="login_rig">
+	    <form name="find_pwd" id="find_pwd" >
+	    <div class="str_tt" style="margin-bottom: 0px;"><h6>忘记密码</h6></div>		
+		<div style="height: 35px;line-height: 35px;margin: 0 0 0 20px;"><img src="/images/gb.png" id="img_error" style="display: none;margin-left:20px"/>&nbsp;&nbsp;<span id="span_01" style="display: none; color: red ">用户信息错误，请核对后重新输入</span></div>
+		<ul style="margin-top:-20px;">
+		    <li>
+				<span id="span_01" style="display: none; color: red;" >用户信息或对应手机号错误，请核对后重新输入</span>
+				<span id="span_02" style="display: none; color: red;">验证码错误，请核对后重新输入</span>
+			</li>
+			<li>
+				<span id="tip1" class="icontip"></span>
+				<input type="text" placeholder="请输入用户名"  class="text use1" id="loginName" name="loginName" />
+				<em id="loginName_tip" style="color: red"></em>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text" >错误提示语</span>
+			</li>
+			<li>
+				<span id="tip2" class="icontip2"></span>
+				<input type="text" placeholder="请输入手机号"  class="text sjm" id="contractPhone" name="contractPhone"/>
+				<em id="contractPhone_tip" style="color: red"></em>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text" >错误提示语</span>
+			</li>
+			<li>
+				<input type="text" placeholder="请输入验证码" class="text yzm" id="pCaptcha" name="pCaptcha" value="" />
+				<img class="getpwd_yzm" src="/validate/captcha.pt?type=003" onclick="getCaptcha()" id="btn_getCaptcha"/>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text" >错误提示语</span>
+			</li>
+			<li>
+				<input type="text" placeholder="请输入验证码"  class="text yzm" id="captcha" name="captcha"/>
+				<a href="javascript:void(0)" id="send_btn" class="hqyzm"/>获取手机验证码</a><br>
+				<img class="error-pic" src="/images/warn.png">
+				<span class="error-text" >错误提示语</span>
+			</li>
+			<em id="captcha_tip" style="color: red"></em>
+		</ul>
+		 <div class="sub"><input class="btn_01" type="button" name="btn_submit_1" id="next_step_fp" value="下一步"/></div>
+       </form>
+	</div>
+  </div>
+</div>
+<!--#include virtual="/pages/index/footer.shtml" -->
+</body>
+</html>			
+		 

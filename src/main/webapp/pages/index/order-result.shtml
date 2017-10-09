@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="description" content="微票通_电子发票开具服务平台" />
+    <meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit"/><meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>发票开具平台</title>
+    <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/js/bootstrap/main/css/bootstrap.min.css">
+    <link href="/css/login.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/index/jiameng.css">
+</head>
+<body>
+<div class="heard" >
+    <!--#include virtual="/pages/index/header.shtml" -->
+    <script>setFocusMainMenu(5);</script>
+</div>
+<div class="jiameng">
+    <div class="pay-result">
+        <div class="result result-suc">
+            <img src="/images/ok-circle.png" alt="">
+            <span>支付成功</span>
+        </div>
+        <div class="result result-fail" style="display: none">
+            <img src="/images/gb.png" alt="">
+            <span>支付失败</span>
+        </div>
+        <div style="margin-top: 5px;">下单后，我公司将联系您，寄送票通宝设备。</div>
+    </div>
+    <div class="product-content">
+        <img src="/images/product-view.png" >
+        <div class="product-detail">
+            <div class="product-title">
+                微票通产品服务套餐：960元/年
+            </div>
+            <div class="product-item product-des">
+                <div class="form-left">套餐内容：</div>
+                <div class="form-right">可开具高达两千张发票，免费赠送300条短信，免费发送邮件，免费赠送票通宝（终身保修），并为您提供专业的客户服务。</div>
+            </div>
+            <div class="product-item">
+                <div class="form-left">下单数量：</div>
+                <div class="form-right "><input type="number" class="order-num" value="1"><div class="minus" onclick="changeNum(-1)">---</div><div class="plus" onclick="changeNum(1)">+</div></div>
+            </div>
+            <div class="product-item">
+                <div class="form-left">订单金额：</div>
+                <div class="form-right"><input type="text">&emsp;元 </div>
+            </div>
+        </div>
+    </div>
+    <div class="recipients">
+        <div class="recipients-title">收件人信息</div>
+        <div class="recipients-items">
+            <div class="recipients-item">
+                <div class="form-left">加盟商名称：</div>
+                <div class="form-right"><input type="text">  </div>
+            </div>
+            <div class="recipients-item">
+                <div class="form-left">收件人名称：</div>
+                <div class="form-right"><input type="text">  </div>
+            </div>
+            <div class="recipients-item">
+                <div class="form-left">收件人手机号：</div>
+                <div class="form-right"><input type="text">  </div>
+            </div>
+            <div class="recipients-item">
+                <div class="form-left">寄送地址：</div>
+                <div class="form-right">
+                    <select>
+                        <option value="1">省</option>
+                    </select>
+                    <select>
+                        <option value="2">市</option>
+                    </select>
+                </div>
+            </div>
+            <div class="recipients-item" >
+                <div class="form-left">&emsp;</div>
+                <div class="form-right">&emsp; </div>
+            </div>
+            <div class="recipients-item">
+                <div class="form-left">&emsp;</div>
+                <div class="form-right"><input type="text">  </div>
+            </div>
+        </div>
+        <div class="balance">
+            实付款：￥<span class="price">123</span>&emsp;元
+        </div>
+        <div class="toPay">
+            <button type="button" class="blue-btn" data-toggle="modal" data-target="#orderConfirm">下单支付</button>
+        </div>
+    </div>
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="orderConfirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><img src="/images/close2.jpg" alt=""></button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-title">登录平台支付</div>
+                <div>请您在新打开的页面进行支付，支付完成前不要关闭窗口</div>
+                <div class="modal-btns">
+                    <button type="button" class="blue-btn" onclick="toSuccess()">已完成支付</button>
+                    <button type="button" class="blue-btn" onclick="toFail()">支付遇到问题</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<!--#include virtual="/pages/index/footer.shtml" -->
+<script src="/js/bootstrap/main/js/bootstrap.min.js"></script>
+</body>
+</html>
