@@ -55,7 +55,7 @@ public class TestWeibo {
     }
 
     @Test
-    public void testGetSingleComment() throws InterruptedException, IOException {
+    public void testGetSingleComment() throws InterruptedException, IOException, ClassNotFoundException {
         String url = "https://m.weibo.cn/single/rcList?format=cards&id=4099847185178444&type=comment&hot=0&page=552";
         String response = HttpUtils.doGet4Https(url);
         if (StringUtils.isEmpty(response)) {
@@ -206,15 +206,24 @@ public class TestWeibo {
     }
 
     private static int randomSecond() {
-        int max = 20000;
-        int min = 60000;
+        int min = 30000;
+        int max = 60000;
         Random random = new Random();
         int s = random.nextInt(max) % (max - min + 1) + min;
         return s;
     }
 
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
-        proxyIp();
+        for (int i = 728; i < 1000; i++) {
+            if (i % 2 == 0) {
+
+            } else if (i % 2 == 1) {
+                proxyIp(1);
+            }
+            System.out.println(getHtml("http://city.ip138.com/ip2city.asp"));
+        }
+
+        // checkProxyIp("27.37.154.144", "80");
         /*for (int i = 2; i < 5; i++) {
             String url = "https://m.weibo.cn/single/rcList?format=cards&id=4099847185178444&type=comment&hot=0&page="
                     + i;
@@ -252,11 +261,10 @@ public class TestWeibo {
         }*/
     }
 
-    private static void proxyIp() throws ClassNotFoundException, IOException {
+    private static void proxyIp(int index) throws ClassNotFoundException, IOException {
         StringBuffer html = new StringBuffer();
         // 如果不设置，只要代理IP和代理端口正确,此项不设置也可以
-        InputStream input = Class.forName(TestWeibo.class.getName())
-                .getResourceAsStream("src/main/resources/proxyip.txt");
+        InputStream input = Thread.currentThread().getClass().getResourceAsStream("/proxyip.txt");
         String inputLine;
         byte[] buf = new byte[4096];
         int bytesRead = 0;
@@ -268,18 +276,18 @@ public class TestWeibo {
         }
         String ipStr = html.toString();
         String ipArr[] = ipStr.split(",");
-        int index = generateRandomNum(0, ipArr.length);
+        // int index = generateRandomNum(0, ipArr.length);
         if (index == 0) {
             System.out.println("============启用本机ip");
         } else {
-            String ipAddress = ipArr[index];
+            String ipAddress = ipArr[index - 1];
             String ipAddressArr[] = ipAddress.split(":");
             String ip = ipAddressArr[0];
             String port = ipAddressArr[1];
             System.setProperty("http.maxRedirects", "50");
             System.getProperties().setProperty("proxySet", "true");
             System.getProperties().setProperty("http.proxyHost", ip);
-            System.getProperties().setProperty("http.proxyPort", "80");
+            System.getProperties().setProperty("http.proxyPort", port);
         }
         /*String ip = "111.161.120.63";
         ip = "123.125.116.151";*/
@@ -291,19 +299,21 @@ public class TestWeibo {
         ip = "111.1.32.36";
         ip = "221.130.18.49";
         ip = "221.130.18.49";*/
-        // 确定代理是否设置成功
-        // System.out.println(getHtml("http://city.ip138.com/ip2city.asp"));
+
     }
 
-    private static void checkProxyIp() {
-
+    private static void checkProxyIp(String ip, String port) {
+        System.setProperty("http.maxRedirects", "50");
+        System.getProperties().setProperty("proxySet", "true");
+        System.getProperties().setProperty("http.proxyHost", ip);
+        System.getProperties().setProperty("http.proxyPort", port);
+        // 确定代理是否设置成功
+        System.out.println(getHtml("http://city.ip138.com/ip2city.asp"));
     }
 
     private static int generateRandomNum(int start, int end) {
-        int max = 20000;
-        int min = 60000;
         Random random = new Random();
-        int s = random.nextInt(max) % (max - min + 1) + min;
+        int s = random.nextInt(end) % (end - start + 1) + start;
         return s;
     }
 

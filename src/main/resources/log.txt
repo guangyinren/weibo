@@ -17,3 +17,120 @@
 =================Mon Oct 09 15:19:47 CST 2017:59710
 =================Mon Oct 09 15:20:54 CST 2017:62510
 =================Mon Oct 09 15:22:17 CST 2017:66610
+=================2017-10-09 21:51:11:171======10
+=================2017-10-09 21:51:15:340======8
+=================2017-10-09 21:51:18:361======10
+=================2017-10-09 21:51:21:366======10
+=================2017-10-09 21:51:24:371======10
+=================2017-10-09 21:51:29:464======10
+=================2017-10-09 21:51:32:552======10
+=================2017-10-09 21:51:32:552无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                       reply_id,                       reply_text,                       like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x8D\xADAn...' for column 'source' at row 1
+=================2017-10-09 21:51:37:597======10
+=================2017-10-09 21:51:41:597======10
+=================2017-10-09 21:51:44:625======10
+=================2017-10-09 21:51:46:666======10
+=================2017-10-09 21:51:50:728======10
+=================2017-10-09 21:51:53:728无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                                     like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                                     ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+=================2017-10-09 21:51:57:729======10
+=================2017-10-09 21:52:08:730======10
+=================2017-10-09 21:52:09:730无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x99\x83\xE6\x88...' for column 'reply_text' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                       reply_id,                       reply_text,                       like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x99\x83\xE6\x88...' for column 'reply_text' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x99\x83\xE6\x88...' for column 'reply_text' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x99\x83\xE6\x88...' for column 'reply_text' at row 1
+=================2017-10-09 21:52:12:731======10
+=================2017-10-09 21:52:13:731无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x94\xAEiP...' for column 'source' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                                     like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                                     ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x94\xAEiP...' for column 'source' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x94\xAEiP...' for column 'source' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x94\xAEiP...' for column 'source' at row 1
+=================2017-10-09 21:52:15:732======10
+=================2017-10-09 21:52:22:733无内容
+=================2017-10-09 21:52:24:734无内容
+=================2017-10-09 21:52:29:735无内容
+=================2017-10-09 21:52:31:736无内容
+=================2017-10-09 21:52:34:737无内容
+=================2017-10-09 21:52:35:738无内容
+=================2017-10-09 21:52:37:739======10
+=================2017-10-09 21:52:43:740无内容
+=================2017-10-09 21:52:44:741无内容
+=================2017-10-09 22:05:19:728======10
+=================2017-10-09 22:05:19:728无内容
+
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+### The error may involve cn.liuyong.weibo.dao.ICommentMapper.insertSelective-Inline
+### The error occurred while setting parameters
+### SQL: insert into comment      ( id,                       created_at,                       source,                       user_id,                       text,                                     like_counts,                       liked,                       mod_type,                       type,                       url )       values ( ?,                       ?,                       ?,                       ?,                       ?,                                     ?,                       ?,                       ?,                       ?,                       ? )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+; uncategorized SQLException for SQL []; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1; nested exception is java.sql.SQLException: Incorrect string value: '\xF0\x9F\x92\x95iP...' for column 'source' at row 1
+=================2017-10-09 22:05:21:729======10
+=================2017-10-09 22:26:52:728======10
+=================2017-10-09 22:27:39:729======10
+=================2017-10-09 22:28:38:730======10
+=================2017-10-09 22:29:34:731======10
+=================2017-10-09 22:30:19:732======10
+=================2017-10-09 22:31:07:733======10
+=================2017-10-09 22:31:48:734======10
+=================2017-10-09 22:32:35:735======10
+=================2017-10-09 22:33:33:736======10
+=================2017-10-09 22:34:27:737======10
+=================2017-10-09 22:57:23:728无内容
+2
+=================2017-10-09 22:57:33:729======10
+=================2017-10-09 22:57:41:730======10
+=================2017-10-09 22:57:46:731无内容
+2
+=================2017-10-09 22:57:55:732======10
+=================2017-10-09 22:58:05:733======10
+=================2017-10-09 22:58:15:734无内容
+2
+=================2017-10-09 22:58:15:728======10
+=================2017-10-09 22:58:21:735======10
+=================2017-10-09 22:58:22:729======10
+=================2017-10-09 22:58:29:736======10
+=================2017-10-09 22:58:31:730======10
+=================2017-10-09 22:58:37:737无内容
+2
+=================2017-10-09 22:58:46:728======10
+=================2017-10-09 22:58:52:729======10
+=================2017-10-09 22:58:59:730======10
+=================2017-10-09 22:59:08:731======10
+=================2017-10-09 22:59:15:732无内容
+=================2017-10-09 22:59:21:733无内容
+=================2017-10-09 23:19:11:728======10
+=================2017-10-09 23:19:17:729======10
+=================2017-10-09 23:19:23:730======10
+=================2017-10-09 23:19:29:731======10
+=================2017-10-09 23:19:37:732======10
+=================2017-10-09 23:19:43:733======10
+=================2017-10-09 23:19:50:734======10
+=================2017-10-09 23:19:59:735======10
+=================2017-10-09 23:20:06:736======10
+=================2017-10-09 23:20:13:737======10
+=================2017-10-09 23:20:21:738======10
+=================2017-10-09 23:20:32:739======10
+=================2017-10-09 23:20:41:740======10
+=================2017-10-09 23:20:48:741无内容
+=================2017-10-09 23:20:53:742无内容
+=================2017-10-09 23:21:03:743无内容
+=================2017-10-09 23:21:13:744======10
