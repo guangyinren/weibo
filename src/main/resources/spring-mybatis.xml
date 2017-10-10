@@ -41,6 +41,7 @@
  		<property name="removeAbandoned" value="true" /> 
  		<property name="removeAbandonedTimeout" value="1800" /> 
  		<property name="logAbandoned" value="true" /> 
+ 		<property name="connectionInitSqls" value="set names utf8mb4;"/>
  	</bean> 
   
     <!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" 
