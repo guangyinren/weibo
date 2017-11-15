@@ -1,9 +1,14 @@
 package cn.liuyong.weibo.comment.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 import cn.liuyong.weibo.comment.dao.ICommentMapper;
 import cn.liuyong.weibo.comment.model.Comment;
@@ -24,6 +29,14 @@ public class CommentServiceImpl implements ICommentService {
     @Override
     public Comment getCommentById(String id) {
         return commentMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public Page<Comment> queryCommentByPage(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        final List<Comment> list = commentMapper.selectAllComment();
+        Page<Comment> pages = (Page<Comment>) (list);
+        return pages;
     }
 
 }

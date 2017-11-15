@@ -22,7 +22,7 @@ import cn.liuyong.weibo.user.service.IUserService;
 import cn.liuyong.weibo.util.RuntimeConstant;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
 
     @Autowired

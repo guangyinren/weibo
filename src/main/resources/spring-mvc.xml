@@ -9,15 +9,16 @@
                         http://www.springframework.org/schema/context/spring-context-3.1.xsd    
                         http://www.springframework.org/schema/mvc    
                         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-                        
-    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->  
-    <context:component-scan base-package="cn.liuyong.weibo.user.controller" use-default-filters="false">
-		<!--排除对Aspect的扫描-->
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-	</context:component-scan>
     
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="cn.liuyong.weibo"/>
+    <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器  排除对Aspect的扫描
+    <context:component-scan base-package="cn.liuyong.weibo" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>--> 
+	
 	<!-- 配置静态资源，直接映射到对应的文件夹，不被DispatcherServlet处理 -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/js/**" location="/js/" />
 	<mvc:resources mapping="/css/**" location="/css/" />

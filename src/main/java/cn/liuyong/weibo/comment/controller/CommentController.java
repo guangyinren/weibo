@@ -2,6 +2,7 @@ package cn.liuyong.weibo.comment.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.Page;
+
+import cn.liuyong.weibo.comment.model.Comment;
 import cn.liuyong.weibo.comment.service.ICommentService;
 import cn.liuyong.weibo.util.RuntimeConstant;
 
@@ -47,6 +52,16 @@ public class CommentController {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("/queryCommentByPage")
+    @ResponseBody
+    public Map<String, Object> queryCommentByPage(Integer pageNumber, Integer pageSize, HttpServletResponse response) {
+        Page<Comment> commentPage = commentService.queryCommentByPage(pageNumber, pageSize);
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("total", commentPage.getTotal());
+        dataMap.put("rows", commentPage.getResult());
+        return dataMap;
     }
 
 }

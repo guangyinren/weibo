@@ -19,11 +19,18 @@
     id, created_at, source, user_id, text, reply_id, reply_text, like_counts, liked, 
     mod_type, type, url
   </sql>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from comment
     where id = #{id,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectAllComment" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from comment
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

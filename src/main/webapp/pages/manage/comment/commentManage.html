@@ -67,7 +67,7 @@ $(function() {
 	// bootstrap table初始化
 	// http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
 	$table.bootstrapTable({
-		url: basePath+"user/queryUserByPage"+suffix,
+		url: basePath+"comment/queryCommentByPage"+suffix,
 		queryParamsType:'',
 		height: getHeight(),
 		striped: true,
@@ -98,12 +98,17 @@ $(function() {
 		columns: [
 			{field: 'state', checkbox: true},
 	        {field: 'id', title: '编号', sortable: true, halign: 'center'},
-	        {field: 'screen_name', title: '发票请求流水号', sortable: true, halign: 'center'},
-	        {field: 'profile_image_url', title: '购买方名称', sortable: true, halign: 'center'},
-	        {field: 'verified', title: '开票时间', sortable: true, halign: 'center'},
-	        {field: 'verified_type', title: '请求时间', sortable: true, halign: 'center'},
-	        {field: 'mbtype', title: '推送时间', sortable: true, halign: 'center'},
-	        {field: 'profile_url', title: '发票种类代码', sortable: true, halign: 'center'},
+	        {field: 'created_at', title: '创建时间', sortable: true, halign: 'center'},
+	        {field: 'source', title: '来源', sortable: true, halign: 'center'},
+	        {field: 'user_id', title: '用户id', sortable: true, halign: 'center'},
+	        {field: 'text', title: '内容', sortable: true, halign: 'center'},
+	        {field: 'reply_id', title: '父评论', sortable: true, halign: 'center'},
+	        {field: 'reply_text', title: '父评论内容', sortable: true, halign: 'center'},
+	        {field: 'like_counts', title: '点赞数', sortable: true, halign: 'center'},
+	        {field: 'liked', title: '未知', sortable: true, halign: 'center'},
+	        {field: 'mod_type', title: '未知', sortable: true, halign: 'center'},
+	        {field: 'type', title: '未知', sortable: true, halign: 'center'},
+	        {field: 'url', title: '未知', sortable: true, halign: 'center'},
 	        {field: 'action', title: '操作', halign: 'center', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 		]
 	}).on('all.bs.table', function (e, name, args) {
