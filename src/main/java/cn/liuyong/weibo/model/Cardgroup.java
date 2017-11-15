@@ -3,6 +3,8 @@ package cn.liuyong.weibo.model;
 import java.io.Serializable;
 import java.util.List;
 
+import cn.liuyong.weibo.comment.model.Comment;
+
 /**
  * 微博评论接口返回主体
  * 

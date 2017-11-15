@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.liuyong.weibo.user.dao.IUserMapper" >
+  <resultMap id="BaseResultMap" type="cn.liuyong.weibo.user.model.User" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="screen_name" property="screen_name" jdbcType="VARCHAR" />
+    <result column="profile_image_url" property="profile_image_url" jdbcType="VARCHAR" />
+    <result column="verified" property="verified" jdbcType="VARCHAR" />
+    <result column="verified_type" property="verified_type" jdbcType="VARCHAR" />
+    <result column="mbtype" property="mbtype" jdbcType="VARCHAR" />
+    <result column="profile_url" property="profile_url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, screen_name, profile_image_url, verified, verified_type, mbtype, profile_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  
+  <!-- 查询所有user -->
+  <select id="selectAllUser" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.liuyong.weibo.user.model.User" >
+    insert into user (id, screen_name, profile_image_url, 
+      verified, verified_type, mbtype, 
+      profile_url)
+    values (#{id,jdbcType=CHAR}, #{screen_name,jdbcType=VARCHAR}, #{profile_image_url,jdbcType=VARCHAR}, 
+      #{verified,jdbcType=VARCHAR}, #{verified_type,jdbcType=VARCHAR}, #{mbtype,jdbcType=VARCHAR}, 
+      #{profile_url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.liuyong.weibo.user.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="screen_name != null" >
+        screen_name,
+      </if>
+      <if test="profile_image_url != null" >
+        profile_image_url,
+      </if>
+      <if test="verified != null" >
+        verified,
+      </if>
+      <if test="verified_type != null" >
+        verified_type,
+      </if>
+      <if test="mbtype != null" >
+        mbtype,
+      </if>
+      <if test="profile_url != null" >
+        profile_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="screen_name != null" >
+        #{screen_name,jdbcType=VARCHAR},
+      </if>
+      <if test="profile_image_url != null" >
+        #{profile_image_url,jdbcType=VARCHAR},
+      </if>
+      <if test="verified != null" >
+        #{verified,jdbcType=VARCHAR},
+      </if>
+      <if test="verified_type != null" >
+        #{verified_type,jdbcType=VARCHAR},
+      </if>
+      <if test="mbtype != null" >
+        #{mbtype,jdbcType=VARCHAR},
+      </if>
+      <if test="profile_url != null" >
+        #{profile_url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.liuyong.weibo.user.model.User" >
+    update user
+    <set >
+      <if test="screen_name != null" >
+        screen_name = #{screen_name,jdbcType=VARCHAR},
+      </if>
+      <if test="profile_image_url != null" >
+        profile_image_url = #{profile_image_url,jdbcType=VARCHAR},
+      </if>
+      <if test="verified != null" >
+        verified = #{verified,jdbcType=VARCHAR},
+      </if>
+      <if test="verified_type != null" >
+        verified_type = #{verified_type,jdbcType=VARCHAR},
+      </if>
+      <if test="mbtype != null" >
+        mbtype = #{mbtype,jdbcType=VARCHAR},
+      </if>
+      <if test="profile_url != null" >
+        profile_url = #{profile_url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.liuyong.weibo.user.model.User" >
+    update user
+    set screen_name = #{screen_name,jdbcType=VARCHAR},
+      profile_image_url = #{profile_image_url,jdbcType=VARCHAR},
+      verified = #{verified,jdbcType=VARCHAR},
+      verified_type = #{verified_type,jdbcType=VARCHAR},
+      mbtype = #{mbtype,jdbcType=VARCHAR},
+      profile_url = #{profile_url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

@@ -18,11 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.liuyong.weibo.comment.model.Comment;
+import cn.liuyong.weibo.comment.service.ICommentService;
 import cn.liuyong.weibo.model.Cardgroup;
-import cn.liuyong.weibo.model.Comment;
-import cn.liuyong.weibo.model.User;
-import cn.liuyong.weibo.service.ICommentService;
-import cn.liuyong.weibo.service.IUserService;
+import cn.liuyong.weibo.user.model.User;
+import cn.liuyong.weibo.user.service.IUserService;
 import cn.liuyong.weibo.util.CalendarUtil;
 import cn.liuyong.weibo.util.HttpUtils;
 import cn.liuyong.weibo.util.JsonConvertUtil;
