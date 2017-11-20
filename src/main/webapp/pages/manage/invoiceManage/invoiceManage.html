@@ -27,32 +27,20 @@
 <div id="createDialog" class="crudDialog" hidden>
 	<form>
 		<div class="form-group">
-			<label for="input1">编号</label>
+			<label for="input1">标题</label>
 			<input id="input1" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-			<label for="screen_name">昵称</label>
-			<input id="screen_name" type="text" class="form-control">
+			<label for="input2">名称</label>
+			<input id="input2" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-			<label for="profile_image_url">头像</label>
-			<input id="profile_image_url" type="text" class="form-control">
+			<label for="input3">根目录</label>
+			<input id="input3" type="text" class="form-control">
 		</div>
 		<div class="form-group">
-			<label for="verified">未知</label>
-			<input id="verified" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="verified_type">未知类型</label>
-			<input id="verified_type" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="mbtype">手机类型</label>
-			<input id="mbtype" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="profile_url">个人主页</label>
-			<input id="profile_url" type="text" class="form-control">
+			<label for="input4">图标</label>
+			<input id="input4" type="text" class="form-control">
 		</div>
 	</form>
 </div>
@@ -109,13 +97,22 @@ $(function() {
 		toolbar: '#toolbar',
 		columns: [
 			{field: 'state', checkbox: true},
-	        {field: 'id', title: '编号', sortable: true, halign: 'center'},
-	        {field: 'screen_name', title: '昵称', sortable: true, halign: 'center'},
-	        {field: 'profile_image_url', title: '头像', sortable: true, halign: 'center'},
-	        {field: 'verified', title: '未知', sortable: true, halign: 'center'},
-	        {field: 'verified_type', title: '未知类型', sortable: true, halign: 'center'},
-	        {field: 'mbtype', title: '手机类型', sortable: true, halign: 'center'},
-	        {field: 'profile_url', title: '个人主页', sortable: true, halign: 'center'},
+	        {field: 'Number', title: '序号', halign: 'center', formatter: 'numberFormatter'},
+	        {field: 'fpqqlsh', title: '发票请求流水号', sortable: true, halign: 'center'},
+	        {field: 'gmfMc', title: '购买方名称', sortable: true, halign: 'center'},
+	        {field: 'kprq', title: '开票时间', sortable: true, halign: 'center'},
+	        {field: 'qqsj', title: '请求时间', sortable: true, halign: 'center'},
+	        {field: 'tssj', title: '推送时间', sortable: true, halign: 'center'},
+	        {field: 'fpzldm', title: '发票种类代码', sortable: true, halign: 'center', formatter: 'fpzldmFormatter'},
+	        {field: 'xsfMc', title: '销售方名称', sortable: true, halign: 'center'},
+	        {field: 'xsfNsrsbh', title: '销售方税号', sortable: true, halign: 'center'},
+	        {field: 'jshj', title: '价税合计', sortable: true, halign: 'center'},
+	        {field: 'kply', title: '开票来源', sortable: true, halign: 'center'},
+	        {field: 'kplx', title: '开票类型', sortable: true, halign: 'center'},
+	        {field: 'chbz', title: '冲红标志', sortable: true, halign: 'center'},
+	        {field: 'kpr', title: '开票人', sortable: true, halign: 'center'},
+	        {field: 'by1', title: '分机号', sortable: true, halign: 'center'},
+	        {field: 'kpzt', title: '开票状态', sortable: true, halign: 'center'},
 	        {field: 'action', title: '操作', halign: 'center', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
 		]
 	}).on('all.bs.table', function (e, name, args) {
@@ -123,6 +120,24 @@ $(function() {
 		$('[data-toggle="popover"]').popover();  
 	});
 });
+
+
+function numberFormatter(value, row, index) {
+	var pageSize = $('#table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条  
+    var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页  
+    return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号  
+}
+
+function fpzldmFormatter(value, row, index) {
+	if(value == '10'){
+		return '电子发票';
+	}else if(value == '04'){
+		return '纸质专票';
+	}else if(value == '01'){
+		return '纸质普票';
+	}
+}
+
 function actionFormatter(value, row, index) {
     return [
         '<a class="edit ml10" href="javascript:void(0)" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>　',
@@ -132,34 +147,12 @@ function actionFormatter(value, row, index) {
 
 window.actionEvents = {
     'click .edit': function (e, value, row, index) {
-        /* alert('You click edit icon, row: ' + JSON.stringify(row));
-        console.log(value, row, index); */
-    	$.confirm({
-			type: 'blue',
-			animationSpeed: 400,
-			title: '编辑系统',
-			animation: 'rotateX',
-			closeAnimation: 'scale',
-			content: $('#createDialog').html(),
-			buttons: {
-				confirm: {
-					text: '确认',
-					btnClass: 'waves-effect waves-button',
-					action: function () {
-						$.alert('确认');
-					}
-				},
-				cancel: {
-					text: '取消',
-					btnClass: 'waves-effect waves-button'
-				}
-			}
-		});        
+        alert('You click edit icon, row: ' + JSON.stringify(row));
+        console.log(value, row, index);
     },
     'click .remove': function (e, value, row, index) {
-        /* alert('You click remove icon, row: ' + JSON.stringify(row));
-        console.log(value, row, index); */
-        deleteAction();
+        alert('You click remove icon, row: ' + JSON.stringify(row));
+        console.log(value, row, index);
     }
 };
 function detailFormatter(index, row) {
@@ -169,13 +162,12 @@ function detailFormatter(index, row) {
 	});
 	return html.join('');
 }
-
 // 新增
 function createAction() {
 	$.confirm({
 		type: 'dark',
 		animationSpeed: 300,
-		title: '新增用户',
+		title: '新增系统',
 		content: $('#createDialog').html(),
 		buttons: {
 			confirm: {
@@ -192,7 +184,6 @@ function createAction() {
 		}
 	});
 }
-
 // 编辑
 function updateAction() {
 	var rows = $table.bootstrapTable('getSelections');
