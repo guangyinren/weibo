@@ -1,0 +1,105 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>商品导入</title>
+
+	<link href="/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+	<link href="/css/manage4service/common.css" rel="stylesheet"/>
+	
+</head>
+<body>
+<div id="main">
+	<div id="toolbar">
+			<form id="uploadForm">
+			<label>请输入导入方税号</label>
+				<input type="text" id="xsfNsrsbh" name="xsfNsrsbh"  class="form-control">
+			<label>选择文件</label>
+				<input type="file" id="templateFile" name="file" onchange="ajaxFileUpload()">
+			</form>
+			<button id="uploadTemplate" type="submit" class="btn btn-primary" onclick="ajaxFileUpload()">提交</button>
+			
+	</div>
+</div>
+
+<script src="/plugins/jquery.1.12.4.min.js"></script>
+<script src="/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+
+<script>
+function ajaxFileUpload() {
+    var fileName = $('#templateFile').val();
+    var fileType = fileName.substring(fileName.lastIndexOf('.')+1);
+    if(fileType !== 'xlsx' && fileType !== 'xls'){
+        errorModal('模板文件格式不对!');
+        $('#templateFile').val('');
+        return false;
+    }
+    var formData = new FormData($('#uploadForm')[0]);
+    var xsfNsrsbh = $('#xsfNsrsbh').val();
+    $.ajax({
+        url: basePath + 'invoiceQuery/importProduct' + suffix,
+        type: 'POST',
+        data: formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            $('#templateFile').val('');
+            if (data.code === '200') {
+            	successModal(data.msg);
+            }else{
+            	errorModal(data.msg);
+            }
+        },error: function () {
+        	errorModal('系统繁忙,请稍候再试');
+        }
+    });
+}
+
+//成功提示框
+function successModal(promptMsg){
+	$.confirm({
+	    title: '提示语',
+	    content: promptMsg,
+	    type: 'blue',
+	    theme: 'material',
+	    buttons: {
+	    	ok: {
+	            text: '确定',
+	            btnClass: 'btn-blue',
+	            action: function(){
+	            }
+	        }
+	    }
+	});
+}
+
+//错误提示框
+function errorModal(promptMsg){
+	$.confirm({
+	    title: '提示语',
+	    content: promptMsg,
+	    type: 'red',
+	    theme: 'material',
+	    buttons: {
+	    	ok: {
+	            text: '确定',
+	            btnClass: 'btn-red',
+	            action: function(){
+	            }
+	        }
+	    }
+	});
+}
+</script>
+</body>
+</html>

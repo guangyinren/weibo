@@ -1,0 +1,409 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>通用增删改查</title>
+
+	<link href="/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+	<link href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="/css/manage4service/common.css" rel="stylesheet"/>
+	<style>
+	    .bs-bars.pull-left {
+		    overflow: hidden;
+		    width: 100%;
+         }
+	     .toobar_item {
+		    width: 11%;
+		    display: inline-block;
+         }
+	
+	</style>
+	
+</head>
+<body>
+<div id="main">
+	<div id="toolbar">
+	     	<div class="toobar_item">
+	     	  <label>请输入销售方税号</label>
+			  <input id="xsfNsrsbh" type="text" class="form-control">
+	     	</div>
+	     	<div class="toobar_item">
+	     	  <label>开票日期</label>
+			  <input id="startKprq" type="text" class="form-control" readonly="readonly">至
+			  <input id="endKprq" type="text" class="form-control" readonly="readonly">
+	     	</div>
+	     	<div class="toobar_item">
+	     	    <label>开票状态</label>
+				<select id="kpzt" type="text" class="form-control">
+					<option value="RECIEVE_SUCCESS">未开票</option>
+				  	<option value="ISSUEING" selected="selected">开票中</option>
+				  	<option value="ISSUE_SUCCESS">开票成功</option>
+				  	<option value="ISSUE_FAIL">开票失败</option>
+				</select>
+	     	</div>
+	     	<div class="toobar_item">
+	     	    <label>开票状态</label>
+				<select id="kpzt" type="text" class="form-control">
+					<option value="RECIEVE_SUCCESS">未开票</option>
+				  	<option value="ISSUEING" selected="selected">开票中</option>
+				  	<option value="ISSUE_SUCCESS">开票成功</option>
+				  	<option value="ISSUE_FAIL">开票失败</option>
+				</select>
+	     	</div>
+	     	<div class="toobar_item">
+	     	    <label>发票种类</label>
+				<select id="fpzldm" type="text" class="form-control">
+					<option value="">全部</option>
+					<option value="10">电子增值税普通发票</option>
+				  	<option value="04">纸质增值税普通发票</option>
+				  	<option value="01">纸质增值税专用发票</option>
+				</select>
+	     	</div>
+	     	<div class="toobar_item">
+	     	    <label>开票类型</label>
+				<select id="kplx" type="text" class="form-control">
+					<option value="">全部</option>
+					<option value="1">蓝票</option>
+				  	<option value="2">红票</option>
+				</select>
+	     	</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<button type="button" class="btn btn-primary" onclick="queryBtnFun()">查询</button>
+			
+	</div>
+	<table id="table"></table>
+</div>
+<!-- 新增 
+<div id="createDialog" class="crudDialog" style="display:none;">
+	<form>
+		<div class="form-group">
+			<label for="input1">发票请求流水号</label>
+			<input id="fpqqlsh" type="text" class="form-control" readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label for="input2">分机号</label>
+			<input id="fjh" type="text" class="form-control">
+		</div>
+	</form>
+</div>-->
+
+<div id="fjhModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">更新分机号</h4>
+      </div>
+      <div class="modal-body">
+        <label for="input1">发票请求流水号</label>
+		<input id="fpqqlsh" type="text" class="form-control" readonly="readonly">
+		<label for="input2">分机号</label>
+		<input id="fjh" type="text" class="form-control">
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" onclick="updateFjhFun()" id="updateFjhBtn">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><
+
+<script src="/plugins/jquery.1.12.4.min.js"></script>
+<script src="/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/manage4service/common.js"></script>
+
+<script>
+var $table = $('#table');
+$(function() {
+	$(document).on('focus', 'input[type="text"]', function() {
+		$(this).parent().find('label').addClass('active');
+	}).on('blur', 'input[type="text"]', function() {
+		if ($(this).val() == '') {
+			$(this).parent().find('label').removeClass('active');
+		}
+	});
+	$("#startKprq").datetimepicker({
+    	language: "zh-CN",
+        autoclose: true,//选中之后自动隐藏日期选择框
+        clearBtn: true,//清除按钮
+        todayBtn: true,//今日按钮
+        startView:2,
+        minView:2,
+        startDate:"2016-08-01",
+        endDate:new Date(),
+        initialDate:new Date(),
+        format: "yyyy-mm-dd"//日期格式
+    }).on("click",function(){
+    	$("#startKprq").datetimepicker("setEndDate",$("#endKprq").val())
+    });
+	
+	$("#endKprq").datetimepicker({
+    	language: "zh-CN",
+        autoclose: true,//选中之后自动隐藏日期选择框
+        clearBtn: true,//清除按钮
+        todayBtn: true,//今日按钮
+        startView:2,
+        minView:2,
+        startDate:"2016-08-01",
+        endDate:new Date(),
+        initialDate:new Date(),
+        format: "yyyy-mm-dd"//日期格式
+    }).on("click",function(){
+    	$("#endKprq").datetimepicker("setStartDate",$("#startKprq").val())
+    });
+	// bootstrap table初始化
+	$table.bootstrapTable({
+		url: basePath+"invoiceQuery/findInvoiceListByPage"+suffix,
+		queryParamsType:'',
+		height: getHeight(),
+		striped: true,
+		search: false,
+		searchOnEnterKey: true,
+		showRefresh: true,
+		showToggle: false,
+		showColumns: true,
+		minimumCountColumns: 2,
+		showPaginationSwitch: false,
+		clickToSelect: true,
+		detailView: true,
+		detailFormatter: 'detailFormatter',
+		pagination: true,
+		paginationLoop: false,
+		classes: 'table table-hover table-no-bordered',
+		sidePagination: 'server',
+		queryParams: queryParams, //参数
+		//silentSort: false,
+		smartDisplay: false,
+		idField: 'id',
+		sortName: 'id',
+		sortOrder: 'desc',
+		escape: true,
+		idField: 'systemId',
+		maintainSelected: true,
+		toolbar: '#toolbar',
+		columns: [
+	        {field: 'Number', title: '序号', halign: 'center', formatter: 'numberFormatter'},
+	        {field: 'fpqqlsh', title: '发票请求流水号', halign: 'center'},
+	        {field: 'gmfMc', title: '购买方名称', halign: 'center'},
+	        {field: 'kprq', title: '开票时间', halign: 'center'},
+	        {field: 'qqsj', title: '请求时间', halign: 'center'},
+	        {field: 'tssj', title: '推送时间', halign: 'center'},
+	        {field: 'fpzldm', title: '发票种类代码', halign: 'center', formatter: 'fpzldmFormatter'},
+	        {field: 'xsfMc', title: '销售方名称', halign: 'center'},
+	        {field: 'xsfNsrsbh', title: '销售方税号', halign: 'center'},
+	        {field: 'jshj', title: '价税合计', halign: 'center'},
+	        {field: 'kply', title: '开票来源', halign: 'center'},
+	        {field: 'kplx', title: '开票类型', halign: 'center', formatter: 'kplxFormatter'},
+	        {field: 'chbz', title: '冲红标志', halign: 'center'},
+	        {field: 'kpr', title: '开票人', halign: 'center'},
+	        {field: 'by1', title: '分机号', halign: 'center'},
+	        {field: 'kpzt', title: '开票状态', halign: 'center', formatter: 'kpztFormatter'},
+	        {field: 'action', title: '操作', halign: 'center', align: 'center', formatter: 'actionFormatter', events: 'actionEvents', clickToSelect: false}
+		]
+	}).on('all.bs.table', function (e, name, args) {
+		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="popover"]').popover();  
+	});
+});
+
+function queryBtnFun(){
+	$("#table").bootstrapTable('refresh');
+}
+
+function queryParams(params) {  //bootstrapTable自带参数  
+    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的  
+      pageSize : params.pageSize,   //页面大小  
+      pageIndex : params.pageNumber,  //页码  
+      kpzt : $("#kpzt option:selected").val(),
+      gmfMc : $.trim($("#gmfMc").val()),
+      xsfNsrsbh : $.trim($("#xsfNsrsbh").val()),
+      startKprq : $.trim($("#startKprq").val()),
+      endKprq : $.trim($("#endKprq").val()),
+      fpzldm : $("#fpzldm option:selected").val(),
+      kplx : $("#kplx option:selected").val(),
+      sort : params.sort,  //排序列名  
+      sortOrder : params.order//排位命令（desc，asc）  
+    };  
+    return temp;  
+  }  
+
+function numberFormatter(value, row, index) {
+	var pageSize = $('#table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条  
+    var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页  
+    return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号  
+}
+
+function fpzldmFormatter(value, row, index) {
+	if(value == '10'){
+		return '<span class="label label-default">电子发票</span>';
+	}else if(value == '04'){
+		return '<span class="label label-primary">纸质普票</span>';
+	}else if(value == '01'){
+		return '<span class="label label-info">纸质专票</span>';
+	}
+}
+
+function kplxFormatter(value, row, index) {
+	if(value == '1'){
+		return '<span class="label label-primary">蓝票</span>';
+	}else if(value == '2'){
+		return '<span class="label label-danger">红票</span>';
+	}
+}
+
+function kpztFormatter(value, row, index) {
+	if(value == 'RECIEVE_SUCCESS'){
+		return '<span class="label label-info">未开票</span>';
+	}else if(value == 'ISSUEING'){
+		return '<span class="label label-warning">开票中</span>';
+	}else if(value == 'ISSUE_SUCCESS'){
+		return '<span class="label label-success">开票成功</span>';
+	}else if(value == 'ISSUE_FAIL'){
+		return '<span class="label label-danger">开票失败</span>';
+	}else{
+		return '<span class="label label-default">Default</span>';
+	}
+}
+
+function actionFormatter(value, row, index) {
+	if(row.kpzt == 'RECIEVE_SUCCESS'){
+		return '<span class="label label-default">保存成功</span>';
+	}else if(row.kpzt == 'ISSUEING'){
+		return [
+	        '<span class="label label-danger" onclick="updateFailFun(\''+row.fpqqlsh+'\')" style="cursor:pointer;">置为开票失败</span>',
+	    ].join('');
+	}else if(row.kpzt == 'ISSUE_SUCCESS'){
+		return '<span class="label label-success">开票成功</span>';
+	}else if(row.kpzt == 'ISSUE_FAIL'){
+		return [
+	        '<span class="label label-warning" onclick="updateIngFun(\''+row.fpqqlsh+'\')" style="cursor:pointer;">置为开票中</span>',
+	        '<span class="label label-info" onclick="viewFailReason(\''+row.sbyy+'\')" style="cursor:pointer;">开票失败原因</span>'
+	    ].join('');
+	}else{
+		return '<span class="label label-default">未知</span>';
+	}
+}
+
+function detailFormatter(index, row) {
+	var html = [];
+	$.each(row, function (key, value) {
+		html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+	});
+	return html.join('');
+}
+
+//置为开票失败
+function updateFailFun(fpqqlsh) {
+	if(fpqqlsh){
+		$.ajax({
+            type: "GET",
+            url: basePath + "invoiceQuery/updateFail" + suffix,
+            data: {
+                fpqqlsh: fpqqlsh
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                	successModal('操作成功!');
+                	$("#table").bootstrapTable('refresh');
+                } else if (data.code == 403) {
+                	errorModal('操作失败!');
+                	$("#table").bootstrapTable('refresh');
+                }
+            }
+        })
+	}else{
+		errorModal('数据错误!');
+	}
+}
+
+//置为开票中
+function updateIngFun(fpqqlsh) {
+    if (fpqqlsh) {
+        $.ajax({
+            type: "GET",
+            url: basePath + "invoiceQuery/updateIng" + suffix,
+            data: {
+                fpqqlsh: fpqqlsh
+            },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                	successModal('操作成功!');
+                	$("#table").bootstrapTable('refresh');
+                } else if (data.code == 403) {
+                	errorModal('操作失败!');
+                	$("#table").bootstrapTable('refresh');
+                }
+            }
+        })
+    }else{
+		errorModal('数据错误!');
+	}
+}
+
+//蓝票开票失败原因
+function viewFailReason(reason) {
+	errorModal(reason);
+}
+
+//成功提示框
+function successModal(promptMsg){
+	$.confirm({
+	    title: '提示语',
+	    content: promptMsg,
+	    type: 'blue',
+	    theme: 'material',
+	    buttons: {
+	    	ok: {
+	            text: '确定',
+	            btnClass: 'btn-blue',
+	            action: function(){
+	            }
+	        }
+	    }
+	});
+}
+
+//错误提示框
+function errorModal(promptMsg){
+	$.confirm({
+	    title: '提示语',
+	    content: promptMsg,
+	    type: 'red',
+	    theme: 'material',
+	    buttons: {
+	    	ok: {
+	            text: '确定',
+	            btnClass: 'btn-red',
+	            action: function(){
+	            }
+	        }
+	    }
+	});
+}
+</script>
+</body>
+</html>

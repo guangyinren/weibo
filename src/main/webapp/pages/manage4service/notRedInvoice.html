@@ -1,0 +1,210 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>票通未冲红发票查询</title>
+
+	<link href="/plugins/bootstrap-3.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css" rel="stylesheet"/>
+	<link href="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.css" rel="stylesheet"/>
+	<link href="/plugins/waves-0.7.5/waves.min.css" rel="stylesheet"/>
+	<link href="/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+	<link href="/js/bootstrap/plugin/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="/css/manage4service/common.css" rel="stylesheet"/>
+	
+</head>
+<body>
+<div id="main">
+	<div id="toolbar">
+			<label>请输入销售方税号</label>
+			<input id="xsfNsrsbh" type="text" class="form-control">
+			
+			<label>开票日期</label>
+			<input id="startKprq" type="text" class="form-control" readonly="readonly">至
+			<input id="endKprq" type="text" class="form-control" readonly="readonly">
+			
+			<button type="button" class="btn btn-primary" onclick="queryBtnFun()">查询</button>
+			
+	</div>
+	<table id="table"></table>
+</div>
+<!-- 新增 -->
+<div id="createDialog" class="crudDialog" hidden>
+	<form>
+		<div class="form-group">
+			<label for="input1">标题</label>
+			<input id="input1" type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="input2">名称</label>
+			<input id="input2" type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="input3">根目录</label>
+			<input id="input3" type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="input4">图标</label>
+			<input id="input4" type="text" class="form-control">
+		</div>
+	</form>
+</div>
+
+<script src="/plugins/jquery.1.12.4.min.js"></script>
+<script src="/plugins/bootstrap-3.3.0/js/bootstrap.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/bootstrap-table.min.js"></script>
+<script src="/plugins/bootstrap-table-1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="/plugins/waves-0.7.5/waves.min.js"></script>
+<script src="/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/js/bootstrap/plugin/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/js/lib/vpiaotong.base.js"></script>
+<script src="/js/manage4service/common.js"></script>
+
+<script>
+var $table = $('#table');
+$(function() {
+	$(document).on('focus', 'input[type="text"]', function() {
+		$(this).parent().find('label').addClass('active');
+	}).on('blur', 'input[type="text"]', function() {
+		if ($(this).val() == '') {
+			$(this).parent().find('label').removeClass('active');
+		}
+	});
+	$("#startKprq").datetimepicker({
+    	language: "zh-CN",
+        autoclose: true,//选中之后自动隐藏日期选择框
+        clearBtn: true,//清除按钮
+        todayBtn: true,//今日按钮
+        startView:2,
+        minView:2,
+        startDate:"2016-08-01",
+        endDate:new Date(),
+        initialDate:new Date(),
+        format: "yyyy-mm-dd"//日期格式
+    }).on("click",function(){
+    	$("#startKprq").datetimepicker("setEndDate",$("#endKprq").val())
+    });
+	
+	$("#endKprq").datetimepicker({
+    	language: "zh-CN",
+        autoclose: true,//选中之后自动隐藏日期选择框
+        clearBtn: true,//清除按钮
+        todayBtn: true,//今日按钮
+        startView:2,
+        minView:2,
+        startDate:"2016-08-01",
+        endDate:new Date(),
+        initialDate:new Date(),
+        format: "yyyy-mm-dd"//日期格式
+    }).on("click",function(){
+    	$("#endKprq").datetimepicker("setStartDate",$("#startKprq").val())
+    });
+	// bootstrap table初始化
+	// http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/
+	$table.bootstrapTable({
+		url: basePath+"invoiceQuery/findNotRedInvoiceListByPage"+suffix,
+		queryParamsType:'',
+		height: getHeight(),
+		striped: true,
+		search: false,
+		searchOnEnterKey: true,
+		showRefresh: true,
+		showToggle: false,
+		showColumns: true,
+		minimumCountColumns: 2,
+		showPaginationSwitch: false,
+		clickToSelect: true,
+		detailView: true,
+		detailFormatter: 'detailFormatter',
+		pagination: true,
+		paginationLoop: false,
+		classes: 'table table-hover table-no-bordered',
+		sidePagination: 'server',
+		queryParams: queryParams, //参数
+		//silentSort: false,
+		smartDisplay: false,
+		idField: 'id',
+		sortName: 'id',
+		sortOrder: 'desc',
+		escape: true,
+		idField: 'systemId',
+		maintainSelected: true,
+		toolbar: '#toolbar',
+		columns: [
+			{field: 'state', checkbox: true},
+	        {field: 'Number', title: '序号', halign: 'center', formatter: 'numberFormatter'},
+	        {field: 'kplx', title: '开票类型', halign: 'center', formatter: 'kplxFormatter'},
+	        {field: 'gmfMc', title: '购买方名称', halign: 'center'},
+	        {field: 'fpzldm', title: '发票种类代码', halign: 'center', formatter: 'fpzldmFormatter'},
+	        {field: 'xsfMc', title: '销售方名称', halign: 'center'},
+	        {field: 'xsfNsrsbh', title: '销售方税号', halign: 'center'},
+	        {field: 'fpDm', title: '发票代码', halign: 'center'},
+	        {field: 'fpHm', title: '发票号码', halign: 'center'},
+	        {field: 'yfpDm', title: '原发票代码', halign: 'center'},
+	        {field: 'yfpHm', title: '原发票号码', halign: 'center'},
+	        {field: 'jshj', title: '价税合计', halign: 'center'},
+	        {field: 'hjje', title: '合计金额', halign: 'center'},
+	        {field: 'hjse', title: '合计税额', halign: 'center'},
+	        {field: 'kprq', title: '开票日期', halign: 'center'}
+		]
+	}).on('all.bs.table', function (e, name, args) {
+		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="popover"]').popover();  
+	});
+});
+
+function queryBtnFun(){
+	$("#table").bootstrapTable('refresh');
+}
+
+function queryParams(params) {  //bootstrapTable自带参数  
+    var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的  
+      pageSize : params.pageSize,   //页面大小  
+      pageIndex : params.pageNumber,  //页码  
+      xsfNsrsbh : $.trim($("#xsfNsrsbh").val()),
+      startKprq : $.trim($("#startKprq").val()),
+      endKprq : $.trim($("#endKprq").val()),
+      sort : params.sort,  //排序列名  
+      sortOrder : params.order//排位命令（desc，asc）  
+    };  
+    return temp;  
+}  
+
+function numberFormatter(value, row, index) {
+	var pageSize = $('#table').bootstrapTable('getOptions').pageSize;//通过表的#id 可以得到每页多少条  
+    var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;//通过表的#id 可以得到当前第几页  
+    return pageSize * (pageNumber - 1) + index + 1;//返回每条的序号： 每页条数 * （当前页 - 1 ）+ 序号  
+}
+
+function fpzldmFormatter(value, row, index) {
+	if(value == '10'){
+		return '<span class="label label-default">电子发票</span>';
+	}else if(value == '04'){
+		return '<span class="label label-primary">纸质普票</span>';
+	}else if(value == '01'){
+		return '<span class="label label-info">纸质专票</span>';
+	}
+}
+
+function kplxFormatter(value, row, index) {
+	if(value == '1'){
+		return '<span class="label label-primary">蓝票</span>';
+	}else if(value == '2'){
+		return '<span class="label label-danger">红票</span>';
+	}
+}
+
+function detailFormatter(index, row) {
+	var html = [];
+	$.each(row, function (key, value) {
+		html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+	});
+	return html.join('');
+}
+
+</script>
+</body>
+</html>
