@@ -44,7 +44,7 @@ public class TestWeibo {
         Comment comment = new Comment();
         comment.setId("4100071404216355");
         comment.setCreated_at("04-24 14:51");
-        commentService.insertComment(comment);
+        // commentService.insertComment(comment);
         logger.info(JsonConvertUtil.toJson(comment));
     }
 
@@ -214,14 +214,15 @@ public class TestWeibo {
     }
 
     public static void main(String[] args) throws InterruptedException, IOException, ClassNotFoundException {
-        for (int i = 728; i < 1000; i++) {
+        /*for (int i = 728; i < 1000; i++) {
             if (i % 2 == 0) {
-
+        
             } else if (i % 2 == 1) {
                 proxyIp(1);
             }
             System.out.println(getHtml("http://city.ip138.com/ip2city.asp"));
-        }
+        }*/
+        logger.info("xxxxxxxxxx");
 
         // checkProxyIp("27.37.154.144", "80");
         /*for (int i = 2; i < 5; i++) {
