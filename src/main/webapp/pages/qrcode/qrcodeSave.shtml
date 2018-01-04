@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="微票通_电子发票开具服务平台"/>
+    <meta name="keywords" content="微票通 票通 票通信息 电子发票 电子发票开具 电子发票开具平台 电子发票开具服务平台"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>开具平台_微票通</title>
+    <link href="/css/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="/js/skin/layer.css">
+    <script src="/js/jquery/1.8.3/jquery-1.8.3.min.js"></script>
+    <script src="/js/jquery/jquery.jqprint-0.3.js"></script>
+    <script src="/js/lib/vpiaotong.base.js"></script>
+    <script src="/js/lib/vpiaotong.util.js"></script>
+    <script src="/js/lib/vpiaotong.cookie.js"></script>
+    <script src="/js/layer.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap3.3.6.min.css">
+    <script src="/js/bootstrap/plugin/bootpag/js/jquery.bootpag.min.js"></script>
+    <script src="/js/lib/vpiaotong.pagewrapper.js"></script>
+    <script src="/js/jquery/validation/jquery.validate.min.js"></script>
+    <script src="/js/jquery/validation/additional-methods.js"></script>
+    <script src="/js/jquery/validation/localization/messages_zh.min.js"></script>
+	<script src="/js/lib/vpiaotong.validation.methods.js"></script>
+	<script src="/js/lib/vpiaotong.constant.js"></script>
+	<script src="/js/lib/vpiaotong.regex.js"></script>
+    <link rel="stylesheet" href="/css/common.css">
+    <style>
+        .tabs{
+            background-color: #f4f8fb;
+            font-size: 18px;
+            margin:20px 20px 0;
+        }
+        .tabs>div{
+            float: left;
+            border-top:4px solid transparent;
+            border-bottom:4px solid transparent;
+            padding:17px 25px;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .tabs>div.active{
+            border-top-color: #3FAEDC;
+            border-left:1px solid #E5E7E4;
+            border-right:1px solid #E5E7E4;
+            background-color: #FFFFFF;
+        }
+        .account-balance {
+            padding: 20px 0;
+            display: inline-block;
+            width: 100%;
+        }
+        .qrcode-detail{
+            display: inline-block;
+            text-align: left;
+            line-height: 33px;
+            vertical-align: middle;
+            margin-left: 15px;
+        }
+        .qrcode-detail p{
+            margin:0;
+        }
+        .qrcode-div{
+           /*  background: url("/images/qrcode-border.png") no-repeat; */
+            width: 250px;
+            height:250px;
+            display: inline-block;
+            padding: 5px;
+        }
+        #listModal .modal-content{
+            border-radius: 0;
+            width: 650px;
+        }
+        #listModal .modal-header{
+            padding: 5px 15px;
+            background-color: #394457;
+            color: #FFF;
+        }
+        #listModal .close{
+            color: #FFF;
+            opacity: 1;
+        }
+        #listModal .customers{
+            table-layout: fixed;
+        }
+        #listModal th:nth-child(1),
+        #listModal td:nth-child(1){
+            width: 115px;
+        }
+        #listModal th:nth-child(2),
+        #listModal td:nth-child(2){
+            width: 140px;
+        }
+        #listModal th:nth-child(3),
+        #listModal td:nth-child(3){
+            width: 95px;
+        }
+        #listModal th:nth-child(4),
+        #listModal td:nth-child(4){
+            width: 90px;
+        }
+        #listModal th:nth-child(5),
+        #listModal td:nth-child(5){
+            width: 115px;
+        }
+        #listModal .but_z{
+            width: 100%;
+            overflow: hidden;
+            margin:0;
+            text-align: center;
+            margin-top: 10px;
+        }
+        #listModal .listModalTable{
+            max-height: 401px;
+            overflow-y: auto;
+        }
+        /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+        .scrollbar::-webkit-scrollbar{
+            width: 6px;
+            height: 6px;
+            background-color: #999;
+            border-radius:125px;
+        }
+        /*定义滚动条的轨道，内阴影及圆角*/
+        .scrollbar::-webkit-scrollbar-track{
+            /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+            border-radius:125px;
+            background-color: #E6E6E6;
+        }
+        /*定义滑块，内阴影及圆角*/
+        .scrollbar::-webkit-scrollbar-thumb{
+            /*width: 10px;*/
+            height: 20px;
+            border-radius:25px;
+            -webkit-box-shadow: inset 0 0 6px #999;
+            background-color: #999;
+        }
+        .layui-layer-content{
+            text-align: center;
+        }
+        .redStar{
+           color:red;
+           float:left;
+           line-height:35px;
+        }
+        .need:before{
+           content:'*';
+           color:red;
+           
+        }
+        .kper_ul {
+		  width: 68%;
+		  margin: 30px auto 0;
+		  overflow: hidden;
+		}
+        .kper_ul li{
+          float:left;
+          width:50%;
+          margin:0 auto
+        }
+        #kpOptional{
+           width:68%;
+           margin:0 auto;
+           overflow:hidden;
+        }
+        #kpOptional .optional_title{
+          width:109px;
+          display:inline-block;
+          margin-right:10px;
+          float:left;
+          margin-top:10px;
+        }
+        .optional_content {
+    	  display: inline-block;
+    	  width:50%;
+    	  float:left;
+        } 
+        .optional_content .optional_item{
+          display:inline-block;
+          margin-bottom:10px;
+        }
+        .optional_content .optional_item select{
+          width:200px;
+          height:30px;
+        }
+    </style>
+</head>
+<body>
+<div class="mina">
+    <div class="zhanghu">
+        <!--<div class="zc_tit">-->
+            <!--<span>生成开票二维码</span>-->
+        <!--</div>-->
+        <div class="tabs clearfix">
+            <div class="active">
+                生成开票二维码
+            </div>
+            <div>
+                管理开票二维码
+            </div>
+        </div>
+        <div class="createQrcode">
+            <form id="qrcodeForm">
+                <ul class="adaption_shop_ul kper_ul shop_ul">
+                    <li>
+                        <label class="need">开票项目</label>
+                        <select name="invoiceItem" id="invoiceItem">
+                            <option value="">--请选择--</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="need">待开票金额</label>
+                        <input type="text" name="moneySum" id="moneySum" placeholder=""/>
+                    </li>
+                    <li>
+                        <label class="need">可开票张数</label>
+                        <select name="makeInvoiceCount" id="makeInvoiceCount">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="need">发送短信</label>
+                        <select name="smsFlag" id="smsFlag">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label class="need">二维码有效期</label>
+                        <select name="expiredays" id="expiredays">
+                            <option value="36500">永久有效</option>
+                            <option value="1">一天</option>
+                            <option value="2">两天</option>
+                            <option value="3">三天</option>
+                            <option value="7">一周</option>
+                            <option value="15">半个月</option>
+                            <option value="30">一个月</option>
+                            <option value="90">三个月</option>
+                            <option value="180">半年</option>
+                            <option value="365">一年</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>&thinsp;收款人</label>
+                        <input type="text" name="casherName" id="casherName" placeholder=""/>
+                    </li>
+                    <li>
+                        <label>&thinsp;复核人</label>
+                        <input type="text" name="reviewerName" id="reviewerName" placeholder=""/>
+                    </li>
+                    <li>
+                        <label>&thinsp;开票人</label>
+                        <input type="text" name="drawerName" id="drawerName" disabled="disabled" placeholder=""/>
+                    </li>
+                    <li>
+                    
+                    </li>
+                   <!--  <li>
+                        <label>可选择开票种类</label>
+                        <input type="checkbox">
+                        <p>电子发票</p>
+                        <select name="" id="">
+                            <option value="">发票开具</option>
+                        </select>
+                    </li> -->
+                    
+                    <!-- <li class="but_z text-left">
+                        <a class="blue-btn" href="javascript:makeInvoiceQrcode()" style="margin-right:40px" id="save">
+                            <span>生成开票二维码</span>
+                        </a>
+                    </li>  -->
+                </ul>
+                <div id="kpOptional">
+                  <div class="optional_title need">
+                                                     可选择开票种类
+                  </div>
+                  <div class="optional_content">
+                     <div class="optional_item">
+                       <input type="checkbox" id="ele_invoice_ck" name="kx_kp">
+                       <span>电子增值税普通发票</span>
+                       <select id="ele_Invoice">
+                         <option value="">随机选择</option>
+                       </select>
+                     </div>
+                      <div class="optional_item">
+                       <input type="checkbox" id="paper_invoice_ck" name="kx_kp">
+                       <span>纸质增值税普通发票</span>
+                       <select id="paper_Invoice">
+                         <option value="">随机选择</option>
+                       </select>
+                     </div>
+                      <div class="optional_item">
+                       <input type="checkbox" id="special_invoice_ck" name="kx_kp">
+                       <span>纸质增值税专用发票</span>
+                       <select id="special_Invoice">
+                         <option value="">随机选择</option>
+                       </select>
+                     </div>
+                  </div>
+                </div>
+                <div class="but_z">
+                  <a class="blue-btn" href="javascript:makeInvoiceQrcode()" style="margin-right:40px" id="save">
+                            <span>生成开票二维码</span>
+                  </a>
+                </div> 
+            </form>
+            <div id="qrcodeMsg" class="layui-field-box center" style="display: none;padding:10px 25px">
+                
+                <div style="display: inline-block;text-align: left;" class="qrcode-detail">
+                    <p>销售方名称：<span id="enterpriseName"></span></p>
+                    <p>该二维码开票金额：￥<span id="invoiceAmount"></span></p>
+                    <p>开票项目：<span id="invoiceItemName"></span></p>
+                    <p>生成时间：<span id="tradeTime"></span></p>
+                    <p>二维码有效期：<span id="expireday"></span></p>
+                </div>
+                <div class="qrcode-div" style="width:100%">
+                    <img id="qrcodeImg" src="" style="width:240px; ">
+                    <p>请您扫码提交发票抬头信息</p>	
+                </div>
+            </div> 
+        
+            
+            
+            <div class="but_z">
+                <!-- <a class="blue-btn" href="javascript:printQrcodeFun()" id="printQrcode" hidden>打印</a> -->
+            </div>
+        </div>
+        <div class="manageQrcode" hidden style="padding: 15px 20px;">
+            <div class="account-balance">
+                <li>
+                    <label>状&emsp;&emsp;&emsp;&emsp;态：</label>
+                    <select id="invoiceQrcodeMarked" onchange="queryByIndex(1)" style="width: 310px">
+                        <option value="">全部</option>
+                        <option value="NOUSE">未使用</option>
+                        <option value="USED">已使用</option>
+                    </select>
+                    <!-- <button type="button" class="layui-layer-btn0" style="float: right;margin-right: 200px;" onclick="queryByIndex(1)">查 询</button> -->
+                </li>
+            </div>
+            <div class="record-list">
+                <div class="tables">
+                    <div id="tabList">
+                        <div class="table_w">
+                            <table class="customers" style="width:100%;margin-bottom:20px">
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>开票金额</th>
+                                    <th>可选择开票种类</th>
+                                    <th>主要开票项目</th>
+                                    <th>总开票份数</th>
+                                    <th>已开票份数</th>
+                                    <th>发送短信</th>
+                                    <th>二维码有效期</th>
+                                    <th>生成时间</th>
+                                 
+                                    <th>开票人</th>
+                                    <th>收款人</th>
+                                    <th>复核人</th>
+                                    <th>状态</th>
+                                    <th width="200px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="invoice"></tbody>
+                            </table>
+
+                            <div id="page" style="text-align:center;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="qrCodeImages" style="display: none;padding: 10px 25px;" class="insert_form">
+        <div style="display: inline-block;text-align: left;" class="qrcode-detail">
+            <p>销售方名称：<span id="enterpriseName2"></span></p>
+            <p>该二维码开票金额：￥<span id="invoiceAmount2"></span></p>
+            <p>主要开票项目：<span id="invoiceItemName2"></span></p>
+            <p>生成时间：<span id="tradeTime2"></span></p>
+            <p>二维码有效期：<span id="expiredays2"></span></p>
+        </div>
+        <div class="qrcode-div" style="width:100%">
+            <img id="qrcodeImg2" src="" style="width:240px">
+            <p>请您扫码提交发票抬头信息</p>	
+        </div>
+        <br>
+</div>
+<!-- <div id="qrCodeImages" style="display: none;padding: 10px 25px;" class="insert_form">
+        <div style="display: inline-block;text-align: left;" class="qrcode-detail">
+            <p>销售方名称：<span id="enterpriseName2"></span></p>
+            <p>该二维码开票金额：￥<span id="invoiceAmount2"></span></p>
+            <p>开票项目：<span id="invoiceItemName2"></span></p>
+            <p>生成时间：<span id="tradeTime2"></span></p>
+            <p>二维码有效期：<span id="expiredays2"></span></p>
+        </div>
+        <div class="qrcode-div" style="width:100%">
+            <img id="qrcodeImg2" src="" style="width:240px">
+            <p>请您扫码提交发票抬头信息</p>	
+        </div>
+        <br>
+</div> -->
+<div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">全部开票项目</h4>
+            </div>
+            <div class="modal-body">
+                <table class="customers">
+                    <tr>
+                        <th>开票项目</th>
+                        <th>税收分类编码</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th>金额</th>
+                    </tr>
+                </table>
+                <div class="listModalTable scrollbar">
+                    <table class="customers" id="allInvoiceItemTab">
+                        <!-- <tr>
+                            <td>1234123213.12</td>
+                            <td>11122334521123</td>
+                            <td>100</td>
+                            <td>1000</td>
+                            <td>2012312001.22</td>
+                        </tr> -->
+                    </table>
+                </div>
+                <div class="but_z">
+                    <a class="blue-btn" data-dismiss="modal" aria-hidden="true">确 定</a>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<input type="hidden" id="selectQrId">
+<div id="qrCodeImagesHtml"></div>
+<script src="/js/views/manage/qrcode/qrcodeSave.js"></script>
+<script src="/js/bootstrap/main/js/bootstrap.js"></script>
+<script>
+    $(function () {
+        $(".tabs>div").click(function () {
+            $(this).addClass('active')
+            $(this).siblings().removeClass('active')
+            $('.zc_tit span').text($(this).text())
+            var index = $(".tabs>div").index(this)
+            if (index == 0) {
+                $('.createQrcode').show()
+                $('.manageQrcode').hide()
+            } else {
+                $('.createQrcode').hide()
+                $('.manageQrcode').show()
+                queryByIndex(1)
+            }
+        });
+        $('.mina').css('min-height', $(window).height()-20 + 'px')
+        $(window).resize(function () {
+            $('.mina').css('min-height', $(window).height()-20 + 'px')
+        })
+        //$('#listModal').modal('show')
+    })
+</script>
+</body>
+</html>
