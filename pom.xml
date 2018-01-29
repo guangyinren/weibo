@@ -302,6 +302,12 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
+		
+		<dependency>  
+	        <groupId>org.apache.shiro</groupId>  
+	        <artifactId>shiro-core</artifactId>  
+	        <version>1.2.2</version>  
+    	</dependency> 
         
   </dependencies>
   

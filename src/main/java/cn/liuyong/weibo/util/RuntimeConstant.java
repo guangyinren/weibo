@@ -142,38 +142,4 @@ public final class RuntimeConstant {
      */
     public static final String HAS_NEXT = "hasNext";
 
-    /**
-     * 给收件人发送邮件主题
-     */
-    public static final String EMAIL_FPXZ = "北京票通信息公司发票下载";
-
-    /**
-     * 请求查询接口的限制次数,缓存中的key
-     */
-    public static final String INVOICE_QUERY_COUNT = "count";
-
-    /**
-     * 发送短信，邮件为系统时的发送人默认值
-     */
-    public static final String SYSTEM_SEND = "系统自动发送";
-
-    /**
-     * 扫码开票生成二维码3DES加密密钥
-     */
-    public static final String SCAN_SECRET_KEY = "E238A7381DC1B80232CC5657";
-
-    /**
-     * 支付宝支付开票回调类型
-     */
-    public static final String ALIPAY_REDIRECT_PAY = "ALIPAY_REDIRECT_PAY";
-
-    /**
-     * 扫码开票回调类型
-     */
-    public static final String ALIPAY_REDIRECT_SCAN = "ALIPAY_REDIRECT_SCAN";
-
-    /**
-     * 扫码开票申请回调类型
-     */
-    public static final String ALIPAY_REDIRECT_SCAN_APPLY = "ALIPAY_REDIRECT_SCAN_APPLY";
 }
